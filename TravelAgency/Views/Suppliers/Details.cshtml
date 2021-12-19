@@ -1,0 +1,47 @@
+﻿@model TravelAgency.Models.Suppliers
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+
+    <hr />
+    <dl class="row">
+      
+      
+      <dt class="col-sm-2">
+        الاسم بالكامل
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.FullName)
+      </dd>
+      <dt class="col-sm-2">
+       قيمه العموله
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Commision)
+      </dd>
+
+      <dt class="col-sm-2">
+        العنوان
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Adreess1)
+      </dd>
+
+      <dt class="col-sm-2">
+        رقم الهاتف
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Phone1)
+      </dd>
+      
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.SupplierId" class="btn btn-primary">تعديل</a>
+    <a asp-action="Index" class="btn btn-info">العوده الى القائمه</a>
+</div>
+

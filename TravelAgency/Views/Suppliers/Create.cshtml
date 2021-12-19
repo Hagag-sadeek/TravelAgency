@@ -1,0 +1,52 @@
+﻿@model TravelAgency.Models.Suppliers
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>انشاء مكتب جديد</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+      <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+       
+        <div class="form-group">
+          <label asp-for="FullName" class="control-label">الاسم بالكامل</label>
+          <input asp-for="FullName" class="form-control" />
+          <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="Commision" class="control-label">العموله</label>
+          <input asp-for="Commision" class="form-control" />
+          <span asp-validation-for="Commision" class="text-danger"></span>
+        </div>
+
+         
+        <div class="form-group">
+          <label asp-for="Adreess1" class="control-label">العنوان</label>
+          <input asp-for="Adreess1" class="form-control" />
+          <span asp-validation-for="Adreess1" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="Phone1" class="control-label">رقم الهاتف</label>
+          <input asp-for="Phone1" class="form-control" />
+          <span asp-validation-for="Phone1" class="text-danger"></span>
+        </div>
+        
+
+        <div class="form-group row">
+          <input type="submit" value="حفظ" class="btn btn-primary" />&nbsp;
+          <a asp-action="Index" class="btn btn-info pr-100">العوده الى القائمه</a>
+        </div>
+      </form>
+    </div>
+</div>
+
+ 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

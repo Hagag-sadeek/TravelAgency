@@ -1,0 +1,44 @@
+﻿@model TravelAgency.Models.Branches
+
+@{
+    ViewData["Title"] = "التفاصيل";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ 
+
+<div>
+    
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            اسم الفرع
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            الوصف
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt class="col-sm-2">
+            رقم الهاتف
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            العنوان
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.BranchId" class="btn btn-success">تعديل</a>  
+    <a asp-action="Index" class="btn btn-info">العوده الى القائمه</a>
+</div>

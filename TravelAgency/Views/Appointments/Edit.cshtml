@@ -1,0 +1,40 @@
+﻿@model TravelAgency.Models.Appointments
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<span>تعديل ميعاد  </span>   <span>@Model.Title</span>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AppointmentId" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">الاسم</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">التفصيل</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+          
+            <div class="form-group row">
+                <input type="submit" value="حفظ" class="btn btn-primary" />&nbsp;
+                <a asp-action="Index" class="btn btn-info">  عوده الى القائمه  </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+ 
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

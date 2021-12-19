@@ -1,0 +1,45 @@
+﻿@model TravelAgency.Models.AppointmentDetails
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<span>هل بالفعل تريد حذف الميعاد</span>
+<div>
+
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            الميعاد
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Appointment.Title)
+        </dd>
+        <dt class="col-sm-2">
+            الفرع
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Branch.Title)
+        </dd>
+        <dt class="col-sm-2">
+            وقت المغادره
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LeaveTime)
+        </dd>
+        <dt class="col-sm-2">
+            السعر
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="AppointmentDetailId" />
+        <input type="submit" value="حذف" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-info">العوده الى القائمه</a>
+    </form>
+</div>

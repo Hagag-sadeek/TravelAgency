@@ -1,0 +1,69 @@
+﻿@model TravelAgency.Models.Customers
+
+@{
+    ViewData["Title"] = "انشاء عميل جديد";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>انشاء عميل جديد</h3>
+ 
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">الكود</label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div> 
+            <div class="form-group">
+                <label class="control-label">الاسم بالكامل</label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">الوظيفه</label>
+                <input asp-for="Job" class="form-control" />
+                <span asp-validation-for="Job" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">العنوان</label>
+                <input asp-for="Adreess1" class="form-control" />
+                <span asp-validation-for="Adreess1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">العنوان</label>
+                <input asp-for="Adreess2" class="form-control" />
+                <span asp-validation-for="Adreess2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">رقم الهاتف</label>
+                <input asp-for="Phone1" class="form-control" />
+                <span asp-validation-for="Phone1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">رقم الهاتف</label>
+                <input asp-for="Phone2" class="form-control" />
+                <span asp-validation-for="Phone2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">رقم الهاتف</label>
+                <input asp-for="Phone3" class="form-control" />
+                <span asp-validation-for="Phone3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="حفظ" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-info">العوده الى القائمه</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

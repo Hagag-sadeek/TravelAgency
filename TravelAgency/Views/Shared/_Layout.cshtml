@@ -1,0 +1,256 @@
+﻿@using TravelAgency.Helper;
+@{ var CurrentUserTypeId = new SessionInfoSetup().IsAdmin(); }
+<!DOCTYPE html>
+<html dir="rtl" lang="ar-EG">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Favicon icon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicon.png">
+  <title>@ViewBag.Title  </title>
+  <!-- Custom CSS -->
+  <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" asp-append-version="true" />
+  <link rel="stylesheet" type="text/css" href="~/assets/libs/select2/dist/css/select2.min.css" asp-append-version="true" />
+  <link href="~/assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" asp-append-version="true" />
+  <link rel="stylesheet" type="text/css" href="~/assets/libs/select2/dist/css/select2.min.css" asp-append-version="true" />
+  <link href="~/dist/css/style.min.css" rel="stylesheet" asp-append-version="true" />
+  <link rel="stylesheet" type="text/css" href="~/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" asp-append-version="true" />
+
+  @RenderSection("header", required: false)
+
+</head>
+
+<body>
+  <div class="preloader">
+    <div class="lds-ripple">
+      <div class="lds-pos"></div>
+      <div class="lds-pos"></div>
+    </div>
+  </div>
+  <div id="main-wrapper">
+    <header class="topbar">
+      <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+        <div class="navbar-header">
+          <!-- This is for the sidebar toggle which is visible on mobile only -->
+          <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+
+          <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <!-- Logo icon -->
+            <b class="logo-icon">
+            </b>
+            <span class="logo-text">
+              <span style="font-size:35px;font-weight:bolder; color:#2962ff" class="db">4BUS</span>
+            </span>
+          </a>
+          <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav float-left mr-auto">
+            <li class="nav-item d-none d-md-block">
+              <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
+            </li>
+
+          </ul>
+          <ul class="navbar-nav float-right">
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+              <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                <span class="with-arrow"><span class="bg-primary"></span></span>
+                <div class="d-flex no-block align-items-center p-15 bg-primary text-white mb-2">
+                  <div class="">
+                    @*<img src="~/assets/images/users/1.jpg" alt="user" class="img-circle" width="60">*@
+                    <span style="font-size:35px;font-weight:bolder; color:#010ea9" class="db">4BUS</span>
+                  </div>
+                  <div class="ml-2">
+                    @*<h4 class="mb-0">@user.FullName</h4>
+                      <p class=" mb-0">@user.Email</p>*@
+                  </div>
+                </div>
+                @*<a class="dropdown-item" asp-controller="Account" asp-action="Profile"><i class="ti-user mr-1 ml-1"></i>  MyAccount  </a>*@
+                <a class="dropdown-item" asp-controller="Account" asp-action="Logout" asp-area=""><i class="fa fa-power-off mr-1 ml-1"></i> تسجيل الخروج </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <aside class="left-sidebar">
+
+      <div class="scroll-sidebar">
+
+        <nav class="sidebar-nav">
+          <ul id="sidebarnav">
+            @if (CurrentUserTypeId == "True")
+            {
+               
+
+              <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                   asp-controller="Branches"
+                   asp-action="Index" aria-expanded="false">
+                  <i class="fa fa-building" style="color:orangered"></i>
+                  <span class="hide-menu">الفروع</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                   asp-controller="Users"
+                   asp-action="index" aria-expanded="false">
+                  <i class="fa fa-user" style="color:orangered"></i>
+                  <span class="hide-menu">المستخدمين</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                   asp-controller="customers"
+                   asp-action="Index" aria-expanded="false">
+                  <i class="fa fa-users" style="color:orangered"></i>
+                  <span class="hide-menu">العملاء</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                   asp-controller="suppliers"
+                   asp-action="Index" aria-expanded="false">
+                  <i class="fa fa-headphones" style="color:orangered"></i>
+                  <span class="hide-menu">مكاتب العموله</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                   asp-controller="Appointments"
+                   asp-action="Index" aria-expanded="false">
+                  <i class="fa fa-clock" style="color:orangered"></i>
+                  <span class="hide-menu">المواعيد</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                   asp-controller="AppointmentDetails"
+                   asp-action="Index" aria-expanded="false">
+                  <i class="fa fa-desktop" style="color:orangered"></i>
+                  <span class="hide-menu">مواعيد الخطوط</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                   asp-controller="Reports"
+                   asp-action="Index" aria-expanded="false">
+                  <i class="fa fa-pen-square" style="color:orangered"></i>
+                  <span class="hide-menu"> تقارير</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                   asp-controller="Tickets"
+                   asp-action="CreateAdmin" aria-expanded="false">
+                  <i class="fa fa-ticket-alt" style="color:orangered"></i>
+                  <span class="hide-menu"> الحجز</span>
+                </a>
+              </li>
+            }
+            else
+            {
+              <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                   asp-controller="Tickets"
+                   asp-action="CreateNotAdmin" aria-expanded="false">
+                  <i class="fa fa-ticket-alt" style="color:orangered"></i>
+                  <span class="hide-menu"> الحجز</span>
+                </a>
+              </li>
+            }
+
+
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+
+    <div class="page-wrapper">
+      <!-- ============================================================== -->
+      <!-- Bread crumb and right sidebar toggle -->
+      <!-- ============================================================== -->
+      <div class="page-breadcrumb">
+        @RenderSection("breadcrumb", required: false)
+      </div>
+
+      <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                @RenderBody()
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer text-center">
+        All Rights Reserved 4BUS Transport.
+      </footer>
+
+    </div>
+
+  </div>
+  <script src="~/assets/libs/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+  <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
+  <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+  <!-- Bootstrap tether Core JavaScript -->
+  <script src="~/assets/libs/popper.js/dist/umd/popper.min.js" asp-append-version="true"></script>
+  <script src="~/assets/libs/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+  <!-- apps -->
+  <script src="~/dist/js/app.min.js" asp-append-version="true"></script>
+  <script src="~/dist/js/app.init.js" asp-append-version="true"></script>
+  <script src="~/dist/js/app-style-switcher.js" asp-append-version="true"></script>
+  <!-- slimscrollbar scrollbar JavaScript -->
+  <script src="~/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js" asp-append-version="true"></script>
+
+  <!--Wave Effects -->
+  <script src="~/dist/js/waves.js" asp-append-version="true"></script>
+  <!--Menu sidebar -->
+  <script src="~/dist/js/sidebarmenu.js" asp-append-version="true"></script>
+  <!--Custom JavaScript -->
+  <script src="~/dist/js/custom.min.js" asp-append-version="true"></script>
+  <script src="~/assets/extra-libs/DataTables/datatables.min.js" asp-append-version="true"></script>
+  <!-- start - This is for export functionality only -->
+  <script src="~/assets/libs/datatables/media/js/dataTables.buttons.min.js" asp-append-version="true"></script>
+  <script src="~/assets/libs/select2/dist/js/select2.min.js" asp-append-version="true"></script>
+  <script src="~/dist/js/pages/forms/select2/select2.init.js" asp-append-version="true"></script>
+  <script src="~/assets/libs/sweetalert2/dist/sweetalert2.all.min.js" asp-append-version="true"></script>
+  <script src="~/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" asp-append-version="true"></script>
+  <script src="~/dist/js/mycustomcode.js" asp-append-version="true"></script>
+  <script type="text/javascript">
+  </script>
+
+  @if (TempData["MsgTitle"] != null && TempData["MsgText"] != null && TempData["MsgType"] != null)
+  {
+    <script type="text/javascript">
+            showAlert('@TempData["MsgTitle"].ToString()', '@TempData["MsgText"].ToString()', @TempData["MsgType"].ToString());
+    </script>
+  }
+
+  @RenderSection("scripts", required: false)
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+﻿@model TravelAgency.Models.Branches
+
+@{
+    ViewData["Title"] = "تعديل بيانات فرع";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<span>تعديل فرع  </span>   <span>@Model.Title</span>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BranchId" />
+            <div class="form-group">
+                <label class="control-label">اسم الفرع</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">الوصف</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">رقم الهاتف</label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label class="control-label">العنوان</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group row">
+                <input type="submit" value="حفظ" class="btn btn-primary" />&nbsp; 
+                <a asp-action="Index" class="btn btn-info">  عوده الى القائمه  </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
