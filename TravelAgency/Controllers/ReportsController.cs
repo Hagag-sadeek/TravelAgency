@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using TravelAgency.Models;
 using TravelAgency.ViewModels;
 
@@ -37,18 +33,14 @@ namespace TravelAgency.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [Route("Create")]
         public IActionResult Create(ReservedTicketsReport model)
         {
 
             if (ModelState.IsValid)
             {
-                if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-                {
-                    return RedirectToAction("Login", "Account");
-                }
-
+               
                 var rTickets = _context.Tickets
                     .Include(x => x.Customer)
                     .Include(x => x.Supplier)
