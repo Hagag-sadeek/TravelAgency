@@ -31,8 +31,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <Content Update="wwwroot\**\*.*" CopyToPublishDirectory="Never" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>
