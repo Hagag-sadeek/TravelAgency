@@ -23,10 +23,10 @@ namespace TravelAgency.Controllers
         // GET: Tickets
         public async Task<IActionResult> Index()
         {
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            //if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
 
             var travelAgencyContext = _context.Tickets
                 .Include(t => t.Appointment)
@@ -44,10 +44,10 @@ namespace TravelAgency.Controllers
         [HttpGet]
         public IActionResult CreateAdmin()
         {
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            //if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
 
             var model = new TicketViewModel
             {
@@ -65,7 +65,7 @@ namespace TravelAgency.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("CreateAdmin")]
-        public IActionResult CreateAdmin( Tickets tickets)
+        public IActionResult CreateAdmin(Tickets tickets)
         {
 
             if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
@@ -75,8 +75,10 @@ namespace TravelAgency.Controllers
 
             if (ModelState.IsValid)
             {
-                 
-                if (tickets.SeatId <= 0|| TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId))
+
+                if (tickets.SeatId <= 0 ||
+                    (TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) ||
+                    tickets.CustomerId == null))
                     return View(nameof(CreateAdmin), PopulateReserveViewModel(tickets));
 
                 if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
@@ -101,7 +103,7 @@ namespace TravelAgency.Controllers
                 tickets.IsActive = true;
                 tickets.ReserveDate = DateTime.Now;
                 _context.Tickets.Add(tickets);
-                 _context.SaveChanges();
+                _context.SaveChanges();
             }
 
             return View(nameof(CreateAdmin), PopulateReserveViewModel(tickets));
@@ -141,17 +143,17 @@ namespace TravelAgency.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            if (tickets.SeatId <= 0 || tickets.SeatId > 50  ||
+            if (tickets.SeatId <= 0 || tickets.SeatId > 50 ||
                 tickets.TicketDate.Date < DateTime.Now.Date ||
-                TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId))
-
+                TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) ||
+                    tickets.CustomerId == null)
                 return View(nameof(CreateNotAdmin), PopulateReserveViewModel(tickets));
 
 
             tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
             tickets.IsActive = true;
-            tickets.ReserveDate=DateTime.Now;
-        
+            tickets.ReserveDate = DateTime.Now;
+
             _context.Tickets.Add(tickets);
 
             _context.SaveChanges();
@@ -341,10 +343,10 @@ namespace TravelAgency.Controllers
         [Route("MyTickets")]
         public IActionResult MyTickets( )
         {
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            //if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
             return View(nameof(MyTickets), PopulateReserveViewModel(new Tickets()));
         }
 
@@ -353,10 +355,10 @@ namespace TravelAgency.Controllers
         [Route("MyTickets")]
         public IActionResult MyTickets(Tickets model)
         {
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            //if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
             return View(nameof(MyTickets), PopulateReserveViewModel(model));
         }
 
