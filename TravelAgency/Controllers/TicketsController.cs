@@ -53,7 +53,7 @@ namespace TravelAgency.Controllers
             {
                 AppointmentsList =
                     new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
-                CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
+                //CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now.Date
@@ -260,7 +260,7 @@ namespace TravelAgency.Controllers
             {
                 AppointmentsList =
                     new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
-                CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
+               // CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName")
             };
@@ -327,12 +327,17 @@ namespace TravelAgency.Controllers
         [HttpPost]
         public IActionResult FindCustomerByPhoneId(  string Phone)
         {
-            var ticket = _context.Customers.FirstOrDefault(x => x.Phone1 == Phone && x.IsActive);
+            var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == Phone && x.IsActive);
 
-            if(ticket==null)
-                return Json(-1);
+            if (customer != null)
+            {
+                var x = customer.CustomerId.ToString() + "&$" + customer.FullName;
+               
+                return Json(x);
+            }
+               
 
-            return Json(ticket.CustomerId);
+            return Json(-1);
         }
         #endregion
 
