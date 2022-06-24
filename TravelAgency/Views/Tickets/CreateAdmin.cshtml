@@ -1849,11 +1849,11 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
-      alert( data);
+     
            $("#CustomerIdadded").val( data.split("&$")[0]);
-               alert( data.split("&$")[0]);
+            
               $("#CustomerName").val( data.split("&$")[1]);
-                  alert( data.split("&$")[1]);
+               
             },
             error: function(result) {
               alert("Data is not in the right formate!! please contact with IT department");

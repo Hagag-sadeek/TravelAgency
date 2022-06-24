@@ -1314,7 +1314,7 @@
             var PhoneNumber = document.getElementById('ClientName')  ;
          
              $.ajax({
-            url: '/Tickets/FindCustomerByPhoneId?Phone=' + PhoneNumber.value ,
+            url: '/Tickets/FindCustomerByPhoneIdForNotAdmin?Phone=' + PhoneNumber.value ,
             type: "POST",
             contentType: "application/json; charset=utf-8",
             dataType: "json",

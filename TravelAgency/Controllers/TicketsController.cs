@@ -260,7 +260,7 @@ namespace TravelAgency.Controllers
             {
                 AppointmentsList =
                     new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
-               // CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
+                CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName")
             };
@@ -336,6 +336,21 @@ namespace TravelAgency.Controllers
                 return Json(x);
             }
                
+
+            return Json(-1);
+        }
+
+        [HttpPost]
+        public IActionResult FindCustomerByPhoneIdForNotAdmin(string Phone)
+        {
+            var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == Phone && x.IsActive);
+
+            if (customer != null)
+            {
+                
+                return Json(customer.CustomerId);
+            }
+
 
             return Json(-1);
         }
