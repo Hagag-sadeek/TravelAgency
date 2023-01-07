@@ -337,7 +337,7 @@ namespace TravelAgency.Controllers
             }
                
 
-            return Json(-1);
+            return Json("غير موجود");
         }
 
         [HttpPost]

@@ -1,0 +1,74 @@
+﻿@model TravelAgency.Models.Customers
+
+@{
+    ViewData["Title"] = "انشاء عميل جديد";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+
+<h3>انشاء عميل جديد</h3>
+ 
+<hr />
+<div class="row">
+    <div class="col-md-4">
+              <form class="Acceptform" method="post" asp-action="AddCustomerAdmin" asp-controller="customers">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+              
+            <div class="form-group">
+                <label class="control-label">رقم الهاتف</label>
+                <input asp-for="Phone1" class="form-control" id="phone1" name="phone" />
+                <input type="text" disabled   class="form-control" id="customerExist" />
+          
+                <span asp-validation-for="Phone1" class="text-danger"></span>
+            </div>
+          
+            <div class="form-group">
+                <label class="control-label">الاسم بالكامل</label>
+                <input asp-for="FullName" class="form-control" name="name" />
+                <span asp-validation-for="FullName" class="text-danger" ></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="حفظ" class="btn btn-primary" />
+                
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts
+{
+  @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+  <script type="text/javascript">
+    $(document).ready(function() { 
+
+        $("#phone1").keyup(function() {
+            var PhoneNumber = document.getElementById('phone1');
+            if (PhoneNumber.value.length == 11) {
+ 
+                $.ajax({
+                    url: '/Tickets/FindCustomerByPhoneId?Phone=' + PhoneNumber.value,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data) {
+                        $("#customerExist").val( data.split("&$")[1]);
+                       
+                    },
+                    error: function(result) {
+                        alert("Data is not in the right formate!! please contact with IT department");
+                    }
+                })
+            }
+
+
+        });
+
+      
+ 
+    });
+  </script>
+}

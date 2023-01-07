@@ -19,6 +19,16 @@ namespace TravelAgency.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public IActionResult QuickAdd()
+        {
+            return View();
+        }
+
+
+
+
+
         // GET: Customers
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -151,6 +161,22 @@ namespace TravelAgency.Controllers
         private bool CustomersExists(int id)
         {
             return _context.Customers.Any(e => e.CustomerId == id);
+        }
+
+        [HttpPost]
+        public IActionResult AddCustomerAdmin(string name, string phone)
+        {
+            if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone))
+                return RedirectToAction(nameof(QuickAdd));
+
+            var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == phone.Trim() && x.IsActive);
+            if (customer != null)
+                customer.FullName = name.Trim();
+            else
+                _context.Customers.Add(new Customers() { FullName = name.Trim(), Phone1 = phone.Trim(), IsActive = true });
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(QuickAdd));
         }
     }
 }
