@@ -34,5 +34,4 @@
   <ItemGroup>
     <Content Update="wwwroot\**\*.*" CopyToPublishDirectory="Never" />
   </ItemGroup>
-
 </Project>
