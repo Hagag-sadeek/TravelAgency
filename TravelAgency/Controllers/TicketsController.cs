@@ -327,12 +327,13 @@ namespace TravelAgency.Controllers
         [HttpPost]
         public IActionResult FindCustomerByPhoneId(  string Phone)
         {
-            var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == Phone && x.IsActive);
+            var customer = _context.Customers.FirstOrDefault(x => x.Phone1.Contains(Phone) && x.IsActive);
 
             if (customer != null)
             {
-                var x = customer.CustomerId.ToString() + "&$" + customer.FullName;
-               
+                var x = customer.FullName + "_" + customer.Phone1;
+
+
                 return Json(x);
             }
                

@@ -47,7 +47,7 @@
 
         $("#phone1").keyup(function() {
             var PhoneNumber = document.getElementById('phone1');
-            if (PhoneNumber.value.length == 11) {
+            //if (PhoneNumber.value.length == 11) {
  
                 $.ajax({
                     url: '/Tickets/FindCustomerByPhoneId?Phone=' + PhoneNumber.value,
@@ -55,14 +55,14 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function(data) {
-                        $("#customerExist").val( data.split("&$")[1]);
-                       
+                        $("#customerExist").val( data);
+                          //  $("#customerExist").val( data.split("&$")[1]);
                     },
                     error: function(result) {
                         alert("Data is not in the right formate!! please contact with IT department");
                     }
                 })
-            }
+            //}
 
 
         });
