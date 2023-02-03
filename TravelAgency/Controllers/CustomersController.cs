@@ -33,7 +33,7 @@ namespace TravelAgency.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.Where(x=>x.IsActive).ToListAsync());
+            return View(await _context.Customers.Where(x => x.IsActive).ToListAsync());
         }
 
         // GET: Customers/Details/5
@@ -69,7 +69,7 @@ namespace TravelAgency.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 _context.Add(customers);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -109,7 +109,7 @@ namespace TravelAgency.Controllers
             {
                 try
                 {
-                    
+
                     _context.Update(customers);
                     await _context.SaveChangesAsync();
                 }
@@ -166,7 +166,7 @@ namespace TravelAgency.Controllers
         [HttpPost]
         public IActionResult AddCustomerAdmin(string name, string phone)
         {
-            if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone))
+            if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone) || phone.Length != 11)
                 return RedirectToAction(nameof(QuickAdd));
 
             var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == phone.Trim() && x.IsActive);

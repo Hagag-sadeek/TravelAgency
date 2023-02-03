@@ -311,7 +311,7 @@ namespace TravelAgency.Controllers
         [HttpPost]
         public IActionResult AddCustomerAdmin(string name, string phone)
         {
-            if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone))
+            if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone) ||phone.Length!=11 )
                 return RedirectToAction(nameof(CreateAdmin));
 
             var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == phone.Trim() && x.IsActive);
