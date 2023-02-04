@@ -325,18 +325,15 @@ namespace TravelAgency.Controllers
         }
 
         [HttpPost]
-        public IActionResult FindCustomerByPhoneId(  string Phone)
+        public IActionResult FindCustomerByPhoneId(string Phone)
         {
             var customer = _context.Customers.FirstOrDefault(x => x.Phone1.Contains(Phone) && x.IsActive);
 
             if (customer != null)
             {
-                var x = customer.FullName + "_" + customer.Phone1;
-
-
+                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1;
                 return Json(x);
             }
-               
 
             return Json("غير موجود");
         }
@@ -347,12 +344,8 @@ namespace TravelAgency.Controllers
             var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == Phone && x.IsActive);
 
             if (customer != null)
-            {
-                
                 return Json(customer.CustomerId);
-            }
-
-
+           
             return Json(-1);
         }
         #endregion
