@@ -132,6 +132,7 @@ namespace TravelAgency.Controllers
             return View(model);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("CreateNotAdmin")]
