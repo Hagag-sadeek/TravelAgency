@@ -41,22 +41,29 @@
   <div class="row" style="color:red;font-weight:bold">
     <div class="col-md-4">
       <br /> 
-       <div class="form-group">
+
+
+       <div class="form-group row">
     
+      <div class="form-group col-6">
     <label  class="control-label">بحث عن عميل  
       <a   id="searchedCustomerId" class="btn btn-outline-success btn-small">  <span class="fa fa-plus"> </span></a> 
     </label>
     <input type='text' class="form-control" id="ClientName"  />
-   
+    </div>
+
+    
   </div>
-  <br />
 
-      <div class="form-group row"> 
-        <div class="form-group col-6">
+ <div class="form-group row">
+      <div class="form-group col-6">
           <label asp-for="CustomerId" class="control-label">العميل     </label>
-          <select asp-for="CustomerId"  id="CustomerIdList"  class="form-control select2" asp-items="Model.CustomersList" style="width:100%"></select>
+       <input type='hidden' asp-for="CustomerId"  class="form-control" id="CustomerIdadded" />
+        <input type='text'    class="form-control" id="CustomerName" />
         </div>
+  </div>
 
+      <div class="form-group row">  
         <div class="form-group col-6">
           <label asp-for="SupplierId" class="control-label">المكتب   </label>
           <select asp-for="SupplierId" class="form-control  " asp-items="Model.SuppliersList"   style="width:100%"></select>
@@ -1309,25 +1316,64 @@
       });
 
       
+      // $("#searchedCustomerId").click(function() {
+           
+      //      var PhoneNumber = document.getElementById('ClientName')  ;
+         
+      //       $.ajax({
+      //      url: '/Tickets/FindCustomerByPhoneIdForNotAdmin?Phone=' + PhoneNumber.value ,
+      //      type: "POST",
+      //      contentType: "application/json; charset=utf-8",
+      //      dataType: "json",
+      //      success: function(data) {
+      //     $("#CustomerIdList").val(data).trigger('change');
+
+      //      },
+      //      error: function(result) {
+      //        alert("Data is not in the right formate!! please contact with IT department");
+      //      }
+      //    })
+      //});
+
+       $("#ClientName").keyup(function() {
+            var PhoneNumber = document.getElementById('ClientName');
+
+            $.ajax({
+                url: '/Tickets/FindCustomerByPhoneId?Phone=' + PhoneNumber.value,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                    $("#CustomerIdadded").val(data.split("&&")[0]);
+                    $("#CustomerName").val(data.split("&&")[1]);
+
+                },
+                error: function(result) {
+                    alert("Data is not in the right formate!! please contact with IT department");
+                }
+            })
+        });
+
        $("#searchedCustomerId").click(function() {
            
             var PhoneNumber = document.getElementById('ClientName')  ;
          
              $.ajax({
-            url: '/Tickets/FindCustomerByPhoneIdForNotAdmin?Phone=' + PhoneNumber.value ,
+            url: '/Tickets/FindCustomerByPhoneId?Phone=' + PhoneNumber.value ,
             type: "POST",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
-           $("#CustomerIdList").val(data).trigger('change');
-
+               
+                $("#CustomerIdadded").val(data.split("&&")[0]);
+                $("#CustomerName").val(data.split("&&")[1]);
+               
             },
             error: function(result) {
               alert("Data is not in the right formate!! please contact with IT department");
             }
           })
       });
-
       
 
     });
