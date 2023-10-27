@@ -509,5 +509,22 @@ namespace TravelAgency.Controllers
 
             return Json(1);
         }
+
+
+        public IActionResult DontSentAgain(string phone)
+        {
+
+            var cust = _context.Customers.FirstOrDefault(x => x.Phone1 == phone);
+
+            if (cust == null)
+                return Json(false);
+
+            cust.Phone3 = "Dont";
+            _context.Customers.Update(cust);
+
+           
+
+            return View();
+        }
     }
 }
