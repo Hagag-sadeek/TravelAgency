@@ -49,7 +49,7 @@ namespace TravelAgency.Controllers
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now.Date
             };
-            return View(model);
+            return View("CreateAdmin6" ,model);
         }
 
 
@@ -85,7 +85,7 @@ namespace TravelAgency.Controllers
                 _context.SaveChanges();
             }
 
-            return View(nameof(CreateAdmin), PopulateReserveViewModel(tickets));
+            return View("CreateAdmin6", PopulateReserveViewModel(tickets));
         }
 
         #endregion
@@ -161,8 +161,8 @@ namespace TravelAgency.Controllers
             }
             //if (model.TicketDate < DateTime.Now)
             //    return RedirectToAction(nameof(Create)); 
-
-            return View(nameof(CreateAdmin), PopulateReserveViewModel(model));
+            var viewName = "CreateAdmin6";
+            return View(viewName, PopulateReserveViewModel(model));
         }
         
         #endregion

@@ -1,0 +1,1898 @@
+﻿@model TravelAgency.ViewModels.TicketViewModel
+
+@{
+    ViewData["Title"] = "حجز التذاكر";
+    TravelAgency.ViewModels.ReservedTickets seat;
+    var seatNumber = 0;
+}
+<form asp-action="CreateAdmin">
+
+    <div class="row">
+        <div class="form-group col-sm-4">
+            <label asp-for="AppointmentId" class="control-label">الميعاد</label>
+            <select asp-for="AppointmentId" class="form-control" asp-items="Model.AppointmentsList"></select>
+        </div>
+
+        <div class="form-group col-sm-3">
+            <label asp-for="TicketDate" class="control-label">يوم الحجز</label>
+            <input data-seat-num="@seatNumber" asp-for="TicketDate" class="form-control" />
+
+            <span asp-validation-for="TicketDate" class="text-danger"></span>
+        </div>
+
+    </div>
+
+    <div class="form-group row col-12">
+        <input data-seat-num="@seatNumber"
+               type="submit"
+               value="عرض الحجز"
+               name="okshow"
+               asp-action="ShowTicketsForAdmin"
+               class="btn btn-primary" />
+        <input type="submit" value="عرض مفصل"
+               asp-action="MyTickets" class="btn btn-info" />
+    </div>
+
+    <hr />
+    <div class="row" style="color:red;font-weight:bold">
+
+        <div class="col-md-4">
+
+            <div class="form-group">
+
+                <label class="control-label btn btn-outline-success " id="searchedCustomerId">
+                    بحث عن عميل
+
+                </label>
+                <input type='text' class="form-control" id="ClientName" />
+
+            </div>
+            <br />
+
+            <div class="form-group">
+
+                <label asp-for="CustomerId" class="control-label">
+                    العميل
+                    <a id="Addclient" class="btn btn-outline-success btn-small">
+                        <span class="fa fa-plus">   </span>
+                    </a>
+                </label>
+                <input type='hidden' asp-for="CustomerId" class="form-control" id="CustomerIdadded" />
+                <input type='text' class="form-control" id="CustomerName" />
+                @*   <select asp-for="CustomerId" id="CustomerIdList" class="form-control select2" asp-items="Model.CustomersList" style="width:100%"></select>*@
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label asp-for="SupplierId" class="control-label">المكتب <a asp-controller="Suppliers" asp-action="create" class="btn btn-outline-success btn-small"><span class="fa fa-plus">   </span></a> </label>
+                <select asp-for="SupplierId" class="form-control " asp-items="Model.SuppliersList" style="width:100%"></select>
+            </div>
+
+            <div class="form-group row">
+                <div class="form-group  col-md-6">
+                    <label asp-for="FromBranchId" class="control-label">مكتب المغادره</label>
+                    <select asp-for="FromBranchId" class="form-control" asp-items="Model.BranchsList"></select>
+                </div>
+
+
+                <div class="form-group col-md-6">
+                    <label asp-for="ToBranchId" class="control-label">مكتب الوصول</label>
+                    <select asp-for="ToBranchId" class="form-control" asp-items="Model.BranchsList"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="form-group  col-md-6">
+                    <label asp-for="Price" class="control-label">سعر التذكره</label>
+                    <input data-seat-num="@seatNumber" asp-for="Price" class="form-control" value="0" />
+                    <span asp-validation-for="Price" class="text text-danger"></span>
+                </div>
+                <div class="form-group  col-md-6">
+                    <label asp-for="SeatId" class="control-label">رقم المقعد</label>
+                    <input data-seat-num="@seatNumber" asp-for="SeatId" class="form-control" id="SeatNumber" value="0" />
+                    <span asp-validation-for="SeatId" class="text text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group  ">
+                <input data-seat-num="@seatNumber"
+                       type="submit"
+                       value="تـأكيــد الحـجـز"
+                       asp-action="createAdmin"
+                       class="btn btn-primary"
+                       id="doReserve" />
+
+            </div>
+        </div>
+
+        <div class=" col-sm-12  col-md-8  ">
+            @*50*@
+            <div class="row pt-1">
+                <div class=" col-sm-1  col-md-1"> </div>
+                @{
+                    seatNumber = 50;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+
+
+            </div>
+
+            <!--#region ----1 2 3 4-------  -->
+            <div class="row pt-1">
+                @{
+                    seatNumber = 3;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 4;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+
+                    }
+                }
+                &nbsp;
+
+                <div class=" col-md-2 col-sm-2 "></div>
+                @{
+                    seatNumber = 2;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 1;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+            </div>
+            <!--#endregion -->
+            <!--#region ----5 6 7 8-------  -->
+            <div class="row pt-1">
+                @{
+                    seatNumber = 7;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 8;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                <div class=" col-md-2 col-sm-2 "></div>
+                @{
+                    seatNumber = 6;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 5;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+            </div>
+            <!--#endregion -->
+            <!--#region ----9 10 11 12-------  -->
+            <div class="row pt-1">
+                @{
+                    seatNumber = 11;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 12;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                <div class=" col-md-2 col-sm-2 "></div>
+                @{
+                    seatNumber = 10;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 9;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+            </div>
+            <!--#endregion -->
+            <!--#region ----13 14 15 16-------  -->
+            <div class="row pt-1">
+                @{
+                    seatNumber = 15;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 16;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                <div class=" col-md-2 col-sm-2 "></div>
+                @{
+                    seatNumber = 14;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 13;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+            </div>
+            <!--#endregion -->
+            <!--#region ----17 18 19 20-------  -->
+            <div class="row pt-1">
+                 <div class="col-md-2 col-sm-2"></div>      &nbsp;
+                <div class="col-md-2 col-sm-2"></div>      &nbsp;
+                <div class="col-md-2 col-sm-2"></div>     
+                @{
+                    seatNumber = 18;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 17;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+               
+            </div>
+            <!--#endregion -->
+            <!--#region ----21 22 -------  -->
+            <div class="row pt-1">
+                <div class=" col-md-2 col-sm-2 "></div>      &nbsp;
+                <div class=" col-md-2 col-sm-2 "></div>       &nbsp;
+                <div class=" col-md-2 col-sm-2 "></div>      
+                @{
+
+                    seatNumber = 20;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 19;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+            </div>
+          
+            <!--#endregion -->
+            <!--#region ----25 26 27 28-------  -->
+            <div class="row pt-1">
+                @{
+                    seatNumber = 23;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 24;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                <div class=" col-md-2 col-sm-2 "></div>
+                @{
+                    seatNumber = 22;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 21;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+            </div>
+            <!--#endregion -->
+            <!--#region ----29 30 31 32-------  -->
+            <div class="row pt-1">
+                @{
+                    seatNumber = 27;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 26;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                <div class=" col-md-2 col-sm-2 "></div>
+                @{
+                    seatNumber = 26;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 25;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+            </div>
+            <!--#endregion -->
+            <!--#region ----33 34 35 36-------  -->
+            <div class="row pt-1">
+                @{
+                    seatNumber = 31;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 32;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                <div class=" col-md-2 col-sm-2 "></div>
+                @{
+                    seatNumber = 30;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 29;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+            </div>
+            <!--#endregion -->
+            <!--#region ----37 38 39 40-------  -->
+            <div class="row pt-1">
+                @{
+                    seatNumber = 35;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 36;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                <div class=" col-md-2 col-sm-2 "></div>
+                @{
+                    seatNumber = 34;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 33;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+            </div>
+            <!--#endregion -->
+            <!--#region ----41 42 43 44-------  -->
+            <div class="row pt-1">
+                @{
+                    seatNumber = 39;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 40;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                <div class=" col-md-2 col-sm-2 "></div>
+                @{
+                    seatNumber = 38;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title="@seat.FromBranch @seat.Customer @seat.Phone @(seat.IsPaid ? "مدفوع" : "غير مدفوع")" />
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 37;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+            </div>
+            <!--#endregion -->
+
+              <!--#endregion -->
+            <!--#region ----41 42 43 44-------  -->
+            <div class="row pt-1">
+                @{
+                    seatNumber = 43;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 44;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                <div class=" col-md-2 col-sm-2 "></div>
+                @{
+                    seatNumber = 42;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title="@seat.FromBranch @seat.Customer @seat.Phone @(seat.IsPaid ? "مدفوع" : "غير مدفوع")" />
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 41;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+            </div>
+            <!--#endregion -->
+
+
+            <!--#region ----45 46 47 48 49-------  -->
+            <div class="row pt-1">
+                @{
+                    seatNumber = 49;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 48;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+
+
+                @{
+                    seatNumber = 47;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 46;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 45;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (!seat.IsPaid)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               title=" @("المورد:" + seat.Supplier)
+                                                                                   @("مكتب المغادره :" + seat.FromBranch)
+                                                                                   @("اسم المسافر:" + seat.Customer)
+                                                                                   @("رقم الهاتف:" + seat.Phone)
+                                                                                   @("السعر:" + seat.Price)
+                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                    }
+                }
+                &nbsp;
+            </div>
+            <!--#endregion -->
+
+        </div>
+
+    </div>
+
+
+</form>
+
+<div id="Modal_Accept" class="modal fade" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <div class="  d-flex flex-column align-items-start pl-2">
+                    <h4>اضافه عميل جديد</h4>
+                </div>
+
+                <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="Acceptform" method="post" asp-action="AddCustomerAdmin" asp-controller="tickets">
+                    <div class="kt-portlet__body ">
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3 col-sm-12">الاسم </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" class="form-control " name="name" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3 col-sm-12">الهاتف </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="number" class="form-control " maxlength=12 name="phone" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="  clearfix p-0 pt-3">
+                        <div class=" ">
+                            <button class="btn btn-primary pull-right">حفظ</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".seat").click(function () {
+                var seatNumber = $(this);
+                var textseatnumber = $(this).attr("data-seat-num");
+
+                if (seatNumber.hasClass("btn btn-info")) {
+                    // $("#SeatNumber").val(textseatnumber);
+                    return;
+                }
+
+                $(".seat").each(function () {
+                    var seat = $(this);
+                    if (seat.hasClass("btn btn-warning")) {
+                        seat.removeClass();
+                        seat.addClass("btn btn-success  col-md-2 col-sm-2  seat");
+                    }
+                });
+
+
+                $("#SeatNumber").val(textseatnumber);
+                seatNumber.removeClass();
+                seatNumber.addClass("btn btn-warning  col-md-2 col-sm-2  seat");
+
+            });
+
+            $(".cancelTicket").click(function () {
+
+                var button = $(this);
+                var TicketNumber = button.attr("data-Ticke-Id");
+
+                var result = confirm("هل تريد حذف التذكره بالفعل ؟");
+                if (result) {
+                    $.ajax({
+                        url: '/Tickets/DeleteTicket?id=' + TicketNumber,
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data === true) {
+                                button.removeClass();
+                                button.addClass("btn btn-success  col-md-2 col-sm-2  seat");
+                                button.val(button[0].id);
+                            } else {
+                                alert("حدث خطأ اثناء استرجاع التذكره");
+                            }
+                        },
+                        error: function (result) {
+                            alert("Data is not in the right formate!! please contact with IT department");
+                        }
+                    })
+                }
+            });
+
+
+            $("#Addclient").click(function () {
+                $('#Modal_Accept').modal('show');
+            });
+
+            $("#ClientName").keyup(function () {
+                var PhoneNumber = document.getElementById('ClientName');
+
+                $.ajax({
+                    url: '/Tickets/FindCustomerByPhoneId?Phone=' + PhoneNumber.value,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#CustomerIdadded").val(data.split("&&")[0]);
+                        $("#CustomerName").val(data.split("&&")[1]);
+
+                    },
+                    error: function (result) {
+                        alert("Data is not in the right formate!! please contact with IT department");
+                    }
+                })
+            });
+
+            $("#searchedCustomerId").click(function () {
+
+                var PhoneNumber = document.getElementById('ClientName');
+
+                $.ajax({
+                    url: '/Tickets/FindCustomerByPhoneId?Phone=' + PhoneNumber.value,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+
+                        $("#CustomerIdadded").val(data.split("&&")[0]);
+                        $("#CustomerName").val(data.split("&&")[1]);
+
+                    },
+                    error: function (result) {
+                        alert("Data is not in the right formate!! please contact with IT department");
+                    }
+                })
+            });
+
+
+
+        });
+    </script>
+}

@@ -40,7 +40,7 @@ namespace TravelAgency
             services.AddDistributedMemoryCache();
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();//.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
               
