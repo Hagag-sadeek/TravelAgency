@@ -159,7 +159,7 @@
       <!--#region ----1 2 3 4-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 1;
+          seatNumber = 3;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (seat == null)
@@ -180,7 +180,7 @@
         &nbsp;
 
         @{
-          seatNumber = 2;
+          seatNumber = 4;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (seat == null)
           {
@@ -201,7 +201,7 @@
 
         <div class="col-md-2 col-sm-2"></div>
         @{
-          seatNumber = 3;
+          seatNumber = 2;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (seat == null)
           {
@@ -220,7 +220,7 @@
         }
         &nbsp;
         @{
-          seatNumber = 4;
+          seatNumber = 1;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
           {
@@ -243,7 +243,7 @@
       <!--#region ----5 6 7 8-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 5;
+          seatNumber = 7;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (seat == null)
           {
@@ -263,7 +263,7 @@
         &nbsp;
 
         @{
-          seatNumber = 6;
+          seatNumber = 8;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (seat == null)
           {
@@ -284,7 +284,7 @@
 
         <div class="col-md-2 col-sm-2"></div>
         @{
-          seatNumber = 7;
+          seatNumber = 6;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
           {
@@ -303,7 +303,7 @@
         }
         &nbsp;
         @{
-          seatNumber = 8;
+          seatNumber = 5;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
           {
@@ -326,7 +326,7 @@
       <!--#region ----9 10 11 12-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 9;
+          seatNumber = 11;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
          if (seat == null)
           {
@@ -346,7 +346,7 @@
         &nbsp;
 
         @{
-          seatNumber = 10;
+          seatNumber = 12;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
           {
@@ -367,7 +367,7 @@
 
         <div class="col-md-2 col-sm-2"></div>
         @{
-          seatNumber = 11;
+          seatNumber = 10;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
           {
@@ -386,7 +386,7 @@
         }
         &nbsp;
         @{
-          seatNumber = 12;
+          seatNumber = 9;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
           {
@@ -409,7 +409,7 @@
       <!--#region ----13 14 15 16-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 13;
+          seatNumber = 15;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
           {
@@ -429,7 +429,7 @@
         &nbsp;
 
         @{
-          seatNumber = 14;
+          seatNumber = 16;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (seat == null)
           {
@@ -450,7 +450,7 @@
 
         <div class="col-md-2 col-sm-2"></div>
         @{
-          seatNumber = 15;
+          seatNumber = 14;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
           {
@@ -469,7 +469,7 @@
         }
         &nbsp;
         @{
-          seatNumber = 16;
+          seatNumber = 13;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
           {
@@ -490,9 +490,12 @@
       </div>
       <!--#endregion -->
       <!--#region ----17 18 19 20-------  -->
-      <div class="row pt-1">
+            <div class="row pt-1">
+                <div class="col-md-2 col-sm-2"></div> &nbsp;
+                <div class="col-md-2 col-sm-2"></div>&nbsp;
+                <div class="col-md-2 col-sm-2"></div>
         @{
-          seatNumber = 17;
+          seatNumber = 18;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
       if (seat == null)
           {
@@ -512,7 +515,7 @@
         &nbsp;
 
         @{
-          seatNumber = 18;
+          seatNumber = 17;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
           {
@@ -532,26 +535,17 @@
         &nbsp;
 
         <div class="col-md-2 col-sm-2"></div>
+      
+       
+      </div>
+      <!--#endregion -->
+      <!--#region ----21 22 -------  -->
+            <div class="row pt-1">
+          <div class="col-md-2 col-sm-2"></div> &nbsp;
+        <div class="col-md-2 col-sm-2"></div>&nbsp;
+        <div class="col-md-2 col-sm-2"></div>
         @{
-          seatNumber = 19;
-          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-           if (seat == null)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
-          }
-          else if (seat.IsMine)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
-          }
-           else 
-         {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
-         }
-        }
-        &nbsp;
-        @{
+
           seatNumber = 20;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
@@ -570,16 +564,8 @@
          }
         }
         &nbsp;
-      </div>
-      <!--#endregion -->
-      <!--#region ----21 22 -------  -->
-      <div class="row pt-1 pr-3">
-        <div class="col-md-2 col-sm-2"></div>
-        <div class="col-md-2 col-sm-2"></div>
-        <div class="col-md-2 col-sm-2"></div>
         @{
-
-          seatNumber = 21;
+          seatNumber = 19;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
           {
@@ -596,77 +582,16 @@
                    data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
          }
         }
-        &nbsp;
-        @{
-          seatNumber = 22;
-          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-           if (seat == null)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
-          }
-          else if (seat.IsMine)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
-          }
-           else 
-         {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
-         }
-        }
-        &nbsp;
+    
       </div>
       <!--#endregion -->
       <!--#region ----23 24    -------  -->
-      <div class="row pt-1  pr-3">
-        <div class="col-md-2 col-sm-2"></div>
-        <div class="col-md-2 col-sm-2"></div>
-        <div class="col-md-2 col-sm-2"></div>
-        @{
-          seatNumber = 23;
-          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-         if (seat == null)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
-          }
-          else if (seat.IsMine)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
-          }
-           else 
-         {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
-         }
-        }
-        &nbsp;
-        @{
-          seatNumber = 24;
-          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-           if (seat == null)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
-          }
-          else if (seat.IsMine)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
-          }
-           else 
-         {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
-         }
-        }
-        &nbsp;
-      </div>
+     
       <!--#endregion -->
       <!--#region ----25 26 27 28-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 25;
+          seatNumber = 23;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
   if (seat == null)
           {
@@ -686,7 +611,7 @@
         &nbsp;
 
         @{
-          seatNumber = 26;
+          seatNumber = 24;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
            if (seat == null)
@@ -708,7 +633,7 @@
 
         <div class="col-md-2 col-sm-2"></div>
         @{
-          seatNumber = 27;
+          seatNumber = 22;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (seat == null)
@@ -728,7 +653,7 @@
         }
         &nbsp;
         @{
-          seatNumber = 28;
+          seatNumber = 21;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
            if (seat == null)
@@ -752,7 +677,7 @@
       <!--#region ----29 30 31 32-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 29;
+          seatNumber = 27;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (seat == null)
@@ -773,7 +698,7 @@
         &nbsp;
 
         @{
-          seatNumber = 30;
+          seatNumber = 28;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (seat == null)
@@ -795,7 +720,7 @@
 
         <div class="col-md-2 col-sm-2"></div>
         @{
-          seatNumber = 31;
+          seatNumber = 26;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (seat == null)
@@ -815,7 +740,7 @@
         }
         &nbsp;
         @{
-          seatNumber = 32;
+          seatNumber = 25;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (seat == null)
@@ -839,7 +764,7 @@
       <!--#region ----33 34 35 36-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 33;
+          seatNumber = 31;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (seat == null)
@@ -860,7 +785,7 @@
         &nbsp;
 
         @{
-          seatNumber = 34;
+          seatNumber = 32;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
            if (seat == null)
@@ -882,7 +807,7 @@
 
         <div class="col-md-2 col-sm-2"></div>
         @{
-          seatNumber = 35;
+          seatNumber = 30;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
          if (seat == null)
@@ -902,7 +827,7 @@
         }
         &nbsp;
         @{
-          seatNumber = 36;
+          seatNumber = 29;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
            if (seat == null)
@@ -926,7 +851,7 @@
       <!--#region ----37 38 39 40-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 37;
+          seatNumber = 35;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
            if (seat == null)
@@ -947,7 +872,7 @@
         &nbsp;
 
         @{
-          seatNumber = 38;
+          seatNumber = 36;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
             if (seat == null)
@@ -969,7 +894,7 @@
 
         <div class="col-md-2 col-sm-2"></div>
         @{
-          seatNumber = 39;
+          seatNumber = 34;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
             if (seat == null)
@@ -989,7 +914,7 @@
         }
         &nbsp;
         @{
-          seatNumber = 40;
+          seatNumber = 33;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
            if (seat == null)
@@ -1013,7 +938,7 @@
       <!--#region ----41 42 43 44-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 41;
+          seatNumber = 39;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
            if (seat == null)
@@ -1034,7 +959,7 @@
         &nbsp;
 
         @{
-          seatNumber = 42;
+          seatNumber = 40;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
          
            if (seat == null)
@@ -1056,7 +981,7 @@
 
         <div class="col-md-2 col-sm-2"></div>
         @{
-          seatNumber = 43;
+          seatNumber = 38;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
            if (seat == null)
@@ -1076,7 +1001,7 @@
         }
         &nbsp;
         @{
-          seatNumber = 44;
+          seatNumber = 37;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
            if (seat == null)
@@ -1097,10 +1022,97 @@
         &nbsp;
       </div>
       <!--#endregion -->
+      <!--#region ----41 42 43 44-------  -->
+      <div class="row pt-1">
+                @{
+                    seatNumber = 43;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (seat.IsMine)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
+                    }
+                }
+                &nbsp;
+
+                @{
+                    seatNumber = 44;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (seat.IsMine)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
+                    }
+                }
+                &nbsp;
+
+                <div class="col-md-2 col-sm-2"></div>
+                @{
+                    seatNumber = 42;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (seat.IsMine)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
+                    }
+                }
+                &nbsp;
+                @{
+                    seatNumber = 41;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (seat.IsMine)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
+                    }
+                }
+                &nbsp;
+            </div>
+      <!--#endregion -->
       <!--#region ----45 46 47 48 49-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 45;
+          seatNumber = 49;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
          if (seat == null)
@@ -1121,7 +1133,7 @@
         &nbsp;
 
         @{
-          seatNumber = 46;
+          seatNumber = 48;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
          if (seat == null)
@@ -1163,7 +1175,7 @@
         }
         &nbsp;
         @{
-          seatNumber = 48;
+          seatNumber = 46;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (seat == null)
@@ -1183,7 +1195,7 @@
         }
         &nbsp;
         @{
-          seatNumber = 49;
+          seatNumber = 45;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
         if (seat == null)

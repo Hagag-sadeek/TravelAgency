@@ -23,11 +23,7 @@ namespace TravelAgency.Controllers
         // GET: Tickets
         public async Task<IActionResult> Index()
         {
-            //if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
-
+          
             var travelAgencyContext = _context.Tickets
                 .Include(t => t.Appointment)
                 .Include(t => t.Customer)
@@ -40,20 +36,15 @@ namespace TravelAgency.Controllers
 
         #region CreateAdmin
 
-        [Route("CreateAdmin")] 
+        [Route("CreateAdmin")]
         [HttpGet]
         public IActionResult CreateAdmin()
         {
-            //if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
 
             var model = new TicketViewModel
             {
                 AppointmentsList =
                     new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
-                //CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now.Date
@@ -88,18 +79,6 @@ namespace TravelAgency.Controllers
 
                 tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
 
-                //  tickets.Price = _context.AppointmentPrice.First(e =>
-                //    e.AppointmentId == tickets.AppointmentId && e.SupplierId == tickets.SupplierId).Price;
-
-                //if (TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId))
-                //{
-                //    var ticketToUpdate = _context.Tickets.First(e => e.SeatId == tickets.SeatId && e.TicketDate.Date == tickets.TicketDate.Date);
-                //    ticketToUpdate.Price = tickets.Price;
-                //}
-                //else
-                //{
-                //    _context.Add(tickets);
-                //}
                 tickets.IsActive = true;
                 tickets.ReserveDate = DateTime.Now;
                 _context.Tickets.Add(tickets);
@@ -123,7 +102,6 @@ namespace TravelAgency.Controllers
             var model = new TicketViewModel()
             {
                 AppointmentsList = new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
-               // CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName")
             };
