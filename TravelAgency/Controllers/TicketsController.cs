@@ -49,7 +49,8 @@ namespace TravelAgency.Controllers
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now.Date
             };
-            return View("CreateAdmin6" ,model);
+
+               return View("CreateAdmin" ,model);
         }
 
 
@@ -84,8 +85,9 @@ namespace TravelAgency.Controllers
                 _context.Tickets.Add(tickets);
                 _context.SaveChanges();
             }
-
-            return View("CreateAdmin6", PopulateReserveViewModel(tickets));
+            return RedirectToAction(nameof(ShowTicketsForAdmin), tickets);
+         
+            // return View("CreateAdmin6", PopulateReserveViewModel(tickets));
         }
 
         #endregion
@@ -143,28 +145,32 @@ namespace TravelAgency.Controllers
         #endregion
 
         #region ShowTickets 
-        public IActionResult ShowTickets(Tickets model)
-        {
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-          
-            return View(nameof(CreateNotAdmin), PopulateReserveViewModel(model));
-        }
-         
+
         public IActionResult ShowTicketsForAdmin(Tickets model)
         {
             if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
             {
                 return RedirectToAction("Login", "Account");
             }
-            //if (model.TicketDate < DateTime.Now)
-            //    return RedirectToAction(nameof(Create)); 
-            var viewName = "CreateAdmin6";
-            return View(viewName, PopulateReserveViewModel(model));
+            var viewNameString = "CreateAdmin";
+            var viewName = _context.AppointmentBusView.FirstOrDefault(x => x.AppointmentId == model.AppointmentId);
+
+            if (viewName != null)
+                viewNameString = viewName.ViewName;
+
+            return View(viewNameString, PopulateReserveViewModel(model));
         }
-        
+
+        public IActionResult ShowTickets(Tickets model)
+        {
+            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(nameof(CreateNotAdmin), PopulateReserveViewModel(model));
+        }
+
         #endregion
 
         #region Delete & confirm
