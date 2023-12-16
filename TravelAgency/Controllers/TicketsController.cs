@@ -167,7 +167,7 @@ namespace TravelAgency.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            var viewName = "CreateAdmin";
+            var viewName = "CreateAdmin4";
 
             var row = _context.AppointmentBusView
                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
@@ -185,7 +185,7 @@ namespace TravelAgency.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            var viewName = "CreateNotAdmin";
+            var viewName = "CreateNotAdmin4";
 
             var row = _context.AppointmentBusView
                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
