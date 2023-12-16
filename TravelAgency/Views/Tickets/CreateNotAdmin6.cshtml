@@ -491,11 +491,9 @@
       <!--#endregion -->
       <!--#region ----17 18 19 20-------  -->
             <div class="row pt-1">
-                <div class="col-md-2 col-sm-2"></div> &nbsp;
-                <div class="col-md-2 col-sm-2"></div>&nbsp;
-                <div class="col-md-2 col-sm-2"></div>
+             
         @{
-          seatNumber = 18;
+          seatNumber = 19;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
       if (seat == null)
           {
@@ -515,37 +513,6 @@
         &nbsp;
 
         @{
-          seatNumber = 17;
-          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-           if (seat == null)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
-          }
-          else if (seat.IsMine)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
-          }
-           else 
-         {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
-         }
-        }
-        &nbsp;
-
-        <div class="col-md-2 col-sm-2"></div>
-      
-       
-      </div>
-      <!--#endregion -->
-      <!--#region ----21 22 -------  -->
-            <div class="row pt-1">
-          <div class="col-md-2 col-sm-2"></div> &nbsp;
-        <div class="col-md-2 col-sm-2"></div>&nbsp;
-        <div class="col-md-2 col-sm-2"></div>
-        @{
-
           seatNumber = 20;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
@@ -564,8 +531,54 @@
          }
         }
         &nbsp;
+                <div class="col-md-2 col-sm-2"></div>
+       @{
+          seatNumber = 18;
+          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+      if (seat == null)
+          {
+            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+          }
+          else if (seat.IsMine)
+          {
+            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
+          }
+           else 
+         {
+            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
+         }
+        }
+        &nbsp;
+       @{
+          seatNumber = 17;
+          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+      if (seat == null)
+          {
+            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+          }
+          else if (seat.IsMine)
+          {
+            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
+          }
+           else 
+         {
+            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
+         }
+        }
+        &nbsp;
+       
+      </div>
+      <!--#endregion -->
+      <!--#region ----21 22 -------  -->
+            <div class="row pt-1">
+         
         @{
-          seatNumber = 19;
+
+          seatNumber = 23;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
            if (seat == null)
           {
@@ -582,6 +595,67 @@
                    data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
          }
         }
+        &nbsp;
+        @{
+          seatNumber = 24;
+          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+           if (seat == null)
+          {
+            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+          }
+          else if (seat.IsMine)
+          {
+            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
+          }
+           else 
+         {
+            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
+         }
+        }
+         &nbsp;
+
+                <div class="col-md-2 col-sm-2"></div>
+         @{
+          seatNumber = 22;
+          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+      if (seat == null)
+          {
+            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+          }
+          else if (seat.IsMine)
+          {
+            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
+          }
+           else 
+         {
+            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
+         }
+        }
+        &nbsp;
+
+                @{
+                    seatNumber = 21;
+                    seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+                    if (seat == null)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
+                    }
+                    else if (seat.IsMine)
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
+                    }
+                    else
+                    {
+                        <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
+                    }
+                }
+                &nbsp;
     
       </div>
       <!--#endregion -->
@@ -590,8 +664,12 @@
       <!--#endregion -->
       <!--#region ----25 26 27 28-------  -->
       <div class="row pt-1">
-        @{
-          seatNumber = 23;
+
+                <div class="col-md-2 col-sm-2"></div> &nbsp;
+                <div class="col-md-2 col-sm-2"></div>&nbsp;
+                <div class="col-md-2 col-sm-2"></div>
+                @{
+          seatNumber = 26;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
   if (seat == null)
           {
@@ -611,7 +689,7 @@
         &nbsp;
 
         @{
-          seatNumber = 24;
+          seatNumber = 25;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
            if (seat == null)
@@ -631,72 +709,15 @@
         }
         &nbsp;
 
-        <div class="col-md-2 col-sm-2"></div>
-        @{
-          seatNumber = 22;
-          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-
-          if (seat == null)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
-          }
-          else if (seat.IsMine)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
-          }
-           else 
-         {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
-         }
-        }
-        &nbsp;
-        @{
-          seatNumber = 21;
-          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-
-           if (seat == null)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
-          }
-          else if (seat.IsMine)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
-          }
-           else 
-         {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
-         }
-        }
+        
         &nbsp;
       </div>
       <!--#endregion -->
       <!--#region ----29 30 31 32-------  -->
       <div class="row pt-1">
-        @{
-          seatNumber = 27;
-          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-
-          if (seat == null)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
-          }
-          else if (seat.IsMine)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
-          }
-           else 
-         {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
-         }
-        }
-        &nbsp;
-
+            <div class="col-md-2 col-sm-2"></div> &nbsp;
+                <div class="col-md-2 col-sm-2"></div>&nbsp;
+                <div class="col-md-2 col-sm-2"></div> 
         @{
           seatNumber = 28;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
@@ -718,9 +739,8 @@
         }
         &nbsp;
 
-        <div class="col-md-2 col-sm-2"></div>
         @{
-          seatNumber = 26;
+          seatNumber = 27;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (seat == null)
@@ -738,27 +758,8 @@
                    data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
          }
         }
-        &nbsp;
-        @{
-          seatNumber = 25;
-          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-
-          if (seat == null)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="btn btn-success col-md-2   col-sm-2 seat" value="@(seatNumber)" id="@seatNumber" style="height: 50px" />
-          }
-          else if (seat.IsMine)
-          {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px">
-          }
-           else 
-         {
-            <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger col-md-2   col-sm-2  cancelTicket " : "btn btn-info col-md-2   col-sm-2  cancelTicket seat")"
-                   data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)" id="@seatNumber" style="height: 50px">
-         }
-        }
-        &nbsp;
+        
+     
       </div>
       <!--#endregion -->
       <!--#region ----33 34 35 36-------  -->

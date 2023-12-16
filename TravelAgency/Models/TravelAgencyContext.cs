@@ -148,6 +148,12 @@ namespace TravelAgency.Models
                     .HasConstraintName("FK_AppointmentPrice_Suppliers");
             });
 
+
+            modelBuilder.Entity<AppointmentBusView>(entity =>
+            {
+                entity.HasKey(e => e.AppointmentBusViewtId);
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 

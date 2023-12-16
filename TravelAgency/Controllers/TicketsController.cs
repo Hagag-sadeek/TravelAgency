@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,8 @@ namespace TravelAgency.Controllers
         public IActionResult CreateAdmin()
         {
 
+            var viewName = "CreateAdmin4";
+
             var model = new TicketViewModel
             {
                 AppointmentsList =
@@ -50,7 +53,13 @@ namespace TravelAgency.Controllers
                 TicketDate = DateTime.Now.Date
             };
 
-               return View("CreateAdmin" ,model);
+            var row = _context.AppointmentBusView
+               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
+
+            if (row != null)
+                viewName += row.ViewName.ToString();
+
+            return View(viewName, model);
         }
 
 
@@ -86,8 +95,7 @@ namespace TravelAgency.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction(nameof(ShowTicketsForAdmin), tickets);
-         
-            // return View("CreateAdmin6", PopulateReserveViewModel(tickets));
+          
         }
 
         #endregion
@@ -107,9 +115,16 @@ namespace TravelAgency.Controllers
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName")
             };
-            model.TicketDate = DateTime.Now.Date;
- 
-            return View(model);
+
+            var viewName = "CreateNotAdmin4";
+
+            var row = _context.AppointmentBusView
+               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
+
+            if (row != null)
+                viewName += row.ViewName.ToString();
+
+            return View(viewName, model);
         }
 
 
@@ -139,7 +154,7 @@ namespace TravelAgency.Controllers
 
             _context.SaveChanges();
 
-            return View(nameof(CreateNotAdmin), PopulateReserveViewModel(tickets));
+            return RedirectToAction(nameof(ShowTickets), tickets);
         }
 
         #endregion
@@ -152,13 +167,15 @@ namespace TravelAgency.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            var viewNameString = "CreateAdmin";
-            var viewName = _context.AppointmentBusView.FirstOrDefault(x => x.AppointmentId == model.AppointmentId);
+            var viewName = "CreateAdmin";
 
-            if (viewName != null)
-                viewNameString = viewName.ViewName;
+            var row = _context.AppointmentBusView
+               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
 
-            return View(viewNameString, PopulateReserveViewModel(model));
+            if (row != null)
+                viewName += row.ViewName.ToString();
+
+            return View(viewName, PopulateReserveViewModel(model));
         }
 
         public IActionResult ShowTickets(Tickets model)
@@ -168,7 +185,15 @@ namespace TravelAgency.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            return View(nameof(CreateNotAdmin), PopulateReserveViewModel(model));
+            var viewName = "CreateNotAdmin";
+
+            var row = _context.AppointmentBusView
+               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
+
+            if (row != null)
+                viewName += row.ViewName.ToString();
+
+            return View(viewName, PopulateReserveViewModel(model));
         }
 
         #endregion
@@ -217,65 +242,7 @@ namespace TravelAgency.Controllers
         
 
         #endregion
-
-        private bool TicketsExists(int seatNum, DateTime date, int AppointmentId)
-        {
-            return _context.Tickets.Any(e =>
-                e.SeatId == seatNum &&
-                e.TicketDate.Date == date.Date &&
-                e.AppointmentId == AppointmentId &&
-                e.IsActive);
-        }
-
-        public TicketViewModel PopulateReserveViewModel(Tickets model)
-        {
-            var CurrentUserTypeId = new SessionInfoSetup().IsAdmin();
-
-            var UserId = HttpContext.Session.GetInt32("UserId").Value;
-
-            var Rtickets = _context.Tickets
-                .Include(x => x.Customer)
-                .Include(x => x.Supplier)
-                .Include(x => x.FromBranch)
-                .Include(x => x.ToBranch)
-                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate && x.IsActive)
-                .ToList();
-
-            var Vmodel = new TicketViewModel()
-            {
-                AppointmentsList =
-                    new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
-                CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
-                BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
-                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName")
-            };
-            if (Rtickets != null)
-            {
-                foreach (var item in Rtickets)
-                {
-                    var list = new ReservedTickets()
-                    {
-                        TicketId = item.TicketId,
-                        Customer = item.Customer.FullName,
-                        Supplier = item.Supplier.FullName,
-                        Phone = item.Customer.Phone1,
-                        SeatId = item.SeatId,
-                        FromBranch = item.FromBranch.Title,
-                        ToBranch = item.ToBranch.Title,
-                        IsPaid = item.Price != 0,
-                        Price = item.Price,
-                        IsMine = ((item.SupplierId == _context.Users.Find(UserId).SupplierId) ||
-                                  (CurrentUserTypeId == "True") || item.UserId == UserId)
-                    };
-
-
-                    Vmodel.reservedTickets.Add(list);
-                }
-            }
-
-            return Vmodel;
-        }
-
+         
         #region Customers
         [HttpPost]
         public IActionResult AddCustomer(string name, string phone)
@@ -379,8 +346,6 @@ namespace TravelAgency.Controllers
         }
         #endregion
 
-
-
         #region CreateMORE
         [HttpGet]
         [Route("CreateMore")]
@@ -470,31 +435,104 @@ namespace TravelAgency.Controllers
 
         #endregion
 
+        #region setBusView
 
+        [Route("BusView")]
         [HttpGet]
-        public JsonResult  Fix()
+        public IActionResult BusView()
         {
-            var cus = _context.Customers.ToList();
 
-            foreach (var item in cus)
+            var model = new BusViewViewModel
             {
-                var red = _context.Customers.Where(x => x.Phone1 == item.FullName && x.CustomerId != item.CustomerId).ToList();
-                if (red != null)
-                {
-                    foreach (var xx in red)
-                    {
-                        xx.IsActive = false;
-                    }
-                    _context.SaveChanges();
-                }
-            }
+                AppointmentsList = new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
+                TicketDate = DateTime.Now
+            };
 
-
-
-            return Json(1);
+            return View("BusView", model);
         }
 
 
+        [Route("BusView")]
+        [HttpPost]
+        public IActionResult BusView(BusViewViewModel model)
+        {
+            var row = _context.AppointmentBusView
+                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).ToList();
+
+            _context.RemoveRange(row);
+
+            var AppointmentBusView = new AppointmentBusView()
+            {
+                AppointmentId = model.AppointmentId,
+                TicketDate = model.TicketDate.Date,
+                ViewName = model.ViewNameId.ToString()
+            };
+
+            _context.Add(AppointmentBusView);
+
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(BusView));
+        }
+        #endregion
+
+        #region Others 
+        private bool TicketsExists(int seatNum, DateTime date, int AppointmentId)
+        {
+            return _context.Tickets.Any(e =>
+                e.SeatId == seatNum &&
+                e.TicketDate.Date == date.Date &&
+                e.AppointmentId == AppointmentId &&
+                e.IsActive);
+        } 
+        public TicketViewModel PopulateReserveViewModel(Tickets model)
+        {
+            var CurrentUserTypeId = new SessionInfoSetup().IsAdmin();
+
+            var UserId = HttpContext.Session.GetInt32("UserId").Value;
+
+            var Rtickets = _context.Tickets
+                .Include(x => x.Customer)
+                .Include(x => x.Supplier)
+                .Include(x => x.FromBranch)
+                .Include(x => x.ToBranch)
+                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate && x.IsActive)
+                .ToList();
+
+            var Vmodel = new TicketViewModel()
+            {
+                AppointmentsList =
+                    new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
+                CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
+                BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
+                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName")
+            };
+            if (Rtickets != null)
+            {
+                foreach (var item in Rtickets)
+                {
+                    var list = new ReservedTickets()
+                    {
+                        TicketId = item.TicketId,
+                        Customer = item.Customer.FullName,
+                        Supplier = item.Supplier.FullName,
+                        Phone = item.Customer.Phone1,
+                        SeatId = item.SeatId,
+                        FromBranch = item.FromBranch.Title,
+                        ToBranch = item.ToBranch.Title,
+                        IsPaid = item.Price != 0,
+                        Price = item.Price,
+                        IsMine = ((item.SupplierId == _context.Users.Find(UserId).SupplierId) ||
+                                  (CurrentUserTypeId == "True") || item.UserId == UserId)
+                    };
+
+
+                    Vmodel.reservedTickets.Add(list);
+                }
+            }
+
+            return Vmodel;
+        }
         public IActionResult DontSentAgain(string phone)
         {
 
@@ -506,9 +544,12 @@ namespace TravelAgency.Controllers
             cust.Phone3 = "Dont";
             _context.Customers.Update(cust);
 
-           
-
             return View();
         }
+
+
+        #endregion
+
+
     }
 }

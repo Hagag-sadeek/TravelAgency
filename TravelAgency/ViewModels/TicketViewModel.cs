@@ -48,7 +48,7 @@ namespace TravelAgency.ViewModels
 
     public partial class MoreTicketViewModel
     {
-       
+
         public int TicketId { get; set; }
         public int? CustomerId { get; set; }
         public int? SupplierId { get; set; }
@@ -66,7 +66,7 @@ namespace TravelAgency.ViewModels
 
         public int? FromBranchId { get; set; }
         public int? ToBranchId { get; set; }
-         
+
         public string SeatId { get; set; }
 
         public string comment { get; set; }
@@ -78,7 +78,7 @@ namespace TravelAgency.ViewModels
         public SelectList CustomersList { get; set; }
         public SelectList BranchsList { get; set; }
         public SelectList SuppliersList { get; set; }
-         
+
     }
 }
 
