@@ -339,10 +339,7 @@ namespace TravelAgency.Controllers
         [Route("MyTickets")]
         public IActionResult MyTickets( )
         {
-            //if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
+            
             return View(nameof(MyTickets), PopulateReserveViewModel(new Tickets()));
         }
 
@@ -351,10 +348,7 @@ namespace TravelAgency.Controllers
         [Route("MyTickets")]
         public IActionResult MyTickets(Tickets model)
         {
-            //if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
+             
             return View(nameof(MyTickets), PopulateReserveViewModel(model));
         }
 
