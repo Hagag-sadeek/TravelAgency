@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -41,9 +42,7 @@ namespace TravelAgency.Controllers
         [HttpGet]
         public IActionResult CreateAdmin()
         {
-
-            var viewName = "CreateAdmin4";
-
+             
             var model = new TicketViewModel
             {
                 AppointmentsList =
@@ -53,11 +52,14 @@ namespace TravelAgency.Controllers
                 TicketDate = DateTime.Now.Date
             };
 
+            var viewName = "CreateAdmin";
             var row = _context.AppointmentBusView
                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
 
             if (row != null)
                 viewName += row.ViewName.ToString();
+            else
+                viewName = "CreateAdmin4";
 
             return View(viewName, model);
         }
@@ -94,8 +96,17 @@ namespace TravelAgency.Controllers
                 _context.Tickets.Add(tickets);
                 _context.SaveChanges();
             }
-            return RedirectToAction(nameof(ShowTicketsForAdmin), tickets);
-          
+
+            var viewName = "CreateAdmin";
+            var row = _context.AppointmentBusView
+               .Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date).FirstOrDefault();
+
+            if (row != null)
+                viewName += row.ViewName.ToString();
+            else
+                viewName = "CreateAdmin4";
+
+            return View(viewName, PopulateReserveViewModel(tickets));
         }
 
         #endregion
@@ -113,16 +124,19 @@ namespace TravelAgency.Controllers
             {
                 AppointmentsList = new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
-                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName")
+                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
+                TicketDate = DateTime.Now
             };
 
-            var viewName = "CreateNotAdmin4";
+            var viewName = "CreateNotAdmin";
 
             var row = _context.AppointmentBusView
                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
 
             if (row != null)
                 viewName += row.ViewName.ToString();
+            else
+                viewName = "CreateNotAdmin4";
 
             return View(viewName, model);
         }
@@ -154,26 +168,39 @@ namespace TravelAgency.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(ShowTickets), tickets);
+            var viewName = "CreateNotAdmin";
+
+            var row = _context.AppointmentBusView
+               .Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date).FirstOrDefault();
+
+            if (row != null)
+                viewName += row.ViewName.ToString();
+            else
+                viewName = "CreateNotAdmin4";
+
+
+            return View(viewName, PopulateReserveViewModel(tickets));
         }
 
-        #endregion
+            #endregion
 
-        #region ShowTickets 
+            #region ShowTickets 
 
-        public IActionResult ShowTicketsForAdmin(Tickets model)
+            public IActionResult ShowTicketsForAdmin(Tickets model)
         {
             if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
             {
                 return RedirectToAction("Login", "Account");
             }
-            var viewName = "CreateAdmin4";
+            var viewName = "CreateAdmin";
 
             var row = _context.AppointmentBusView
                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
 
             if (row != null)
                 viewName += row.ViewName.ToString();
+            else
+                viewName = "CreateAdmin4";
 
             return View(viewName, PopulateReserveViewModel(model));
         }
@@ -185,13 +212,16 @@ namespace TravelAgency.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            var viewName = "CreateNotAdmin4";
+            var viewName = "CreateNotAdmin";
 
             var row = _context.AppointmentBusView
                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
 
             if (row != null)
                 viewName += row.ViewName.ToString();
+            else 
+                viewName = "CreateNotAdmin4";
+
 
             return View(viewName, PopulateReserveViewModel(model));
         }
@@ -499,14 +529,17 @@ namespace TravelAgency.Controllers
                 .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate && x.IsActive)
                 .ToList();
 
+
             var Vmodel = new TicketViewModel()
             {
                 AppointmentsList =
                     new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
                 CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
-                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName")
+                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
+                TicketDate = model.TicketDate.Date
             };
+
             if (Rtickets != null)
             {
                 foreach (var item in Rtickets)
