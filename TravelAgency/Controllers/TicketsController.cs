@@ -549,8 +549,8 @@ namespace TravelAgency.Controllers
                         ToBranch = item.ToBranch.Title,
                         IsPaid = item.Price != 0,
                         Price = item.Price,
-                        IsMine = ((item.SupplierId == _context.Users.Find(UserId).SupplierId) ||
-                                  (CurrentUserTypeId == "True") || item.UserId == UserId)
+                        IsMine = (item.SupplierId == _context.Users.Find(UserId).SupplierId) || item.FromBranchId == _context.Users.Find(UserId).BranchId ||
+                                  (CurrentUserTypeId == "True") || item.UserId == UserId
                     };
 
 
