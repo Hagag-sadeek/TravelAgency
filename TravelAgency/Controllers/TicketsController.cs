@@ -348,8 +348,19 @@ namespace TravelAgency.Controllers
         [Route("MyTickets")]
         public IActionResult MyTickets(Tickets model)
         {
-             
-            return View(nameof(MyTickets), PopulateReserveViewModel(model));
+
+            var viewName = "MyTickets";
+
+            var row = _context.AppointmentBusView
+               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
+
+            if (row != null)
+                viewName += row.ViewName.ToString();
+
+            else
+                viewName = "MyTickets4";
+
+            return View(viewName, PopulateReserveViewModel(model));
         }
 
         #endregion
@@ -366,7 +377,18 @@ namespace TravelAgency.Controllers
                 x.SupplierId == ticket.SupplierId && x.AppointmentId == ticket.AppointmentId).Price;
             _context.Update(ticket);
             _context.SaveChanges();
-            return View(nameof(CreateNotAdmin), PopulateReserveViewModel(model));
+
+            var viewName = "CreateNotAdmin";
+
+            var row = _context.AppointmentBusView
+               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
+
+            if (row != null)
+                viewName += row.ViewName.ToString();
+            else
+                viewName = "CreateNotAdmin4";
+
+            return View(viewName, PopulateReserveViewModel(model));
         }
         #endregion
 
@@ -574,7 +596,22 @@ namespace TravelAgency.Controllers
             return View();
         }
 
+        public string GetViewName(int AppointmentId, DateTime date)
+        {
+            var viewName = "CreateNotAdmin";
 
+            var row = _context.AppointmentBusView
+               .Where(x => x.AppointmentId == AppointmentId && x.TicketDate == date.Date).FirstOrDefault();
+
+            if (row != null)
+                viewName += row.ViewName.ToString();
+            else
+                viewName = "CreateNotAdmin4";
+
+
+            return viewName;
+
+        }
         #endregion
 
 

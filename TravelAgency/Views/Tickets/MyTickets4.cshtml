@@ -41,13 +41,13 @@
         if (  seat == null)
         {
 
-          <div style="height: 110px" class="btn btn-success col-md-2">
+          <div style="height: 130px" class="btn btn-success col-md-2">
             <label class="control-label">@seatNumber </label>
           </div>
         }
         else if (seat.IsMine)
         {
-          <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+          <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
             <label class="control-label">@seatNumber - @seat.Supplier</label><br/>
             <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br/>
             <label class="control-label"> @(seat.Customer)</label>
@@ -57,7 +57,7 @@
         }
         else
         {
-          <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+          <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
             <label class="control-label">@seatNumber </label>
           </div>
         }
@@ -68,19 +68,19 @@
       <!--#region ----1 2 3 4-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 1;
+          seatNumber = 3;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -88,7 +88,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
             
           <label class="control-label">@seatNumber </label>
             </div>
@@ -98,18 +98,18 @@
         &nbsp;
 
         @{
-          seatNumber = 2;
+          seatNumber = 4;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -117,7 +117,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
              
                <label class="control-label">@seatNumber </label>
             </div>
@@ -127,17 +127,17 @@
 
         <div class="col-md-1 col-sm-1"></div>
         @{
-          seatNumber = 3;
+          seatNumber = 2;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -145,25 +145,25 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
                 <label class="control-label">@seatNumber </label>
             </div>
           }
         }
         &nbsp;
         @{
-          seatNumber = 4;
+          seatNumber = 1;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -171,7 +171,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
           <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -182,18 +182,18 @@
       <!--#region ----5 6 7 8-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 5;
+          seatNumber = 7;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -201,7 +201,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
              <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -209,18 +209,18 @@
         &nbsp;
 
         @{
-          seatNumber = 6;
+          seatNumber = 8;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -228,7 +228,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
              
               <label class="control-label">@seatNumber </label>
             </div>
@@ -238,18 +238,18 @@
 
         <div class="col-md-1 col-sm-1"></div>
         @{
-          seatNumber = 7;
+          seatNumber = 6;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -257,7 +257,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
              <label class="control-label">@seatNumber </label>
               
             </div>
@@ -265,18 +265,18 @@
         }
         &nbsp;
         @{
-          seatNumber = 8;
+          seatNumber = 5;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -284,7 +284,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
             <label class="control-label">@seatNumber </label>
               
             </div>
@@ -296,18 +296,18 @@
       <!--#region ----9 10 11 12-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 9;
+          seatNumber = 11;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -315,7 +315,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
 
               <label class="control-label">@seatNumber </label>
             </div>
@@ -324,18 +324,18 @@
         &nbsp;
 
         @{
-          seatNumber = 10;
+          seatNumber = 12;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -343,7 +343,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -352,18 +352,18 @@
 
         <div class="col-md-1 col-sm-1"></div>
         @{
-          seatNumber = 11;
+          seatNumber = 10;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -371,25 +371,25 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
   <label class="control-label">@seatNumber </label>
             </div>
           }
         }
         &nbsp;
         @{
-          seatNumber = 12;
+          seatNumber = 9;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -397,7 +397,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -408,18 +408,18 @@
       <!--#region ----13 14 15 16-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 13;
+          seatNumber = 15;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -427,7 +427,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -435,18 +435,18 @@
         &nbsp;
 
         @{
-          seatNumber = 14;
+          seatNumber = 16;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -454,7 +454,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -463,18 +463,18 @@
 
         <div class="col-md-1 col-sm-1"></div>
         @{
-          seatNumber = 15;
+          seatNumber = 14;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -482,25 +482,25 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
         }
         &nbsp;
         @{
-          seatNumber = 16;
+          seatNumber = 13;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -508,7 +508,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -518,19 +518,49 @@
       <!--#endregion -->
       <!--#region ----17 18 19 20-------  -->
       <div class="row pt-1">
+            <div class="col-md-2 col-sm-2"></div>      &nbsp;
+            <div class="col-md-2 col-sm-2"></div>      &nbsp;
+            <div class="col-md-1 col-sm-1"></div>
+            @{
+          seatNumber = 18;
+          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+          if (  seat == null)
+          {
+
+            <div style="height: 130px" class="btn btn-success col-md-2">
+              <label class="control-label">@seatNumber </label>
+            </div>
+          }
+          else if (seat.IsMine && seat != null)
+          {
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+              <label class="control-label">@seatNumber - @seat.Supplier</label><br />
+              <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
+              <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
+            </div>
+          }
+          else
+          {
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+              <label class="control-label">@seatNumber </label>
+            </div>
+          }
+        }
+        &nbsp;
+
         @{
           seatNumber = 17;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
-              <label class="control-label">@seatNumber </label>
+            <div style="height: 130px" class="btn btn-success col-md-2">
+
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -538,26 +568,32 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
         }
         &nbsp;
+        </div>
 
-        @{
-          seatNumber = 18;
+        <div class="row pt-1">
+            <div class="col-md-2 col-sm-2"></div>      &nbsp;
+            <div class="col-md-2 col-sm-2"></div>      &nbsp;
+            <div class="col-md-1 col-sm-1"></div>
+            @{
+
+          seatNumber = 20;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
-
+            <div style="height: 130px" class="btn btn-success col-md-2">
+              <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -565,27 +601,25 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
         }
         &nbsp;
-
-        <div class="col-md-1 col-sm-1"></div>
         @{
           seatNumber = 19;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -593,33 +627,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
-              <label class="control-label">@seatNumber </label>
-            </div>
-          }
-        }
-        &nbsp;
-        @{
-          seatNumber = 20;
-          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-          if (  seat == null)
-          {
-
-            <div style="height: 110px" class="btn btn-success col-md-2">
-              <label class="control-label">@seatNumber </label>
-            </div>
-          }
-          else if (seat.IsMine && seat != null)
-          {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
-              <label class="control-label">@seatNumber - @seat.Supplier</label><br />
-              <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
-              <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
-            </div>
-          }
-          else
-          {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -629,92 +637,30 @@
       <!--#endregion -->
       <!--#region ----21 22 -------  -->
       <div class="row pt-1  ">
-        <div class="col-md-2 col-sm-2"></div>
-        <div class="col-md-2 col-sm-2"></div>
-        <div class="col-md-1 col-sm-1"></div>
+       
         @{
 
-          seatNumber = 21;
-          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-          if (  seat == null)
-          {
-
-            <div style="height: 110px" class="btn btn-success col-md-2">
-              <label class="control-label">@seatNumber </label>
-            </div>
-          }
-          else if (seat.IsMine && seat != null)
-          {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
-              <label class="control-label">@seatNumber - @seat.Supplier</label><br />
-              <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
-              <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
-            </div>
-          }
-          else
-          {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
-             <label class="control-label">@seatNumber </label>
-            </div>
-          }
-        }
-        &nbsp;
-        @{
-          seatNumber = 22;
-          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-          if (  seat == null)
-          {
-
-            <div style="height: 110px" class="btn btn-success col-md-2">
-              <label class="control-label">@seatNumber </label>
-            </div>
-          }
-          else if (seat.IsMine && seat != null)
-          {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
-              <label class="control-label">@seatNumber - @seat.Supplier</label><br />
-              <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
-              <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
-            </div>
-          }
-          else
-          {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
-             <label class="control-label">@seatNumber </label>
-            </div>
-          }
-        }
-        &nbsp;
-      </div>
-      <!--#endregion -->
-      <!--#region ----23 24    -------  -->
-      <div class="row pt-1 ">
-        <div class="col-md-2 col-sm-2"></div>
-        <div class="col-md-2 col-sm-2"></div>
-        <div class="col-md-1 col-sm-1"></div>
-        @{
           seatNumber = 23;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
-              <label class="control-label"> @(seat.Customer)</label><br />
-              <label class="control-label">@seat.Phone</label>
+              <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
             </div>
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
-          <label class="control-label">@seatNumber </label>
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+             <label class="control-label">@seatNumber </label>
             </div>
           }
         }
@@ -725,13 +671,13 @@
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -739,7 +685,63 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+             <label class="control-label">@seatNumber </label>
+            </div>
+          }
+        }
+        &nbsp;
+
+      <div class=" col-md-1 col-sm-1 "></div>
+        
+        @{
+          seatNumber = 22;
+          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+          if (  seat == null)
+          {
+
+            <div style="height: 130px" class="btn btn-success col-md-2">
+              <label class="control-label">@seatNumber </label>
+            </div>
+          }
+          else if (seat.IsMine && seat != null)
+          {
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+              <label class="control-label">@seatNumber - @seat.Supplier</label><br />
+              <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
+              <label class="control-label"> @(seat.Customer)</label><br />
+              <label class="control-label">@seat.Phone</label>
+            </div>
+          }
+          else
+          {
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+          <label class="control-label">@seatNumber </label>
+            </div>
+          }
+        }
+        &nbsp;
+        @{
+          seatNumber = 21;
+          seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
+          if (  seat == null)
+          {
+
+            <div style="height: 130px" class="btn btn-success col-md-2">
+              <label class="control-label">@seatNumber </label>
+            </div>
+          }
+          else if (seat.IsMine && seat != null)
+          {
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+              <label class="control-label">@seatNumber - @seat.Supplier</label><br />
+              <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
+              <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
+            </div>
+          }
+          else
+          {
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
              <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -750,19 +752,19 @@
       <!--#region ----25 26 27 28-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 25;
+          seatNumber = 27;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -770,7 +772,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -778,19 +780,19 @@
         &nbsp;
 
         @{
-          seatNumber = 26;
+          seatNumber = 28;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -798,7 +800,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -807,19 +809,19 @@
 
         <div class="col-md-1 col-sm-1"></div>
         @{
-          seatNumber = 27;
+          seatNumber = 26;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -827,26 +829,26 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
         }
         &nbsp;
         @{
-          seatNumber = 28;
+          seatNumber = 25;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -854,7 +856,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -865,19 +867,19 @@
       <!--#region ----29 30 31 32-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 29;
+          seatNumber = 31;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -885,7 +887,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -893,19 +895,19 @@
         &nbsp;
 
         @{
-          seatNumber = 30;
+          seatNumber = 32;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -913,7 +915,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -922,19 +924,19 @@
 
         <div class="col-md-1 col-sm-1"></div>
         @{
-          seatNumber = 31;
+          seatNumber = 30;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -942,26 +944,26 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
         }
         &nbsp;
         @{
-          seatNumber = 32;
+          seatNumber = 29;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -969,7 +971,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -980,19 +982,19 @@
       <!--#region ----33 34 35 36-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 33;
+          seatNumber = 35;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1000,7 +1002,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -1008,19 +1010,19 @@
         &nbsp;
 
         @{
-          seatNumber = 34;
+          seatNumber = 36;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1028,7 +1030,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -1037,19 +1039,19 @@
 
         <div class="col-md-1 col-sm-1"></div>
         @{
-          seatNumber = 35;
+          seatNumber = 34;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1057,26 +1059,26 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
         }
         &nbsp;
         @{
-          seatNumber = 36;
+          seatNumber = 33;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1084,7 +1086,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -1095,19 +1097,19 @@
       <!--#region ----37 38 39 40-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 37;
+          seatNumber = 39;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1115,7 +1117,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -1123,19 +1125,19 @@
         &nbsp;
 
         @{
-          seatNumber = 38;
+          seatNumber = 40;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1143,7 +1145,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -1152,19 +1154,19 @@
 
         <div class="col-md-1 col-sm-1"></div>
         @{
-          seatNumber = 39;
+          seatNumber = 38;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1172,26 +1174,26 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
         }
         &nbsp;
         @{
-          seatNumber = 40;
+          seatNumber = 37;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1199,7 +1201,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
               </div>
           }
@@ -1210,19 +1212,19 @@
       <!--#region ----41 42 43 44-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 41;
+          seatNumber = 43;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1230,7 +1232,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -1238,19 +1240,19 @@
         &nbsp;
 
         @{
-          seatNumber = 42;
+          seatNumber = 44;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1258,7 +1260,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -1267,19 +1269,19 @@
 
         <div class="col-md-1 col-sm-1"></div>
         @{
-          seatNumber = 43;
+          seatNumber = 42;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1287,26 +1289,26 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
   <label class="control-label">@seatNumber </label>
             </div>
           }
         }
         &nbsp;
         @{
-          seatNumber = 44;
+          seatNumber = 41;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1314,7 +1316,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -1325,19 +1327,19 @@
       <!--#region ----45 46 47 48 49-------  -->
       <div class="row pt-1">
         @{
-          seatNumber = 45;
+          seatNumber = 49;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1345,7 +1347,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -1353,19 +1355,19 @@
         &nbsp;
 
         @{
-          seatNumber = 46;
+          seatNumber = 48;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1373,7 +1375,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
@@ -1388,13 +1390,13 @@
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1402,26 +1404,26 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
         }
         &nbsp;
         @{
-          seatNumber = 48;
+          seatNumber = 46;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1429,26 +1431,26 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
         }
         &nbsp;
         @{
-          seatNumber = 49;
+          seatNumber = 45;
           seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
           if (  seat == null)
           {
 
-            <div style="height: 110px" class="btn btn-success col-md-2">
+            <div style="height: 130px" class="btn btn-success col-md-2">
               <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
               <label class="control-label">@seat.FromBranch --> @seat.ToBranch</label><br />
               <label class="control-label"> @(seat.Customer)</label><br /> <label class="control-label">@seat.Phone</label>
@@ -1456,7 +1458,7 @@
           }
           else
           {
-            <div style="height: 110px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
+            <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber </label>
             </div>
           }
