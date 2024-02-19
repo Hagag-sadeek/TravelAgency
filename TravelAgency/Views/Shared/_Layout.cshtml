@@ -1,6 +1,8 @@
 ﻿@using TravelAgency.Helper;
 @{
     var CurrentUserTypeId = new SessionInfoSetup().IsAdmin();
+    var CurrentUserId = new SessionInfoSetup().GetUserIdFromSession();
+
 }
 <!DOCTYPE html>
 <html dir="rtl" lang="ar-EG">
@@ -89,10 +91,8 @@
 
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        @if (CurrentUserTypeId == "True")
+                         @if (CurrentUserId == 36)
                         {
-
-
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                    asp-controller="Branches"
@@ -155,7 +155,12 @@
                                     <span class="hide-menu"> تقارير</span>
                                 </a>
                             </li>
+                        }
 
+                        @if (CurrentUserTypeId == "True")
+                        {
+
+                         
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                    asp-controller="Tickets"
