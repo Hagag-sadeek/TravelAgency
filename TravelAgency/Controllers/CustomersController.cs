@@ -33,7 +33,8 @@ namespace TravelAgency.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.Where(x => x.IsActive).ToListAsync());
+            //   return View(await _context.Customers.Where(x => x.IsActive).ToListAsync());
+            return View();
         }
 
         // GET: Customers/Details/5
