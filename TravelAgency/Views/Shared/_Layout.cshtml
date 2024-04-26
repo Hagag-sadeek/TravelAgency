@@ -95,6 +95,14 @@
                         {
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                   asp-controller="CustomerCancels"
+                                   asp-action="Index" aria-expanded="false">
+                                    <i class="fa fa-ticket-alt" style="color:orangered"></i>
+                                    <span class="hide-menu"> الغاء العملاء</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                    asp-controller="Branches"
                                    asp-action="Index" aria-expanded="false">
                                     <i class="fa fa-building" style="color:orangered"></i>
@@ -159,7 +167,14 @@
 
                         @if (CurrentUserTypeId == "True")
                         {
-
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                   asp-controller="CustomerCancels"
+                                   asp-action="Index" aria-expanded="false">
+                                    <i class="fa fa-ticket-alt" style="color:orangered"></i>
+                                    <span class="hide-menu"> الغاء العملاء</span>
+                                </a>
+                            </li>
                          
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link"
@@ -181,7 +196,16 @@
                         }
                         else
                         {
-                            <li class="sidebar-item">
+                            
+                               <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                   asp-controller="CustomerCancels"
+                                   asp-action="Index" aria-expanded="false">
+                                    <i class="fa fa-ticket-alt" style="color:orangered"></i>
+                                    <span class="hide-menu"> الغاء العملاء</span>
+                                </a>
+                            </li>
+                               <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                    asp-controller="Tickets"
                                    asp-action="CreateNotAdmin" aria-expanded="false">
@@ -190,7 +214,6 @@
                                 </a>
                             </li>
                         }
-
 
                     </ul>
                 </nav>

@@ -25,7 +25,8 @@ namespace TravelAgency.Models
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<AppointmentPrice> AppointmentPrice { get; set; }  
         public virtual DbSet<AppointmentBusView> AppointmentBusView { get; set; }
-        public virtual DbSet<UserAppointments> UserAppointments { get; set; }
+        public virtual DbSet<UserAppointments> UserAppointments { get; set; }  
+        public virtual DbSet<CustomerCancels> CustomerCancels { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -154,7 +155,13 @@ namespace TravelAgency.Models
             {
                 entity.HasKey(e => e.AppointmentBusViewtId);
             });
+           
             modelBuilder.Entity<UserAppointments>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+            });
+
+            modelBuilder.Entity<CustomerCancels>(entity =>
             {
                 entity.HasKey(e => e.Id);
             });
