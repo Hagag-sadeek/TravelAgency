@@ -14,6 +14,7 @@ namespace TravelAgency.Models
         }
 
         public int BranchId { get; set; }
+        public int BranchOrder { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }

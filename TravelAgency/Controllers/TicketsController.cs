@@ -54,10 +54,10 @@ namespace TravelAgency.Controllers
             var model = new TicketViewModel
             {
                 AppointmentsList =
-                    new SelectList(_context.Appointments.Where(x => x.IsActive && currentApps.Contains(x.AppointmentId))
+                    new SelectList(_context.Appointments.Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/ )
                     , "AppointmentId", "Title"),
-                BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
-                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
+                BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive).OrderBy(x => x.BranchOrder), "BranchId", "Title"),
+                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive).OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now.Date
             };
 
@@ -136,7 +136,7 @@ namespace TravelAgency.Controllers
 
             var model = new TicketViewModel()
             {
-                AppointmentsList = new SelectList(_context.Appointments.Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)), "AppointmentId", "Title"),
+                AppointmentsList = new SelectList(_context.Appointments.Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/), "AppointmentId", "Title"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now
@@ -564,7 +564,7 @@ namespace TravelAgency.Controllers
             var Vmodel = new TicketViewModel()
             {
                 AppointmentsList =
-                    new SelectList(_context.Appointments.Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)), "AppointmentId", "Title"),
+                    new SelectList(_context.Appointments.Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/), "AppointmentId", "Title"),
                 CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
