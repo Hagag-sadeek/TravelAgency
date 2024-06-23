@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TravelAgency.Helper;
 using TravelAgency.Models;
 using TravelAgency.ViewModels;
- 
+
 namespace TravelAgency.Controllers
 {
     public class TicketsController : Controller
@@ -54,7 +52,7 @@ namespace TravelAgency.Controllers
             var model = new TicketViewModel
             {
                 AppointmentsList =
-                    new SelectList(_context.Appointments.Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/ )
+                    new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/ ).OrderBy(x => x.SortOrder)
                     , "AppointmentId", "Title"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive).OrderBy(x => x.BranchOrder), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive).OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
@@ -68,7 +66,7 @@ namespace TravelAgency.Controllers
             if (row != null)
                 viewName += row.ViewName.ToString();
             else
-                viewName = "CreateAdmin4";
+                viewName = "CreateAdmin5";
 
             return View(viewName, model);
         }
@@ -113,7 +111,7 @@ namespace TravelAgency.Controllers
             if (row != null)
                 viewName += row.ViewName.ToString();
             else
-                viewName = "CreateAdmin4";
+                viewName = "CreateAdmin5";
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
@@ -136,7 +134,7 @@ namespace TravelAgency.Controllers
 
             var model = new TicketViewModel()
             {
-                AppointmentsList = new SelectList(_context.Appointments.Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/), "AppointmentId", "Title"),
+                AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/), "AppointmentId", "Title"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now
@@ -150,7 +148,7 @@ namespace TravelAgency.Controllers
             if (row != null)
                 viewName += row.ViewName.ToString();
             else
-                viewName = "CreateNotAdmin4";
+                viewName = "CreateNotAdmin5";
 
             return View(viewName, model);
         }
@@ -190,7 +188,7 @@ namespace TravelAgency.Controllers
             if (row != null)
                 viewName += row.ViewName.ToString();
             else
-                viewName = "CreateNotAdmin4";
+                viewName = "CreateNotAdmin5";
 
 
             return View(viewName, PopulateReserveViewModel(tickets));
@@ -214,7 +212,7 @@ namespace TravelAgency.Controllers
             if (row != null)
                 viewName += row.ViewName.ToString();
             else
-                viewName = "CreateAdmin4";
+                viewName = "CreateAdmin5";
 
             return View(viewName, PopulateReserveViewModel(model));
         }
@@ -234,7 +232,7 @@ namespace TravelAgency.Controllers
             if (row != null)
                 viewName += row.ViewName.ToString();
             else 
-                viewName = "CreateNotAdmin4";
+                viewName = "CreateNotAdmin5";
 
 
             return View(viewName, PopulateReserveViewModel(model));
@@ -400,7 +398,7 @@ namespace TravelAgency.Controllers
             if (row != null)
                 viewName += row.ViewName.ToString();
             else
-                viewName = "CreateNotAdmin4";
+                viewName = "CreateNotAdmin5";
 
             return View(viewName, PopulateReserveViewModel(model));
         }
@@ -417,7 +415,7 @@ namespace TravelAgency.Controllers
             }
             var model = new MoreTicketViewModel()
             {
-                AppointmentsList = new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
+                AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive), "AppointmentId", "Title"),
                 CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName")
@@ -504,7 +502,7 @@ namespace TravelAgency.Controllers
 
             var model = new BusViewViewModel
             {
-                AppointmentsList = new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
+                AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive), "AppointmentId", "Title"),
                 TicketDate = DateTime.Now
             };
 
@@ -564,7 +562,7 @@ namespace TravelAgency.Controllers
             var Vmodel = new TicketViewModel()
             {
                 AppointmentsList =
-                    new SelectList(_context.Appointments.Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/), "AppointmentId", "Title"),
+                    new SelectList(_context.Appointments.OrderBy(x=>x.SortOrder).Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/), "AppointmentId", "Title"),
                 CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
@@ -621,7 +619,7 @@ namespace TravelAgency.Controllers
             if (row != null)
                 viewName += row.ViewName.ToString();
             else
-                viewName = "CreateNotAdmin4";
+                viewName = "CreateNotAdmin5";
 
 
             return viewName;
