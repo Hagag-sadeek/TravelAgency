@@ -361,16 +361,16 @@ namespace TravelAgency.Controllers
         public IActionResult MyTickets(Tickets model)
         {
 
-            var viewName = "MyTickets";
+            var viewName = "MyTickets5";
 
-            var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
+            //var row = _context.AppointmentBusView
+            //   .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
 
-            if (row != null)
-                viewName += row.ViewName.ToString();
+            //if (row != null)
+            //    viewName += row.ViewName.ToString();
 
-            else
-                viewName = "MyTickets4";
+            //else
+            //    viewName = "MyTickets4";
 
             return View(viewName, PopulateReserveViewModel(model));
         }
