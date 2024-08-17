@@ -67,11 +67,19 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="NeedUpdate" class="control-label">  تــم التـــحديــــث </label>
+                <label asp-for="NeedUpdate" class="control-label">  عدم اغــــلاق التــــحـــديــــث  </label>
                 <input asp-for="NeedUpdate" class="form-control" />
                 <span asp-validation-for="IsActive" class="text-danger"></span>
             </div>
 
+
+            <div class="form-group">
+                <label asp-for="Updated" class="control-label">  تــم التـــحديــــث </label>
+                <input asp-for="Updated" class="form-control" />
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+
+            
 
             <div class="form-group">
                 <input type="submit" value="حفظ" class="btn btn-primary" />

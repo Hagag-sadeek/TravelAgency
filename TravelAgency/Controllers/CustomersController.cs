@@ -30,7 +30,7 @@ namespace TravelAgency.Controllers
         [HttpGet]
         public async Task<IActionResult> updateInfo()
         {
-          return View(nameof(Index), await _context.Customers.Where(x => x.IsActive && x.NeedUpdate == false).ToListAsync());
+          return View(nameof(Index), await _context.Customers.Where(x => x.IsActive && x.NeedUpdate == true).ToListAsync());
            
         }
 

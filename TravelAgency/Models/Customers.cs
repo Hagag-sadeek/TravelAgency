@@ -27,7 +27,7 @@ namespace TravelAgency.Models
         public bool IsActive { get; set; } = true;
         public bool SendWhatsApp { get; set; } = true;
         public bool NeedUpdate { get; set; } = false;
-
+        public bool Updated { get; set; } = false;
 
         public virtual ICollection<Tickets> Tickets { get; set; }
     }

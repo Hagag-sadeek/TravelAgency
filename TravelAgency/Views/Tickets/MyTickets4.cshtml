@@ -543,7 +543,8 @@
             <div style="height: 130px" class="@(seat.IsPaid ? "btn btn-danger col-md-2  cancelTicket " : "btn btn-info col-md-2  cancelTicket")">
               <label class="control-label">@seatNumber - @seat.Supplier</label><br />
              <!--   <label class="control-label">@seat.FromBranch  -- @seat.ToBranch</label> -->
-              <label class="control-label"> @(seat.Customer)</label><br />   <a style="color:white" href="tel:@seat.Phone" class="control-label">@seat.Phone <i style="color: white" class="fa fa-phone"></i></a> 
+              <label class="control-label"> @(seat.Customer)</label><br />  
+              <a style="color:white" href="tel:@seat.Phone" class="control-label">@seat.Phone <i style="color: white" class="fa fa-phone"></i></a> 
             </div>
           }
           else
@@ -562,7 +563,7 @@
           {
 
             <div style="height: 130px" class="btn btn-success col-md-2">
-
+                        <label class="control-label">@seatNumber </label>
             </div>
           }
           else if (seat.IsMine && seat != null)
