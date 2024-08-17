@@ -13,20 +13,28 @@
   </p>
   <table class="table table-striped table-bordered table-hover" id="table">
     <thead>
-      <tr> 
-        <th> الاسم بالكامل </th>
-        <th> الهاتف </th> 
-
-        <th style="width:120px;"></th>
+      <tr>
+        <th> الكود   </th>
+        <th> الاسم   </th>
+        <th> هاتف1  </th>
+       <th> هاتف 2 </th>
+                <th> 3 هاتف</th>
+                <th>  ارسال واتس </th>
+       <th style="width:120px;"></th>
       </tr>
     </thead>
     <tbody>
       @foreach (var item in Model)
       {
-        <tr>
+                <tr>
+                    <td>   @Html.DisplayFor(modelItem => item.Code)   </td>
  
           <td>   @Html.DisplayFor(modelItem => item.FullName)   </td>
           <td>   @Html.DisplayFor(modelItem => item.Phone1)   </td>
+          <td>   @Html.DisplayFor(modelItem => item.Phone2)   </td>
+          <td>   @Html.DisplayFor(modelItem => item.Phone3)   </td>
+          <td>   @Html.DisplayFor(modelItem => item.SendWhatsApp)   </td>
+
           <td>
             <a asp-action="Edit" asp-route-id="@item.CustomerId" class="btn btn-primary"><span class="fa fa-edit"></span></a>
             <a asp-action="Details" asp-route-id="@item.CustomerId" class="btn btn-info"><span class="fa fa-info"></span></a>

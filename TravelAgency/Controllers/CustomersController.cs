@@ -31,7 +31,7 @@ namespace TravelAgency.Controllers
         public async Task<IActionResult> updateInfo()
         {
           return View(nameof(Index), await _context.Customers.Where(x => x.IsActive && x.NeedUpdate == false).ToListAsync());
-           //    return View();
+           
         }
 
 
@@ -105,7 +105,7 @@ namespace TravelAgency.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerId,Code,Job,FullName,Adreess1,Adreess2,Phone1,Phone2,Phone3,IsActive")] Customers customers)
+        public async Task<IActionResult> Edit(int id, Customers customers)
         {
             if (id != customers.CustomerId)
             {
@@ -131,9 +131,9 @@ namespace TravelAgency.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(updateInfo));
             }
-            return View(customers);
+            return View(nameof(updateInfo));
         }
 
         // GET: Customers/Delete/5

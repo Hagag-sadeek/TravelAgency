@@ -22,13 +22,13 @@
                 <input asp-for="FullName" class="form-control" />
                 <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+           @*  <div class="form-group">
                 <label asp-for="Job" class="control-label">الوظيفه</label>
                 <input asp-for="Job" class="form-control" />
                 <span asp-validation-for="Job" class="text-danger"></span>
-            </div>
+            </div> *@
 
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="Adreess1" class="control-label">العنوان</label>
                 <input asp-for="Adreess1" class="form-control" />
                 <span asp-validation-for="Adreess1" class="text-danger"></span>
@@ -37,22 +37,41 @@
                 <label asp-for="Adreess2" class="control-label">العنوان</label>
                 <input asp-for="Adreess2" class="form-control" />
                 <span asp-validation-for="Adreess2" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
-                <label asp-for="Phone1" class="control-label">رقم الهاتف</label>
+                <label asp-for="Phone1" class="control-label"> 1 رقم الهاتف</label>
                 <input asp-for="Phone1" class="form-control" />
                 <span asp-validation-for="Phone1" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone2" class="control-label">رقم الهاتف</label>
+                <label asp-for="Phone2" class="control-label"> 2 رقم الهاتف</label>
                 <input asp-for="Phone2" class="form-control" />
                 <span asp-validation-for="Phone2" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone3" class="control-label">رقم الهاتف</label>
+                <label asp-for="Phone3" class="control-label">3 رقم الهاتف</label>
                 <input asp-for="Phone3" class="form-control" />
                 <span asp-validation-for="Phone3" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="SendWhatsApp" class="control-label"> ارسال واتس </label>
+                <input asp-for="SendWhatsApp" class="form-control" />
+                <span asp-validation-for="SendWhatsApp" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IsActive" class="control-label">تفعيل العمــيل </label>
+                <input asp-for="IsActive" class="form-control" />
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NeedUpdate" class="control-label">  تــم التـــحديــــث </label>
+                <input asp-for="NeedUpdate" class="form-control" />
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+
 
             <div class="form-group">
                 <input type="submit" value="حفظ" class="btn btn-primary" />
