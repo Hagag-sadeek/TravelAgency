@@ -303,7 +303,7 @@ namespace TravelAgency.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddCustomerAdmin(string name, string phone)
+        public IActionResult AddCustomerAdmin(string name, string phone , string Adreess1)
         {
             if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone) || phone.Length != 11)
                 return RedirectToAction(nameof(CreateAdmin));
@@ -312,15 +312,18 @@ namespace TravelAgency.Controllers
 
             var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == phone.Trim() && x.IsActive);
             if (customer != null)
+            {
                 customer.FullName = name.Trim();
+                customer.Adreess1 = Adreess1;
+            }
+             
             else
             {
                 nCustomer.FullName = name.Trim();
                 nCustomer.Phone1 = phone.Trim();
                 nCustomer.IsActive = true;
-
+                nCustomer.Adreess1 = Adreess1;
                 _context.Customers.Add(nCustomer);
-
             }
             _context.SaveChanges();
             nCustomer.Code = nCustomer.CustomerId.ToString().Trim();

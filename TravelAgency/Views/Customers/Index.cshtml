@@ -18,8 +18,8 @@
         <th> الاسم   </th>
         <th> هاتف1  </th>
        <th> هاتف 2 </th>
-                <th> 3 هاتف</th>
-                <th>  ارسال واتس </th>
+      @*  <th> 3 هاتف</th> *@
+       <th>  البلد </th>
        <th style="width:120px;"></th>
       </tr>
     </thead>
@@ -27,13 +27,12 @@
       @foreach (var item in Model)
       {
                 <tr>
-                    <td>   @Html.DisplayFor(modelItem => item.Code)   </td>
- 
+          <td>   @Html.DisplayFor(modelItem => item.Code)   </td>
           <td>   @Html.DisplayFor(modelItem => item.FullName)   </td>
           <td>   @Html.DisplayFor(modelItem => item.Phone1)   </td>
           <td>   @Html.DisplayFor(modelItem => item.Phone2)   </td>
-          <td>   @Html.DisplayFor(modelItem => item.Phone3)   </td>
-          <td>   @Html.DisplayFor(modelItem => item.SendWhatsApp)   </td>
+         @*  <td>   @Html.DisplayFor(modelItem => item.Phone3)   </td> *@
+          <td>   @Html.DisplayFor(modelItem => item.Adreess1)   </td>
 
           <td>
             <a asp-action="Edit" asp-route-id="@item.CustomerId" class="btn btn-primary"><span class="fa fa-edit"></span></a>
