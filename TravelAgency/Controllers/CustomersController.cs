@@ -26,15 +26,21 @@ namespace TravelAgency.Controllers
         }
 
 
-
+        // GET: Customers
+        [HttpGet]
+        public async Task<IActionResult> updateInfo()
+        {
+          return View(nameof(Index), await _context.Customers.Where(x => x.IsActive && x.NeedUpdate == false).ToListAsync());
+           //    return View();
+        }
 
 
         // GET: Customers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            //   return View(await _context.Customers.Where(x => x.IsActive).ToListAsync());
-            return View();
+            return View(await _context.Customers.Where(x => x.IsActive).ToListAsync());
+          //  return View();
         }
 
         // GET: Customers/Details/5

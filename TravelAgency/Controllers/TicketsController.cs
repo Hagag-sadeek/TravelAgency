@@ -312,7 +312,10 @@ namespace TravelAgency.Controllers
             if (customer != null)
                 customer.FullName = name.Trim();
             else
-                _context.Customers.Add(new Customers() { FullName = name.Trim(), Phone1 = phone.Trim(), IsActive = true });
+                _context.Customers.Add(new Customers()
+                { FullName = name.Trim(), Phone1 = phone.Trim(),  IsActive = true }
+
+                );
 
             _context.SaveChanges();
             return RedirectToAction(nameof(CreateAdmin));

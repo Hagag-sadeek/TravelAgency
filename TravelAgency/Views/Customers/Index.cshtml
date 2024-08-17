@@ -14,12 +14,9 @@
   <table class="table table-striped table-bordered table-hover" id="table">
     <thead>
       <tr> 
-        <th>
-          الاسم بالكامل
-        </th>
-        <th>
-          الهاتف
-        </th> 
+        <th> الاسم بالكامل </th>
+        <th> الهاتف </th> 
+
         <th style="width:120px;"></th>
       </tr>
     </thead>
@@ -28,12 +25,8 @@
       {
         <tr>
  
-          <td>
-            @Html.DisplayFor(modelItem => item.FullName)
-          </td>
-          <td>
-            @Html.DisplayFor(modelItem => item.Phone1)
-          </td>
+          <td>   @Html.DisplayFor(modelItem => item.FullName)   </td>
+          <td>   @Html.DisplayFor(modelItem => item.Phone1)   </td>
           <td>
             <a asp-action="Edit" asp-route-id="@item.CustomerId" class="btn btn-primary"><span class="fa fa-edit"></span></a>
             <a asp-action="Details" asp-route-id="@item.CustomerId" class="btn btn-info"><span class="fa fa-info"></span></a>
