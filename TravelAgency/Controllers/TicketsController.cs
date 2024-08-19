@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 using Microsoft.EntityFrameworkCore;
+using RestSharp;
 using TravelAgency.Helper;
 using TravelAgency.Models;
 using TravelAgency.ViewModels;
@@ -14,7 +16,7 @@ namespace TravelAgency.Controllers
     public class TicketsController : Controller
     {
         private readonly TravelAgencyContext _context;
-    
+
         public TicketsController(TravelAgencyContext context)
         {
             _context = context;
@@ -23,7 +25,7 @@ namespace TravelAgency.Controllers
         // GET: Tickets
         public async Task<IActionResult> Index()
         {
-          
+
             var travelAgencyContext = _context.Tickets
                 .Include(t => t.Appointment)
                 .Include(t => t.Customer)
@@ -113,6 +115,12 @@ namespace TravelAgency.Controllers
             else
                 viewName = "CreateAdmin5";
 
+            try
+            {
+                sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId, tickets.TicketDate, _context.Branches.Find(tickets.FromBranchId).Description);
+            }
+            catch (Exception ex) { }
+
             return View(viewName, PopulateReserveViewModel(tickets));
         }
 
@@ -127,7 +135,7 @@ namespace TravelAgency.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            
+
 
             var currentUserId = HttpContext.Session.GetInt32("UserId").Value;
             var currentApps = _context.UserAppointments.Where(x => x.UserId == currentUserId).Select(x => x.AppId).ToList();
@@ -194,11 +202,11 @@ namespace TravelAgency.Controllers
             return View(viewName, PopulateReserveViewModel(tickets));
         }
 
-            #endregion
+        #endregion
 
         #region ShowTickets 
 
-            public IActionResult ShowTicketsForAdmin(Tickets model)
+        public IActionResult ShowTicketsForAdmin(Tickets model)
         {
             if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
             {
@@ -231,7 +239,7 @@ namespace TravelAgency.Controllers
 
             if (row != null)
                 viewName += row.ViewName.ToString();
-            else 
+            else
                 viewName = "CreateNotAdmin5";
 
 
@@ -265,11 +273,11 @@ namespace TravelAgency.Controllers
             return Json(false);
         }
 
-        public JsonResult ConfirmTicket(int id,string price)
+        public JsonResult ConfirmTicket(int id, string price)
         {
 
             var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
- 
+
             if (ticket == null)
                 return Json(false);
 
@@ -281,10 +289,10 @@ namespace TravelAgency.Controllers
 
             return Json(false);
         }
-        
+
 
         #endregion
-         
+
         #region Customers
         [HttpPost]
         public IActionResult AddCustomer(string name, string phone)
@@ -296,14 +304,14 @@ namespace TravelAgency.Controllers
             if (customer != null)
                 customer.FullName = name.Trim();
             else
-                _context.Customers.Add(new Customers() {FullName = name.Trim(), Phone1 = phone.Trim(), IsActive = true});
+                _context.Customers.Add(new Customers() { FullName = name.Trim(), Phone1 = phone.Trim(), IsActive = true });
 
             _context.SaveChanges();
             return RedirectToAction(nameof(CreateNotAdmin));
         }
 
         [HttpPost]
-        public IActionResult AddCustomerAdmin(string name, string phone , string Adreess1)
+        public IActionResult AddCustomerAdmin(string name, string phone, string Adreess1)
         {
             if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone) || phone.Length != 11)
                 return RedirectToAction(nameof(CreateAdmin));
@@ -316,7 +324,7 @@ namespace TravelAgency.Controllers
                 customer.FullName = name.Trim();
                 customer.Adreess1 = Adreess1;
             }
-             
+
             else
             {
                 nCustomer.FullName = name.Trim();
@@ -353,7 +361,7 @@ namespace TravelAgency.Controllers
 
             if (customer != null)
                 return Json(customer.CustomerId);
-           
+
             return Json(-1);
         }
         #endregion
@@ -363,9 +371,9 @@ namespace TravelAgency.Controllers
         [HttpGet]
         [ValidateAntiForgeryToken]
         [Route("MyTickets")]
-        public IActionResult MyTickets( )
+        public IActionResult MyTickets()
         {
-            
+
             return View(nameof(MyTickets), PopulateReserveViewModel(new Tickets()));
         }
 
@@ -436,7 +444,7 @@ namespace TravelAgency.Controllers
             };
             model.TicketDate = DateTime.Now.Date;
 
-            var BranchId = _context.Users.Find(HttpContext.Session.GetInt32("UserId")).BranchId; 
+            var BranchId = _context.Users.Find(HttpContext.Session.GetInt32("UserId")).BranchId;
 
             model.IsCairo = (BranchId == 1 || BranchId == 6);
             return View(model);
@@ -458,9 +466,9 @@ namespace TravelAgency.Controllers
 
             if (ModelState.IsValid)
             {
-                if (tickets.TicketDate < DateTime.Now.Date  )
+                if (tickets.TicketDate < DateTime.Now.Date)
                     return RedirectToAction(nameof(CreateNotAdmin));
-             
+
 
                 if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(phone))
                 {
@@ -556,7 +564,7 @@ namespace TravelAgency.Controllers
                 e.TicketDate.Date == date.Date &&
                 e.AppointmentId == AppointmentId &&
                 e.IsActive);
-        } 
+        }
         public TicketViewModel PopulateReserveViewModel(Tickets model)
         {
             var CurrentUserTypeId = new SessionInfoSetup().IsAdmin();
@@ -576,7 +584,7 @@ namespace TravelAgency.Controllers
             var Vmodel = new TicketViewModel()
             {
                 AppointmentsList =
-                    new SelectList(_context.Appointments.OrderBy(x=>x.SortOrder).Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/), "AppointmentId", "Title"),
+                    new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/), "AppointmentId", "Title"),
                 CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
@@ -641,6 +649,39 @@ namespace TravelAgency.Controllers
         }
         #endregion
 
+        #region send_Whatsapp
+        private async void sendWhatsAppNotifications(string number, int seatNumber,DateTime tDate,string app)
+        {
+            var url = "https://api.ultramsg.com/instance1598/messages/chat";
+            var client = new RestClient(url);
 
+            var request = new RestRequest(url, RestSharp.Method.Post);
+            request.AddHeader("content-type", "application/json");
+
+            var msg = "مرحباً بحضرتك في شركه فورباص.";
+            msg += "\n\n";
+            msg += " سعداء بوجودك معانا";
+          
+            msg += " يوم " + tDate.ToShortDateString() + " مــن " + app + " مقعد رقم " + seatNumber.ToString();
+
+            msg += "\n\n";
+            msg += "الرجاء في حاله وجود اي شكوي  سواء من المكاتب او السائقين او الباصات الاتصال علي م/ حـجـاج صــديـق";
+            msg += "\n";
+            msg += "01025032878";
+           
+
+            var body = new
+            {
+                token = "p1b1f2225ezl9sps",
+                to = "+2" + number,
+                body = msg
+            };
+            request.AddParameter("application/json", body, ParameterType.RequestBody);
+            RestResponse response = await client.ExecuteAsync(request);
+            var output = response.Content;
+            return;
+        }
+
+        #endregion
     }
 }
