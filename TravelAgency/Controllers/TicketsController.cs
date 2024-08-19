@@ -117,7 +117,8 @@ namespace TravelAgency.Controllers
 
             try
             {
-                sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId, tickets.TicketDate, _context.Branches.Find(tickets.FromBranchId).Description);
+                sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
+                    tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1);
             }
             catch (Exception ex) { }
 
@@ -650,7 +651,7 @@ namespace TravelAgency.Controllers
         #endregion
 
         #region send_Whatsapp
-        private async void sendWhatsAppNotifications(string number, int seatNumber,DateTime tDate,string app)
+        private async void sendWhatsAppNotifications(string number, int seatNumber,DateTime tDate,string from)
         {
             var url = "https://api.ultramsg.com/instance1598/messages/chat";
             var client = new RestClient(url);
@@ -662,7 +663,7 @@ namespace TravelAgency.Controllers
             msg += "\n\n";
             msg += " سعداء بوجودك معانا";
           
-            msg += " يوم " + tDate.ToShortDateString() + " مــن " + app + " مقعد رقم " + seatNumber.ToString();
+            msg += " يوم " + tDate.ToShortDateString() + " مــن " + from + " مقعد رقم " + seatNumber.ToString();
 
             msg += "\n\n";
             msg += "الرجاء في حاله وجود اي شكوي  سواء من المكاتب او السائقين او الباصات الاتصال علي م/ حـجـاج صــديـق";
