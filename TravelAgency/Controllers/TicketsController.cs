@@ -340,7 +340,7 @@ namespace TravelAgency.Controllers
                 _context.Customers.Add(nCustomer);
             }
             _context.SaveChanges();
-            nCustomer.Code = nCustomer.CustomerId.ToString().Trim();
+            nCustomer.Code = Convert.ToInt32(_context.Customers.Last().Code + 1).ToString();
 
             _context.SaveChanges();
             return RedirectToAction(nameof(CreateAdmin));
