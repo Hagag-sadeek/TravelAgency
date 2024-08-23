@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -118,7 +120,7 @@ namespace TravelAgency.Controllers
             try
             {
                 sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
-                    tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1);
+                    tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1,viewName);
             }
             catch (Exception ex) { }
 
@@ -651,26 +653,49 @@ namespace TravelAgency.Controllers
         #endregion
 
         #region send_Whatsapp
-        private async void sendWhatsAppNotifications(string number, int seatNumber,DateTime tDate,string from)
+        private async void sendWhatsAppNotifications(string number, int seatNumber,DateTime tDate,string from,string viewName)
         {
+            var Window4=new List<int>() {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,39,37,43,41 };
+            var Window5 = new List<int>() { 1,4,5,8,9,12,13,16,17,20,21,23,25,28,29,32,33,36,37,40,41,44 };
+            var dir = "";
+
+            if (seatNumber == 50)
+                dir = "مشرف";
+            else if ((new List<int>() { 45, 46, 47, 48, 49 }).Contains(seatNumber))
+                dir = "كنبه";
+            else
+            {
+                if (viewName == "CreateAdmin5")
+                    dir = Window5.Contains(seatNumber) ? "شــباك" : "مــمر";
+
+                if (viewName == "CreateAdmin4")
+                    dir = Window4.Contains(seatNumber) ? "شــباك" : "مــمر";
+            }
+
             var url = "https://api.ultramsg.com/instance1598/messages/chat";
             var client = new RestClient(url);
 
             var request = new RestRequest(url, RestSharp.Method.Post);
             request.AddHeader("content-type", "application/json");
 
-            var msg = "مرحباً بحضرتك في شركه فورباص.";
+            var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاختيارك لنا ولثقتك بنا";
             msg += "\n\n";
-            msg += " سعداء بوجودك معانا";
-          
-            msg += " يوم " + tDate.ToShortDateString() + " مــن " + from + " مقعد رقم " + seatNumber.ToString();
-
+        
+            msg += "-تفاصيل حجز حضرتك :";
+            msg += "\n";
+            msg += "يوم : "+ tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - "+ tDate.ToShortDateString();
+            msg += "\n";
+            msg += "مــن : " + from;
+            msg += "\n";
+            msg += "كرسي رقم: " + seatNumber.ToString() + " - " + dir;
+             
             msg += "\n\n";
-            msg += "الرجاء في حاله وجود اي شكوي  سواء من المكاتب او السائقين او الباصات الاتصال علي م/ حـجـاج صــديـق";
+            msg += "-الرجاء في حاله الغاء التذكره الاتصال بالمكتب قبل الميعاد بالوقت الكافي ";
+            msg += "\n";
+            msg += "-الرجاء في حاله وجود اي ملاحظه سواء من المكاتب او السائقين او الباصات الاتصال علي م/ حـجـاج صــديـق";
             msg += "\n";
             msg += "01025032878";
            
-
             var body = new
             {
                 token = "p1b1f2225ezl9sps",
