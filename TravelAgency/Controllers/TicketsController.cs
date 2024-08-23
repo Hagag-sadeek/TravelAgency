@@ -258,6 +258,9 @@ namespace TravelAgency.Controllers
 
             var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
 
+            sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
+                   ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
+
             if (new SessionInfoSetup().IsAdmin() != "True")
             {
                 return Json(false);
@@ -678,7 +681,7 @@ namespace TravelAgency.Controllers
             var request = new RestRequest(url, RestSharp.Method.Post);
             request.AddHeader("content-type", "application/json");
 
-            var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاختيارك لنا ولثقتك بنا";
+            var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا";
             msg += "\n\n";
         
             msg += "-تفاصيل حجز حضرتك :";
@@ -696,6 +699,45 @@ namespace TravelAgency.Controllers
             msg += "\n";
             msg += "01025032878";
            
+            var body = new
+            {
+                token = "p1b1f2225ezl9sps",
+                to = "+2" + number,
+                body = msg
+            };
+            request.AddParameter("application/json", body, ParameterType.RequestBody);
+            RestResponse response = await client.ExecuteAsync(request);
+            var output = response.Content;
+            return;
+        }
+
+        private async void sendWhatsAppNotificationsWithCancell(string number, int seatNumber, DateTime tDate, string from)
+        {
+
+
+            var url = "https://api.ultramsg.com/instance1598/messages/chat";
+            var client = new RestClient(url);
+
+            var request = new RestRequest(url, RestSharp.Method.Post);
+            request.AddHeader("content-type", "application/json");
+
+            var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا";
+            msg += "\n\n";
+
+            msg += "- تم الغاء حجز حضرتك :";
+            msg += "\n";
+            msg += "يوم : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
+            msg += "\n";
+            msg += "مــن : " + from;
+            msg += "\n";
+            msg += "كرسي رقم: " + seatNumber.ToString();
+
+            msg += "\n\n";
+
+            msg += "-الرجاء في حاله وجود اي ملاحظه سواء من المكاتب او السائقين او الباصات الاتصال علي م/ حـجـاج صــديـق";
+            msg += "\n";
+            msg += "01025032878";
+
             var body = new
             {
                 token = "p1b1f2225ezl9sps",
