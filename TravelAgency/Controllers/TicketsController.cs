@@ -117,12 +117,12 @@ namespace TravelAgency.Controllers
             else
                 viewName = "CreateAdmin5";
 
-            try
-            {
-                sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
-                    tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1,viewName);
-            }
-            catch (Exception ex) { }
+            //try
+            //{
+            //    sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
+            //        tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1,viewName);
+            //}
+            //catch (Exception ex) { }
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
@@ -258,8 +258,8 @@ namespace TravelAgency.Controllers
 
             var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
 
-            sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
-                   ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
+            //sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
+            //       ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
 
             if (new SessionInfoSetup().IsAdmin() != "True")
             {
