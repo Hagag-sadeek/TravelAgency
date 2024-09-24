@@ -330,18 +330,15 @@ namespace TravelAgency.Controllers
                 customer.FullName = name.Trim();
                 customer.Adreess1 = Adreess1;
             }
-
             else
             {
                 nCustomer.FullName = name.Trim();
                 nCustomer.Phone1 = phone.Trim();
                 nCustomer.IsActive = true;
                 nCustomer.Adreess1 = Adreess1;
+               // nCustomer.Code = Convert.ToInt32(_context.Customers.OrderBy(x => x.CustomerId).Last().Code + 1).ToString();
                 _context.Customers.Add(nCustomer);
             }
-            _context.SaveChanges();
-            nCustomer.Code = Convert.ToInt32(_context.Customers.Last().Code + 1).ToString();
-
             _context.SaveChanges();
             return RedirectToAction(nameof(CreateAdmin));
         }
