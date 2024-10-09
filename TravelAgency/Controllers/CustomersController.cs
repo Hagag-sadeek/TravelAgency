@@ -33,6 +33,13 @@ namespace TravelAgency.Controllers
           return View(nameof(Index), await _context.Customers.Where(x => x.IsActive && x.NeedUpdate == true).ToListAsync());
            
         }
+        // GET: Customers
+        [HttpGet]
+        public async Task<IActionResult> updatedInfo()
+        {
+            return View(nameof(Index), await _context.Customers.Where(x => x.IsActive && x.Updated == true).ToListAsync());
+
+        }
 
 
         // GET: Customers
