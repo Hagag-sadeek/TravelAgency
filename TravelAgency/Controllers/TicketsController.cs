@@ -117,12 +117,12 @@ namespace TravelAgency.Controllers
             else
                 viewName = "CreateAdmin5";
 
-            //try
-            //{
-            //    sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
-            //        tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1,viewName);
-            //}
-            //catch (Exception ex) { }
+            try
+            {
+                sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
+                    tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
+            }
+            catch (Exception ex) { }
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
@@ -655,24 +655,24 @@ namespace TravelAgency.Controllers
         #region send_Whatsapp
         private async void sendWhatsAppNotifications(string number, int seatNumber,DateTime tDate,string from,string viewName)
         {
-            var Window4=new List<int>() {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,39,37,43,41 };
-            var Window5 = new List<int>() { 1,4,5,8,9,12,13,16,17,20,21,23,25,28,29,32,33,36,37,40,41,44 };
-            var dir = "";
+            //var Window4=new List<int>() {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,39,37,43,41 };
+            //var Window5 = new List<int>() { 1,4,5,8,9,12,13,16,17,20,21,23,25,28,29,32,33,36,37,40,41,44 };
+            //var dir = "";
 
-            if (seatNumber == 50)
-                dir = "مشرف";
-            else if ((new List<int>() { 45, 46, 47, 48, 49 }).Contains(seatNumber))
-                dir = "كنبه";
-            else
-            {
-                if (viewName == "CreateAdmin5")
-                    dir = Window5.Contains(seatNumber) ? "شــباك" : "مــمر";
+            //if (seatNumber == 50)
+            //    dir = "مشرف";
+            //else if ((new List<int>() { 45, 46, 47, 48, 49 }).Contains(seatNumber))
+            //    dir = "كنبه";
+            //else
+            //{
+            //    if (viewName == "CreateAdmin5")
+            //        dir = Window5.Contains(seatNumber) ? "شــباك" : "مــمر";
 
-                if (viewName == "CreateAdmin4")
-                    dir = Window4.Contains(seatNumber) ? "شــباك" : "مــمر";
-            }
+            //    if (viewName == "CreateAdmin4")
+            //        dir = Window4.Contains(seatNumber) ? "شــباك" : "مــمر";
+            //}
 
-            var url = "https://api.ultramsg.com/instance1598/messages/chat";
+            var url = "https://api.ultramsg.com/instance95337/messages/chat";
             var client = new RestClient(url);
 
             var request = new RestRequest(url, RestSharp.Method.Post);
@@ -680,31 +680,40 @@ namespace TravelAgency.Controllers
 
             var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا ❤️.";
             msg += "\n\n";
-        
+
+           
+            msg += "-الرجاء تسجيل هذا الرقم علي الهاتف ليصلك كل عروض ومستجدات العمل عبر منصه واتس اب";
+            msg += "\n";
+            msg += "فورباص القاهره الرئيسي";
+            msg += "\n";
+            msg += "01030565720";
+            msg += "\n\n";
+
             msg += "-تفاصيل حجز حضرتك :";
             msg += "\n";
             msg += "يوم : "+ tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - "+ tDate.ToShortDateString();
             msg += "\n";
             msg += "مــن : " + from;
-            msg += "\n";
-            msg += "كرسي رقم: " + seatNumber.ToString() + " - " + dir;
+            //msg += "\n";
+            //msg += "كرسي رقم: " + seatNumber.ToString() + " - " + dir;
              
             msg += "\n\n";
             msg += "-الرجاء في حاله الغاء التذكره الاتصال بالمكتب قبل الميعاد بالوقت الكافي ";
             msg += "\n\n";
 
-            msg += "-  الرجاء لايك ودعم ومتابعه الصفحه الخاصه بالشركه عبر الفيس بوك🙏";
-            msg += "\n";
-            msg += "https://www.facebook.com/4BusEgypt?mibextid=ZbWKwL";
-          
-            msg += "\n\n";
-            msg += "-الرجاء في حاله وجود اي ملاحظه سواء من المكاتب او السائقين او الباصات الاتصال علي م/ حـجـاج صــديـق";
-            msg += "\n";
-            msg += "01025032878";
+            //msg += "-  الرجاء لايك ودعم ومتابعه الصفحه الخاصه بالشركه عبر الفيس بوك🙏";
+            //msg += "\n";
+            //msg += "https://www.facebook.com/4BusEgypt?mibextid=ZbWKwL";
            
+            msg += "-الرجاء في حاله وجود اي ملاحظه سواء من المكاتب او السائقين او الباصات الاتصال علي";
+            msg += "\n";
+            msg += "01030565720";
+
+            
+
             var body = new
             {
-                token = "p1b1f2225ezl9sps",
+                token = "516itsp3id9b8w0k",
                 to = "+2" + number,
                 body = msg
             };
