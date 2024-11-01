@@ -119,8 +119,10 @@ namespace TravelAgency.Controllers
 
             try
             {
-                sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
-                    tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
+                if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId) )
+
+                    sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
+                        tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
             }
             catch (Exception ex) { }
 
@@ -568,6 +570,18 @@ namespace TravelAgency.Controllers
                 e.AppointmentId == AppointmentId &&
                 e.IsActive);
         }
+
+        private bool TicketsExistsForThisCustomer(int customerId, DateTime date, int AppointmentId)
+        {
+            var x = _context.Tickets.Count(e =>
+                e.CustomerId == customerId &&
+                e.TicketDate.Date == date.Date &&
+                e.AppointmentId == AppointmentId &&
+                e.IsActive);
+
+            return x == 1;
+        }
+
         public TicketViewModel PopulateReserveViewModel(Tickets model)
         {
             var CurrentUserTypeId = new SessionInfoSetup().IsAdmin();
