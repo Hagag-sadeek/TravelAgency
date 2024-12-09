@@ -236,6 +236,11 @@ namespace TravelAgency.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+            var CurrentUserTypeId = new SessionInfoSetup().IsAdmin();
+            if (model.TicketDate.Date <  DateTime.Now.Date && CurrentUserTypeId == "False")
+            {
+                model.TicketDate = DateTime.Now.Date;
+            }
 
             var viewName = "CreateNotAdmin";
 
@@ -603,8 +608,8 @@ namespace TravelAgency.Controllers
                 AppointmentsList =
                     new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/), "AppointmentId", "Title"),
                 CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
-                BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
-                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
+                BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive).OrderBy(x=>x.BranchOrder), "BranchId", "Title"),
+                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive).OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
                 TicketDate = model.TicketDate.Date
             };
 
@@ -623,7 +628,8 @@ namespace TravelAgency.Controllers
                         ToBranch = item.ToBranch.Title,
                         IsPaid = item.Price != 0,
                         Price = item.Price,
-                        IsMine = (item.SupplierId == _context.Users.Find(UserId).SupplierId) || item.FromBranchId == _context.Users.Find(UserId).BranchId ||
+                        IsMine = (item.SupplierId == _context.Users.Find(UserId).SupplierId)
+                        || item.FromBranchId == _context.Users.Find(UserId).BranchId ||
                                   (CurrentUserTypeId == "True") || item.UserId == UserId
                     };
 
