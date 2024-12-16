@@ -51,12 +51,15 @@ namespace TravelAgency.Controllers
             }
 
             var currentUserId = HttpContext.Session.GetInt32("UserId").Value;
+
             var currentApps = _context.UserAppointments.Where(x => x.UserId == currentUserId).Select(x => x.AppId).ToList();
+            if (currentApps.Count == 0)
+                currentApps = _context.Appointments.Select(x => x.AppointmentId).ToList();
 
             var model = new TicketViewModel
             {
                 AppointmentsList =
-                    new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/ ).OrderBy(x => x.SortOrder)
+                    new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId) ).OrderBy(x => x.SortOrder)
                     , "AppointmentId", "Title"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive).OrderBy(x => x.BranchOrder), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive).OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
@@ -143,11 +146,14 @@ namespace TravelAgency.Controllers
 
 
             var currentUserId = HttpContext.Session.GetInt32("UserId").Value;
+
             var currentApps = _context.UserAppointments.Where(x => x.UserId == currentUserId).Select(x => x.AppId).ToList();
+            if (currentApps.Count == 0)
+                currentApps = _context.Appointments.Select(x => x.AppointmentId).ToList();
 
             var model = new TicketViewModel()
             {
-                AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/), "AppointmentId", "Title"),
+                AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)), "AppointmentId", "Title"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now
@@ -602,11 +608,15 @@ namespace TravelAgency.Controllers
                 .ToList();
 
             var currentUserId = HttpContext.Session.GetInt32("UserId").Value;
+
             var currentApps = _context.UserAppointments.Where(x => x.UserId == currentUserId).Select(x => x.AppId).ToList();
+            if (currentApps.Count == 0)
+                currentApps = _context.Appointments.Select(x => x.AppointmentId).ToList();
+
             var Vmodel = new TicketViewModel()
             {
                 AppointmentsList =
-                    new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive /*&& currentApps.Contains(x.AppointmentId)*/), "AppointmentId", "Title"),
+                    new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)), "AppointmentId", "Title"),
                 CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive).OrderBy(x=>x.BranchOrder), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive).OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
