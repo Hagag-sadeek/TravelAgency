@@ -631,12 +631,12 @@ namespace TravelAgency.Controllers
                         Supplier = item.Supplier.FullName,
                         Phone = item.Customer.Phone1,
                         SeatId = item.SeatId,
-                 //       FromBranch = item.FromBranch.Title,
-                  //      ToBranch = item.ToBranch.Title,
+                        //       FromBranch = item.FromBranch.Title,
+                        //      ToBranch = item.ToBranch.Title,
                         IsPaid = item.Price != 0,
                         Price = item.Price,
-                        IsMine = (item.SupplierId == _context.Users.Find(UserId).SupplierId)
-                        || item.FromBranchId == _context.Users.Find(UserId).BranchId ||
+                        IsMine = (item.SupplierId == _context.Users.Find(UserId).SupplierId) ||
+                                  // || item.FromBranchId == _context.Users.Find(UserId).BranchId ||
                                   (CurrentUserTypeId == "True") || item.UserId == UserId
                     };
 
