@@ -69,7 +69,7 @@
                 <select asp-for="SupplierId" class="form-control " asp-items="Model.SuppliersList" style="width:100%"></select>
             </div>
 
-            <div class="form-group row">
+           @*  <div class="form-group row">
                 <div class="form-group  col-md-6">
                     <label asp-for="FromBranchId" class="control-label">مكتب المغادره</label>
                     <select asp-for="FromBranchId" class="form-control" asp-items="Model.BranchsList"></select>
@@ -80,7 +80,7 @@
                     <label asp-for="ToBranchId" class="control-label">مكتب الوصول</label>
                     <select asp-for="ToBranchId" class="form-control" asp-items="Model.BranchsList"></select>
                 </div>
-            </div>
+            </div> *@
 
             <div class="form-group row">
                 <div class="form-group  col-md-6">
@@ -121,24 +121,26 @@
                     else if (!seat.IsPaid)
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
-                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" 
+                               value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
-                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
+                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" 
+                               value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
 
@@ -160,22 +162,22 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -192,21 +194,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
 
                     }
                 }
@@ -225,21 +227,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -255,21 +257,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -289,21 +291,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -320,21 +322,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -352,21 +354,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -382,21 +384,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -416,21 +418,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -447,21 +449,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -479,21 +481,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -509,21 +511,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -543,21 +545,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -574,21 +576,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -606,21 +608,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -636,21 +638,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -673,21 +675,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -704,21 +706,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -745,21 +747,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -775,21 +777,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -814,21 +816,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -844,21 +846,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -880,21 +882,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -912,22 +914,22 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
 
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -946,21 +948,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -977,21 +979,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1012,21 +1014,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1044,21 +1046,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1077,21 +1079,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1108,21 +1110,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1146,21 +1148,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1178,21 +1180,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1212,21 +1214,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1243,21 +1245,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1281,21 +1283,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1313,21 +1315,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1347,21 +1349,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1379,21 +1381,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1416,21 +1418,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1448,21 +1450,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1489,21 +1491,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1521,21 +1523,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1554,16 +1556,16 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
-                               title="@seat.FromBranch @seat.Customer @seat.Phone @(seat.IsPaid ? "مدفوع" : "غير مدفوع")" />
+                               title="@seat.FromBranch @seat.Customer @seat.Phone " />
                     }
                 }
                 &nbsp;
@@ -1580,21 +1582,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1617,21 +1619,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1649,21 +1651,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1682,21 +1684,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1713,21 +1715,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
@@ -1744,21 +1746,21 @@
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-info  col-md-2 col-sm-2  seat cancelTicket"
                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                     else
                     {
                         <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 50px"
                                title=" @("المورد:" + seat.Supplier)
-                                                                                   @("مكتب المغادره :" + seat.FromBranch)
-                                                                                   @("اسم المسافر:" + seat.Customer)
-                                                                                   @("رقم الهاتف:" + seat.Phone)
-                                                                                   @("السعر:" + seat.Price)
-                                                                                   @(seat.IsPaid ? "مدفوع" : "غير مدفوع")">
+                                       
+                                       @("اسم المسافر:" + seat.Customer)
+                                       @("رقم الهاتف:" + seat.Phone)
+
+                                       ">
                     }
                 }
                 &nbsp;
