@@ -349,7 +349,6 @@ namespace TravelAgency.Controllers
                 nCustomer.Phone1 = phone.Trim();
                 nCustomer.IsActive = true;
                 nCustomer.Adreess1 = Adreess1;
-               // nCustomer.Code = Convert.ToInt32(_context.Customers.OrderBy(x => x.CustomerId).Last().Code + 1).ToString();
                 _context.Customers.Add(nCustomer);
             }
             _context.SaveChanges();
