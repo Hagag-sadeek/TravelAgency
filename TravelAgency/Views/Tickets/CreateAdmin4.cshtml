@@ -6,106 +6,68 @@
     var seatNumber = 0;
 }
 <form asp-action="CreateAdmin">
-
     <div class="row">
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-2">
             <label asp-for="AppointmentId" class="control-label">الميعاد</label>
             <select asp-for="AppointmentId" class="form-control" asp-items="Model.AppointmentsList"></select>
         </div>
 
-        <div class="form-group col-sm-3">
+        <div class="form-group col-sm-2">
             <label asp-for="TicketDate" class="control-label">يوم الحجز</label>
             <input data-seat-num="@seatNumber" asp-for="TicketDate" class="form-control" />
-
             <span asp-validation-for="TicketDate" class="text-danger"></span>
         </div>
 
-    </div>
-
-    <div class="form-group row col-12">
-        <input data-seat-num="@seatNumber"
-               type="submit"
-               value="عرض الحجز"
-               name="okshow"
-               asp-action="ShowTicketsForAdmin"
-               class="btn btn-primary" />
-
-        <input type="submit" value="عرض مفصل"
-               asp-action="MyTickets" class="btn btn-info" />
-    </div>
-
-    <hr />
-    <div class="row" style="color:red;font-weight:bold">
-
-        <div class="col-md-4">
-
-            <div class="form-group">
-
-                <label class="control-label btn btn-outline-success " id="searchedCustomerId">
-                    بحث عن عميل
-                </label>
-                <input type='number' class="form-control" id="ClientName" />
-
-            </div>
-            <br />
-
-            <div class="form-group">
-
-                <label asp-for="CustomerId" class="control-label">
-                    العميل
-                    <a id="Addclient" class="btn btn-outline-success btn-small">
-                        <span class="fa fa-plus">   </span>
-                    </a>
-                </label>
-                <input type='hidden' asp-for="CustomerId" class="form-control" id="CustomerIdadded" />
-                <input type='text' class="form-control" id="CustomerName" />
-                @*   <select asp-for="CustomerId" id="CustomerIdList" class="form-control select2" asp-items="Model.CustomersList" style="width:100%"></select>*@
-            </div>
-            <br />
-
-            <div class="form-group">
-                @* <label asp-for="SupplierId" class="control-label">المكتب <a asp-controller="Suppliers" asp-action="create" class="btn btn-outline-success btn-small"><span class="fa fa-plus">   </span></a> </label> *@
-                <select asp-for="SupplierId" class="form-control " asp-items="Model.SuppliersList" style="width:100%"></select>
-            </div>
-
-            @*  <div class="form-group row">
-            <div class="form-group  col-md-6">
-            <label asp-for="FromBranchId" class="control-label">مكتب المغادره</label>
-            <select asp-for="FromBranchId" class="form-control" asp-items="Model.BranchsList"></select>
-            </div>
-
-
-            <div class="form-group col-md-6">
-            <label asp-for="ToBranchId" class="control-label">مكتب الوصول</label>
-            <select asp-for="ToBranchId" class="form-control" asp-items="Model.BranchsList"></select>
-            </div>
-            </div> *@
-
-            <div class="form-group row">
-                <div class="form-group  col-md-6">
-                    <label asp-for="Price" class="control-label">سعر التذكره</label>
-                    <input data-seat-num="@seatNumber" asp-for="Price" class="form-control" value="0" />
-                    <span asp-validation-for="Price" class="text text-danger"></span>
-                </div>
-                <div class="form-group  col-md-6">
-                    <label asp-for="SeatId" class="control-label">رقم المقعد</label>
-                    <input data-seat-num="@seatNumber" asp-for="SeatId" class="form-control" id="SeatNumber" value="0" />
-                    <span asp-validation-for="SeatId" class="text text-danger"></span>
-                </div>
-
-            </div>
-            <div class="form-group  ">
-                <input data-seat-num="@seatNumber"
-                       type="submit"
-                       value="تـأكيــد الحـجـز"
-                       asp-action="createAdmin"
-                       class="btn btn-primary"
-                       id="doReserve" />
-
-            </div>
+        <div class="form-group row col-4" style="height:40PX ;margin-top: 20PX">
+            <input data-seat-num="@seatNumber"  type="submit"  value="عرض الحجز"   name="okshow" class="btn btn-primary"  asp-action="ShowTicketsForAdmin"  />
+            &nbsp; &nbsp;
+            <input type="submit"value="عرض مفصل"asp-action="MyTickets" class="btn btn-info" />
         </div>
 
-        <div class=" col-sm-12  col-md-8  ">
+    </div>
+    <hr />
+    <div class="row">
+
+        <div class="form-group col-sm-2">   <input type='number' class="form-control" id="ClientName" />  </div>
+
+        <div class="form-group">
+            <a class="btn btn-outline-success btn-small" id="searchedCustomerId"> <span class="fa fa-search"> </span> </a>
+        </div>
+
+        <div class="form-group col-sm-2">  <input type='text' class="form-control" id="CustomerName" />  </div>
+
+        <div class="form-group">
+            <a class="btn btn-outline-success btn-small" id="Addclient"> <span class="fa fa-plus">   </span>  </a>
+            <input type='hidden' asp-for="CustomerId" class="form-control" id="CustomerIdadded" />
+        </div>
+
+        <div class="form-group  col-sm-2">
+            <select asp-for="SupplierId" class="form-control " asp-items="Model.SuppliersList" style="width:100%"></select>
+        </div>
+
+        <div class="form-group" style=" margin-top: 10PX">  <label class="control-label">السعر</label> </div>
+
+        <div class="form-group  col-sm-1">
+            <input data-seat-num="@seatNumber" asp-for="Price" class="form-control" value="0"/>
+            <span asp-validation-for="Price" class="text text-danger"></span>
+        </div>
+
+        <div class="form-group"  style=" margin-top: 10PX">  <label class="control-label">المقعد</label> </div>
+        <div class="form-group  col-sm-1">
+            <input data-seat-num="@seatNumber" asp-for="SeatId" class="form-control" id="SeatNumber" value="0"/>
+            <span asp-validation-for="SeatId" class="text text-danger"></span>
+
+        </div>
+
+        <div class="form-group  col-sm-1 "><input data-seat-num="@seatNumber" type="submit" value="حجز" asp-action="createAdmin" class="btn btn-primary" id="doReserve" />   </div>
+
+    </div>
+    <hr />
+
+    <div class="row" style="color:red;font-weight:bold">
+
+
+        <div class=" col-sm-12  col-md-12  ">
             @*50*@
             <div class="row pt-1">
                 <div class=" col-sm-1  col-md-1"> </div>
@@ -117,12 +79,12 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                   
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
-                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
-                                 @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone) 
+                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
+                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
                 }
@@ -139,7 +101,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                   
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -157,12 +119,12 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
-                       <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
-                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
-                                 @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone) 
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
+                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
+                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
                 }
@@ -176,7 +138,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -193,7 +155,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -214,7 +176,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -232,7 +194,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -251,13 +213,14 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                   
+
                     else
                     {
-                       <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
-                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
-                                 @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone) 
-                        </button>   }
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
+                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
+                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                        </button>
+                    }
                 }
                 &nbsp;
                 @{
@@ -267,7 +230,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -288,7 +251,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                   
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -306,7 +269,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -325,13 +288,14 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                   
+
                     else
                     {
- <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
-                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
-                                 @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone) 
-                        </button>}
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
+                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
+                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                        </button>
+                    }
                 }
                 &nbsp;
                 @{
@@ -341,7 +305,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -362,7 +326,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -380,13 +344,14 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                   
+
                     else
                     {
-                   <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
-                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
-                                 @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone) 
-                        </button>   }
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
+                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
+                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                        </button>
+                    }
                 }
                 &nbsp;
 
@@ -398,7 +363,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -415,7 +380,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -439,13 +404,14 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
-                   <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
-                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
-                                 @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone) 
-                        </button>  }
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
+                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
+                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                        </button>
+                    }
                 }
                 &nbsp;
 
@@ -456,7 +422,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -483,13 +449,14 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                     
+
                     else
                     {
-                   <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
-                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
-                                 @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone) 
-                        </button>  }
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
+                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
+                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                        </button>
+                    }
                 }
                 &nbsp;
                 @{
@@ -499,7 +466,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                     
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -524,13 +491,14 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
-                   <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
-                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
-                                 @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone) 
-                        </button>  }
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
+                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
+                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                        </button>
+                    }
                 }
                 &nbsp;
                 @{
@@ -540,13 +508,14 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
-                   <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
-                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
-                                 @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone) 
-                        </button>  }
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
+                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
+                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                        </button>
+                    }
                 }
                 &nbsp;
             </div>
@@ -561,7 +530,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -580,7 +549,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
 
@@ -601,12 +570,12 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
-                               data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
-                                 @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone) 
+                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
+                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
                 }
@@ -619,7 +588,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -641,7 +610,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                    
+
                     else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
@@ -660,7 +629,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                     else
+                    else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
                                 data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
@@ -679,7 +648,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                     else
+                    else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
                                 data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
@@ -720,7 +689,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                     else
+                    else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
                                 data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
@@ -738,7 +707,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                     else
+                    else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
                                 data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
@@ -775,7 +744,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                     else
+                    else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
                                 data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
@@ -798,7 +767,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                     else
+                    else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
                                 data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">
@@ -876,7 +845,7 @@
             {
             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
             }
-           
+
             else
             {
             <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 100px"
@@ -894,7 +863,7 @@
             {
             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
             }
-            
+
             else
             {
             <input data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")" data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)@(seat.Supplier)" id="@seatNumber" style="height: 100px"
@@ -1031,7 +1000,7 @@
                     {
                         <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
-                     else
+                    else
                     {
                         <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   cancelTicket " : "btn btn-info  col-md-2 col-sm-2   cancelTicket")"
                                 data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" value="@(seatNumber)   @(seat.Supplier)" id="@seatNumber" style="height: 100px">

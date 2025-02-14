@@ -30,7 +30,8 @@ namespace TravelAgency.ViewModels
         public int? FromBranchId { get; set; }
         public int? ToBranchId { get; set; }
 
-        [Range(0, 50, ErrorMessage = "من فضلك اختر رقم المقعد")]
+        [Required(ErrorMessage = "من فضلك اختر رقم المقعد")]
+        [ Range(0, 50, ErrorMessage = "من فضلك اختر رقم المقعد")]
         public int SeatId { get; set; }
 
         public string comment { get; set; }
