@@ -285,7 +285,20 @@ namespace TravelAgency.Controllers
 
             return Json(false);
         }
+        public JsonResult GetCustomerInfo(int id)
+        {
+            if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
 
+            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id); 
+            if (ticket == null) return Json(false);
+             
+            var customer = _context.Customers.FirstOrDefault(x => x.CustomerId == ticket.CustomerId);
+            if (customer == null) return Json(false);
+
+            var com = customer.Phone1 + "&&" + ticket.SupplierId;
+
+            return Json(com);
+        }
         public JsonResult ConfirmTicket(int id, string price)
         {
 
