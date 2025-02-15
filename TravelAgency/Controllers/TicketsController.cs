@@ -102,10 +102,11 @@ namespace TravelAgency.Controllers
             if (ModelState.IsValid)
             {
 
-                if (tickets.SeatId <= 0 ||
+                if (tickets.SeatId <= 0 || tickets.SeatId > 50 ||
                     (TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) ||
-                    tickets.CustomerId == null))
-                    return View(nameof(viewName), PopulateReserveViewModel(tickets));
+                    tickets.CustomerId == null) )
+
+                    return View(viewName, PopulateReserveViewModel(tickets));
 
                 if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
                 {
@@ -198,7 +199,7 @@ namespace TravelAgency.Controllers
                 tickets.TicketDate.Date < DateTime.Now.Date ||
                 TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) ||
                     tickets.CustomerId == null)
-                return View(nameof(viewName), PopulateReserveViewModel(tickets));
+                return View(viewName, PopulateReserveViewModel(tickets));
 
 
             tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
