@@ -6,6 +6,7 @@
     var seatNumber = 0;
 }
 <form asp-action="CreateAdmin">
+
     <div class="row">
         <div class="form-group col-sm-2">
             <label asp-for="AppointmentId" class="control-label">الميعاد</label>
@@ -38,7 +39,7 @@
 
         <div class="form-group">
             <a class="btn btn-outline-success btn-small" id="Addclient"> <span class="fa fa-plus">   </span>  </a>
-            <input type='hidden' asp-for="CustomerId" class="form-control" id="CustomerIdadded" />
+
         </div>
 
         <div class="form-group  col-sm-2">
@@ -47,24 +48,36 @@
 
         <div class="form-group" style=" margin-top: 10PX">  <label class="control-label">السعر</label> </div>
 
-        <div class="form-group  col-sm-1">
-            <input data-seat-num="@seatNumber" asp-for="Price" class="form-control" value="0" />
+        <div class="form-group  col-sm-2">
+            <input asp-for="Price" class="form-control" value="0" />
             <span asp-validation-for="Price" class="text text-danger"></span>
         </div>
 
         <div class="form-group" style=" margin-top: 10PX">  <label class="control-label">المقعد</label> </div>
-        <div class="form-group  col-sm-1">
-            <input data-seat-num="@seatNumber" asp-for="SeatId" class="form-control" id="SeatNumber" value="0" />
+        <div class="form-group  col-sm-2">
+            <input asp-for="SeatId" class="form-control" id="SeatNumber" value="0" />
             <span asp-validation-for="SeatId" class="text text-danger"></span>
 
         </div>
 
-        <div class="form-group  col-sm-1 "><input data-seat-num="@seatNumber" type="submit" value="حجز" asp-action="createAdmin" class="btn btn-primary" id="doReserve" />   </div>
+    </div>
+
+    <div class="row">
+
+        <div class="form-group ">
+            <input type='hidden' asp-for="CustomerId" class="form-control" id="CustomerIdadded" />
+            <input type='hidden' class="form-control" id="DeleteTicketId" />
+
+            <input type="submit" value="تاكيد الحجز" asp-action="createAdmin" class="btn btn-primary" />
+            <a id="doDeleteSeat" class="btn btn-danger"> حذف الحجز </a>
+
+        </div>
 
     </div>
+
     <hr />
     <div class="row" style="color:red;font-weight:bold">
-         
+
         <div class=" col-sm-12  col-md-12   ">
             @*50*@
             <div class="row pt-1">
@@ -73,7 +86,7 @@
                     seatNumber = 50;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -96,7 +109,7 @@
                     seatNumber = 4;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -114,7 +127,7 @@
                 @{
                     seatNumber = 3;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-                      if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -189,7 +202,7 @@
                 @{
                     seatNumber = 7;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -208,7 +221,7 @@
                 @{
                     seatNumber = 6;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -246,7 +259,7 @@
                 @{
                     seatNumber = 12;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -264,7 +277,7 @@
                 @{
                     seatNumber = 11;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -321,7 +334,7 @@
                 @{
                     seatNumber = 16;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -339,7 +352,7 @@
                 @{
                     seatNumber = 15;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -433,7 +446,7 @@
                 @{
                     seatNumber = 18;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -533,7 +546,7 @@
                 @{
                     seatNumber = 23;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -555,7 +568,7 @@
                     seatNumber = 28;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -574,7 +587,7 @@
                     seatNumber = 27;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -594,7 +607,7 @@
                     seatNumber = 26;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -612,7 +625,7 @@
                     seatNumber = 25;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -691,7 +704,7 @@
                     seatNumber = 29;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -811,7 +824,7 @@
                     seatNumber = 39;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -889,7 +902,7 @@
                     seatNumber = 43;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -1006,7 +1019,7 @@
                     seatNumber = 46;
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
 
-                     if (seat == null)
+                    if (seat == null)
                     {
                             <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
@@ -1122,14 +1135,7 @@
                 var selectedSeat = $(this);
                 var seatNum = $(this).attr("data-seat-num");
 
-                $(".seat").each(function () {
-                    var seat = $(this);
-                    if (seat.hasClass("btn btn-warning")) {
-                        seat.removeClass();
-                        seat.addClass("btn btn-success  col-md-2 col-sm-2  seat");
-                    }
-                });
-
+                resetSeatColor()
 
                 $("#SeatNumber").val(seatNum);
                 selectedSeat.removeClass();
@@ -1140,22 +1146,17 @@
             $(".reservedseat").click(function () {
                 var selectedSeat = $(this);
                 var seatNum = $(this).attr("data-seat-num");
+                var tickeId = $(this).attr("data-Ticke-Id");
 
-                $(".reservedseat").each(function () {
-                    var seat = $(this);
-                    if (seat.hasClass("btn btn-warning")) {
-                        seat.removeClass();
-                        seat.addClass("btn btn-info  col-md-2 col-sm-2  reservedseat");
-                    }
-                });
-
+                resetSeatColor()
 
                 $("#SeatNumber").val(seatNum);
+                $("#DeleteTicketId").val(tickeId);
+
                 selectedSeat.removeClass();
                 selectedSeat.addClass("btn btn-warning  col-md-2 col-sm-2  reservedseat");
 
             });
-            
 
             $(".cancelTicket").click(function () {
 
@@ -1174,6 +1175,32 @@
                                 button.removeClass();
                                 button.addClass("btn btn-success  col-md-2 col-sm-2  seat");
                                 button.val(button[0].id);
+                            } else {
+                                alert("حدث خطأ اثناء استرجاع التذكره");
+                            }
+                        },
+                        error: function (result) {
+                            alert("Data is not in the right formate!! please contact with IT department");
+                        }
+                    })
+                }
+            });
+
+            $("#doDeleteSeat").click(function () {
+
+                var ticketNumber = document.getElementById('DeleteTicketId');
+
+                var result = confirm("هل تريد حذف التذكره بالفعل ؟");
+                if (result) {
+                    $.ajax({
+                        url: '/Tickets/DeleteTicket?id=' + ticketNumber.value,
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data === true) {
+                                $("#SeatNumber").val();
+                                resetSeatColorAfterDelet();
                             } else {
                                 alert("حدث خطأ اثناء استرجاع التذكره");
                             }
@@ -1228,8 +1255,36 @@
                     }
                 })
             });
-          
 
+            function resetSeatColor() {
+
+                $(".seat").each(function () {
+                    var seat = $(this);
+                    if (seat.hasClass("btn btn-warning")) {
+                        seat.removeClass();
+                        seat.addClass("btn btn-success  col-md-2 col-sm-2  seat");
+                    }
+                });
+
+                $(".reservedseat").each(function () {
+                    var seat = $(this);
+                    if (seat.hasClass("btn btn-warning")) {
+                        seat.removeClass();
+                        seat.addClass("btn btn-info  col-md-2 col-sm-2  reservedseat");
+                    }
+                });
+            }
+
+            function resetSeatColorAfterDelet() {
+                $(".reservedseat").each(function () {
+                    var seat = $(this);
+                    if (seat.hasClass("btn btn-warning")) {
+                        seat.removeClass();
+                        seat.addClass("btn btn-success  col-md-2 col-sm-2  seat"); 
+                       
+                    }
+                });
+            }
         });
     </script>
 }

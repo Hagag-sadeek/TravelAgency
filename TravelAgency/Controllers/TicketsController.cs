@@ -59,9 +59,9 @@ namespace TravelAgency.Controllers
             var model = new TicketViewModel
             {
                 AppointmentsList =
-                    new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId) ).OrderBy(x => x.SortOrder)
+                    new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)).OrderBy(x => x.SortOrder)
                     , "AppointmentId", "Title"),
-               // BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive).OrderBy(x => x.BranchOrder), "BranchId", "Title"),
+                // BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive).OrderBy(x => x.BranchOrder), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive).OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now.Date
             };
@@ -90,13 +90,22 @@ namespace TravelAgency.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+            var viewName = "CreateAdmin";
+            var row = _context.AppointmentBusView
+               .Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date).FirstOrDefault();
+
+            if (row != null)
+                viewName += row.ViewName.ToString();
+            else
+                viewName = "CreateAdmin5";
+
             if (ModelState.IsValid)
             {
 
                 if (tickets.SeatId <= 0 ||
                     (TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) ||
                     tickets.CustomerId == null))
-                    return View(nameof(CreateAdmin), PopulateReserveViewModel(tickets));
+                    return View(nameof(viewName), PopulateReserveViewModel(tickets));
 
                 if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
                 {
@@ -111,18 +120,9 @@ namespace TravelAgency.Controllers
                 _context.SaveChanges();
             }
 
-            var viewName = "CreateAdmin";
-            var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date).FirstOrDefault();
-
-            if (row != null)
-                viewName += row.ViewName.ToString();
-            else
-                viewName = "CreateAdmin5";
-
             try
             {
-                if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId) )
+                if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
 
                     sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
                         tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
@@ -144,7 +144,6 @@ namespace TravelAgency.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-
             var currentUserId = HttpContext.Session.GetInt32("UserId").Value;
 
             var currentApps = _context.UserAppointments.Where(x => x.UserId == currentUserId).Select(x => x.AppId).ToList();
@@ -154,7 +153,7 @@ namespace TravelAgency.Controllers
             var model = new TicketViewModel()
             {
                 AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)), "AppointmentId", "Title"),
-            //    BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
+                //    BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now
             };
@@ -184,21 +183,6 @@ namespace TravelAgency.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            if (tickets.SeatId <= 0 || tickets.SeatId > 50 ||
-                tickets.TicketDate.Date < DateTime.Now.Date ||
-                TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) ||
-                    tickets.CustomerId == null)
-                return View(nameof(CreateNotAdmin), PopulateReserveViewModel(tickets));
-
-
-            tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
-            tickets.IsActive = true;
-            tickets.ReserveDate = DateTime.Now;
-
-            _context.Tickets.Add(tickets);
-
-            _context.SaveChanges();
-
             var viewName = "CreateNotAdmin";
 
             var row = _context.AppointmentBusView
@@ -208,6 +192,22 @@ namespace TravelAgency.Controllers
                 viewName += row.ViewName.ToString();
             else
                 viewName = "CreateNotAdmin5";
+
+
+            if (tickets.SeatId <= 0 || tickets.SeatId > 50 ||
+                tickets.TicketDate.Date < DateTime.Now.Date ||
+                TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) ||
+                    tickets.CustomerId == null)
+                return View(nameof(viewName), PopulateReserveViewModel(tickets));
+
+
+            tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
+            tickets.IsActive = true;
+            tickets.ReserveDate = DateTime.Now;
+
+            _context.Tickets.Add(tickets);
+
+            _context.SaveChanges();
 
 
             return View(viewName, PopulateReserveViewModel(tickets));
@@ -243,7 +243,7 @@ namespace TravelAgency.Controllers
                 return RedirectToAction("Login", "Account");
             }
             var CurrentUserTypeId = new SessionInfoSetup().IsAdmin();
-            if (model.TicketDate.Date <  DateTime.Now.Date && CurrentUserTypeId == "False")
+            if (model.TicketDate.Date < DateTime.Now.Date && CurrentUserTypeId == "False")
             {
                 model.TicketDate = DateTime.Now.Date;
             }
@@ -268,26 +268,19 @@ namespace TravelAgency.Controllers
 
         public JsonResult DeleteTicket(int id)
         {
+            if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
 
             var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
 
             //sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
             //       ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
-
-            if (new SessionInfoSetup().IsAdmin() != "True")
-            {
-                return Json(false);
-            }
-
-            if (ticket == null)
-                return Json(false);
+              
+            if (ticket == null) return Json(false);
 
             ticket.IsActive = false;
-            ticket.Comment = "Deleted by" + _context.Users.Find(HttpContext.Session.GetInt32("UserId")).Firstname +
-                             DateTime.Now;
+            ticket.Comment = "Deleted by" + _context.Users.Find(HttpContext.Session.GetInt32("UserId")).Firstname + DateTime.Now;
 
-            if (_context.SaveChanges() > 0)
-                return Json(true);
+            if (_context.SaveChanges() > 0) return Json(true);
 
             return Json(false);
         }
