@@ -1118,12 +1118,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $(".seat").click(function () {
-                var seatNumber = $(this);
-                var textseatnumber = $(this).attr("data-seat-num");
+            $(".seat").click(function () { 
+                var selectedSeat = $(this);
+                var seatNum = $(this).attr("data-seat-num");
 
-                if (seatNumber.hasClass("btn btn-info")) {
-                    // $("#SeatNumber").val(textseatnumber);
+                if (selectedSeat.hasClass("btn btn-info")) {
+                    
                     return;
                 }
 
@@ -1136,9 +1136,9 @@
                 });
 
 
-                $("#SeatNumber").val(textseatnumber);
-                seatNumber.removeClass();
-                seatNumber.addClass("btn btn-warning  col-md-2 col-sm-2  seat");
+                $("#SeatNumber").val(seatNum);
+                selectedSeat.removeClass();
+                selectedSeat.addClass("btn btn-warning  col-md-2 col-sm-2  seat");
 
             });
 
