@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using TravelAgency.Helper;
@@ -739,14 +737,18 @@ namespace TravelAgency.Controllers
                 msg += "-الرجاء في حاله الغاء التذكره الاتصال بالمكتب قبل الميعاد بالوقت الكافي ";
                 msg += "\n\n";
 
-                //msg += "-  الرجاء لايك ودعم ومتابعه الصفحه الخاصه بالشركه عبر الفيس بوك🙏";
-                //msg += "\n";
-                //msg += "https://www.facebook.com/4BusEgypt?mibextid=ZbWKwL";
+               
 
                 msg += "-الرجاء في حاله وجود اي ملاحظه سواء من المكاتب او السائقين او الباصات الاتصال علي";
                 msg += "\n";
                 msg += "01030565720";
 
+                msg += "للحجز او الاستفسار ولارقام المكاتب  والعناوين اضغط 1";
+                msg += "للاسعار اضغط 2";
+                msg += "للمواعيد اضغط 3";
+                msg += "لموقع رمسيس على الخرسطه اضغط 4";
+                msg += "لموقع عين شمس على الخريطه اضغط 5";
+              
 
 
                 var body = new
@@ -786,8 +788,12 @@ namespace TravelAgency.Controllers
                 msg += "\n";
                 msg += "مــن : " + from;
                 msg += "\n";
-               // msg += "كرسي رقم: " + seatNumber.ToString();
-
+                // msg += "كرسي رقم: " + seatNumber.ToString();
+                msg += "للحجز او الاستفسار ولارقام المكاتب  والعناوين اضغط 1";
+                msg += "للاسعار اضغط 2";
+                msg += "للمواعيد اضغط 3";
+                msg += "لموقع رمسيس على الخرسطه اضغط 4";
+                msg += "لموقع عين شمس على الخريطه اضغط 5";
 
                 var body = new
                 {
