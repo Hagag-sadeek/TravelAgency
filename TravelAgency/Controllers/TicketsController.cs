@@ -273,15 +273,17 @@ namespace TravelAgency.Controllers
 
             var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
 
-            sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
-                   ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
-
             if (ticket == null) return Json(false);
 
             ticket.IsActive = false;
             ticket.Comment = "Deleted by" + _context.Users.Find(HttpContext.Session.GetInt32("UserId")).Firstname + DateTime.Now;
 
-            if (_context.SaveChanges() > 0) return Json(true);
+            if (_context.SaveChanges() > 0)
+            {
+                sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
+                  ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
+                return Json(true);
+            }
 
             return Json(false);
         }
@@ -769,7 +771,7 @@ namespace TravelAgency.Controllers
 
             try
             {
-                var url = "https://api.ultramsg.com/instance1598/messages/chat";
+                var url = "https://api.ultramsg.com/instance95337/messages/chat";
                 var client = new RestClient(url);
 
                 var request = new RestRequest(url, RestSharp.Method.Post);
@@ -784,7 +786,7 @@ namespace TravelAgency.Controllers
                 msg += "\n";
                 msg += "مــن : " + from;
                 msg += "\n";
-                msg += "كرسي رقم: " + seatNumber.ToString();
+               // msg += "كرسي رقم: " + seatNumber.ToString();
 
 
                 var body = new

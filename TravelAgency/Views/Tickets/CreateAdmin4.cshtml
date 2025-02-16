@@ -1230,7 +1230,7 @@
                 $('#Modal_Accept').modal('show');
             });
 
-            $("#ClientName").on("click", function () {
+            $("#ClientName").keyup("click", function () {
                 var PhoneNumber = document.getElementById('ClientName');
 
                 $.ajax({
