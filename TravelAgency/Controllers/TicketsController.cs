@@ -777,7 +777,7 @@ namespace TravelAgency.Controllers
                 var request = new RestRequest(url, RestSharp.Method.Post);
                 request.AddHeader("content-type", "application/json");
 
-                var msg = "-شكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا ❤️";
+                var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا ❤️.";
                 msg += "\n\n";
 
                 msg += "- تـــم الــغــــاء حـــجـــز حـضــرتــك :";
