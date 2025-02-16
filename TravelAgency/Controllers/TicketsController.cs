@@ -747,7 +747,7 @@ namespace TravelAgency.Controllers
 
             var body = new
             {
-                token = "516itsp3id9b8w0k",
+                token = "a516itsp3id9b8w0khhh",
                 to = "+2" + number,
                 body = msg
             };
@@ -781,7 +781,7 @@ namespace TravelAgency.Controllers
 
             var body = new
             {
-                token = "p1b1f2225ezl9sps",
+                token = "a516itsp3id9b8w0khhh",
                 to = "+2" + number,
                 body = msg
             };
