@@ -347,12 +347,12 @@ namespace TravelAgency.Controllers
             var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == phone.Trim() && x.IsActive);
             if (customer != null)
             {
-                customer.FullName = name.Trim();
+                customer.FullName = name;
                 customer.Adreess1 = Adreess1;
             }
             else
             {
-                nCustomer.FullName = name.Trim();
+                nCustomer.FullName = name;
                 nCustomer.Phone1 = phone.Trim();
                 nCustomer.IsActive = true;
                 nCustomer.Adreess1 = Adreess1;
