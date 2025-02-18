@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using TravelAgency.Helper;
@@ -104,7 +102,7 @@ namespace TravelAgency.Controllers
 
                 if (tickets.SeatId <= 0 || tickets.SeatId > 50 ||
                     (TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) ||
-                    tickets.CustomerId == null) )
+                    tickets.CustomerId == null))
 
                     return View(viewName, PopulateReserveViewModel(tickets));
 
@@ -121,14 +119,10 @@ namespace TravelAgency.Controllers
                 _context.SaveChanges();
             }
 
-            try
-            {
-                if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
+            if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
 
-                    sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
-                        tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
-            }
-            catch (Exception ex) { }
+                sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
+                    tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
@@ -210,6 +204,10 @@ namespace TravelAgency.Controllers
 
             _context.SaveChanges();
 
+            if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
+
+                sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
+                    tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
@@ -273,15 +271,17 @@ namespace TravelAgency.Controllers
 
             var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
 
-            //sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
-            //       ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
-              
             if (ticket == null) return Json(false);
 
             ticket.IsActive = false;
             ticket.Comment = "Deleted by" + _context.Users.Find(HttpContext.Session.GetInt32("UserId")).Firstname + DateTime.Now;
 
-            if (_context.SaveChanges() > 0) return Json(true);
+            if (_context.SaveChanges() > 0)
+            {
+                //sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
+                //  ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
+                return Json(true);
+            }
 
             return Json(false);
         }
@@ -289,9 +289,9 @@ namespace TravelAgency.Controllers
         {
             if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
 
-            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id); 
+            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
             if (ticket == null) return Json(false);
-             
+
             var customer = _context.Customers.FirstOrDefault(x => x.CustomerId == ticket.CustomerId);
             if (customer == null) return Json(false);
 
@@ -347,12 +347,12 @@ namespace TravelAgency.Controllers
             var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == phone.Trim() && x.IsActive);
             if (customer != null)
             {
-                customer.FullName = name.Trim();
+                customer.FullName = name;
                 customer.Adreess1 = Adreess1;
             }
             else
             {
-                nCustomer.FullName = name.Trim();
+                nCustomer.FullName = name;
                 nCustomer.Phone1 = phone.Trim();
                 nCustomer.IsActive = true;
                 nCustomer.Adreess1 = Adreess1;
@@ -461,7 +461,7 @@ namespace TravelAgency.Controllers
             {
                 AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive), "AppointmentId", "Title"),
                 CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
-               // BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
+                // BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName")
             };
             model.TicketDate = DateTime.Now.Date;
@@ -591,8 +591,8 @@ namespace TravelAgency.Controllers
             var x = _context.Tickets.Count(e =>
                 e.CustomerId == customerId &&
                 e.TicketDate.Date == date.Date &&
-                e.AppointmentId == AppointmentId &&
-                e.IsActive);
+                e.AppointmentId == AppointmentId
+                );
 
             return x == 1;
         }
@@ -606,8 +606,8 @@ namespace TravelAgency.Controllers
             var Rtickets = _context.Tickets
                 .Include(x => x.Customer)
                 .Include(x => x.Supplier)
-               // .Include(x => x.FromBranch)
-              //  .Include(x => x.ToBranch)
+                // .Include(x => x.FromBranch)
+                //  .Include(x => x.ToBranch)
                 .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate && x.IsActive)
                 .ToList();
 
@@ -622,7 +622,7 @@ namespace TravelAgency.Controllers
                 AppointmentsList =
                     new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)), "AppointmentId", "Title"),
                 CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
-              //  BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive).OrderBy(x=>x.BranchOrder), "BranchId", "Title"),
+                //  BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive).OrderBy(x=>x.BranchOrder), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive).OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
                 TicketDate = model.TicketDate.Date
             };
@@ -687,110 +687,136 @@ namespace TravelAgency.Controllers
         #endregion
 
         #region send_Whatsapp
-        private async void sendWhatsAppNotifications(string number, int seatNumber,DateTime tDate,string from,string viewName)
+        private async void sendWhatsAppNotifications(string number, int seatNumber, DateTime tDate, string from, string viewName)
         {
-            //var Window4=new List<int>() {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,39,37,43,41 };
-            //var Window5 = new List<int>() { 1,4,5,8,9,12,13,16,17,20,21,23,25,28,29,32,33,36,37,40,41,44 };
-            //var dir = "";
-
-            //if (seatNumber == 50)
-            //    dir = "مشرف";
-            //else if ((new List<int>() { 45, 46, 47, 48, 49 }).Contains(seatNumber))
-            //    dir = "كنبه";
-            //else
-            //{
-            //    if (viewName == "CreateAdmin5")
-            //        dir = Window5.Contains(seatNumber) ? "شــباك" : "مــمر";
-
-            //    if (viewName == "CreateAdmin4")
-            //        dir = Window4.Contains(seatNumber) ? "شــباك" : "مــمر";
-            //}
-
-            var url = "https://api.ultramsg.com/instance95337/messages/chat";
-            var client = new RestClient(url);
-
-            var request = new RestRequest(url, RestSharp.Method.Post);
-            request.AddHeader("content-type", "application/json");
-
-            var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا ❤️.";
-            msg += "\n\n";
-
-           
-            msg += "-الرجاء تسجيل هذا الرقم علي الهاتف ليصلك كل عروض ومستجدات العمل عبر منصه واتس اب";
-            msg += "\n";
-            msg += "فورباص القاهره الرئيسي";
-            msg += "\n";
-            msg += "01030565720";
-            msg += "\n\n";
-
-            msg += "-تفاصيل حجز حضرتك :";
-            msg += "\n";
-            msg += "يوم : "+ tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - "+ tDate.ToShortDateString();
-            msg += "\n";
-            msg += "مــن : " + from;
-            //msg += "\n";
-            //msg += "كرسي رقم: " + seatNumber.ToString() + " - " + dir;
-             
-            msg += "\n\n";
-            msg += "-الرجاء في حاله الغاء التذكره الاتصال بالمكتب قبل الميعاد بالوقت الكافي ";
-            msg += "\n\n";
-
-            //msg += "-  الرجاء لايك ودعم ومتابعه الصفحه الخاصه بالشركه عبر الفيس بوك🙏";
-            //msg += "\n";
-            //msg += "https://www.facebook.com/4BusEgypt?mibextid=ZbWKwL";
-           
-            msg += "-الرجاء في حاله وجود اي ملاحظه سواء من المكاتب او السائقين او الباصات الاتصال علي";
-            msg += "\n";
-            msg += "01030565720";
-
-            
-
-            var body = new
+            try
             {
-                token = "516itsp3id9b8w0k",
-                to = "+2" + number,
-                body = msg
-            };
-            request.AddParameter("application/json", body, ParameterType.RequestBody);
-            RestResponse response = await client.ExecuteAsync(request);
-            var output = response.Content;
-            return;
+                //var Window4=new List<int>() {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,39,37,43,41 };
+                //var Window5 = new List<int>() { 1,4,5,8,9,12,13,16,17,20,21,23,25,28,29,32,33,36,37,40,41,44 };
+                //var dir = "";
+
+                //if (seatNumber == 50)
+                //    dir = "مشرف";
+                //else if ((new List<int>() { 45, 46, 47, 48, 49 }).Contains(seatNumber))
+                //    dir = "كنبه";
+                //else
+                //{
+                //    if (viewName == "CreateAdmin5")
+                //        dir = Window5.Contains(seatNumber) ? "شــباك" : "مــمر";
+
+                //    if (viewName == "CreateAdmin4")
+                //        dir = Window4.Contains(seatNumber) ? "شــباك" : "مــمر";
+                //}
+
+                var url = "https://api.ultramsg.com/instance95337/messages/chat";
+                var client = new RestClient(url);
+
+                var request = new RestRequest(url, RestSharp.Method.Post);
+                request.AddHeader("content-type", "application/json");
+
+                var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا ❤️.";
+                msg += "\n\n";
+
+
+                msg += "-الرجاء تسجيل هذا الرقم علي الهاتف ليصلك كل عروض ومستجدات العمل عبر منصه واتس اب";
+                msg += "\n";
+                msg += "فورباص القاهره الرئيسي";
+                msg += "\n";
+                msg += "01030565720";
+                msg += "\n\n";
+
+                msg += "-تفاصيل حجز حضرتك :";
+                msg += "\n";
+                msg += "يوم : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
+                msg += "\n";
+                msg += "مــن : " + from;
+                //msg += "\n";
+                //msg += "كرسي رقم: " + seatNumber.ToString() + " - " + dir;
+
+                msg += "\n\n";
+                msg += "-الرجاء في حاله الغاء التذكره الاتصال بالمكتب قبل الميعاد بالوقت الكافي ";
+                msg += "\n\n";
+
+                msg += "-الرجاء في حاله وجود اي ملاحظه سواء من المكاتب او السائقين او الباصات الاتصال علي";
+                msg += "\n";
+                msg += "01030565720";
+                msg += "\n\n";
+                msg += "لارقام المكاتب  والعناوين اضغط 1";
+                msg += "\n";
+                msg += "للاسعار اضغط 2";
+                msg += "\n";
+                msg += "للمواعيد اضغط 3";
+                msg += "\n";
+                msg += "لموقع رمسيس على الخريطه اضغط 4";
+                msg += "\n";
+                msg += "لموقع عين شمس على الخريطه اضغط 5";
+
+
+
+                var body = new
+                {
+                    token = "a516itsp3id9b8w0khhh",
+                    to = "+2" + number,
+                    body = msg
+                };
+                request.AddParameter("application/json", body, ParameterType.RequestBody);
+                RestResponse response = await client.ExecuteAsync(request);
+                var output = response.Content;
+                return;
+            }
+            catch (Exception e)
+            {
+                return;
+            }
         }
 
         private async void sendWhatsAppNotificationsWithCancell(string number, int seatNumber, DateTime tDate, string from)
         {
 
-
-            var url = "https://api.ultramsg.com/instance1598/messages/chat";
-            var client = new RestClient(url);
-
-            var request = new RestRequest(url, RestSharp.Method.Post);
-            request.AddHeader("content-type", "application/json");
-
-            var msg = "-شكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا ❤️";
-            msg += "\n\n";
-
-            msg += "- تـــم الــغــــاء حـــجـــز حـضــرتــك :";
-            msg += "\n";
-            msg += "يوم : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
-            msg += "\n";
-            msg += "مــن : " + from;
-            msg += "\n";
-            msg += "كرسي رقم: " + seatNumber.ToString();
-             
-
-            var body = new
+            try
             {
-                token = "p1b1f2225ezl9sps",
-                to = "+2" + number,
-                body = msg
-            };
-            request.AddParameter("application/json", body, ParameterType.RequestBody);
-            RestResponse response = await client.ExecuteAsync(request);
-            var output = response.Content;
-            return;
-        }
+                var url = "https://api.ultramsg.com/instance95337/messages/chat";
+                var client = new RestClient(url);
 
+                var request = new RestRequest(url, RestSharp.Method.Post);
+                request.AddHeader("content-type", "application/json");
+
+                var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا ❤️.";
+                msg += "\n\n";
+
+                msg += "- تـــم الــغــــاء حـــجـــز حـضــرتــك :";
+                msg += "\n";
+                msg += "يوم : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
+                msg += "\n";
+                msg += "مــن : " + from;
+                msg += "\n\n";
+                // msg += "كرسي رقم: " + seatNumber.ToString();
+                msg += "لارقام المكاتب  والعناوين اضغط 1";
+                msg += "\n";
+                msg += "للاسعار اضغط 2";
+                msg += "\n";
+                msg += "للمواعيد اضغط 3";
+                msg += "\n";
+                msg += "لموقع رمسيس على الخريطه اضغط 4";
+                msg += "\n";
+                msg += "لموقع عين شمس على الخريطه اضغط 5";
+
+                var body = new
+                {
+                    token = "a516itsp3id9b8w0khhh",
+                    to = "+2" + number,
+                    body = msg
+                };
+                request.AddParameter("application/json", body, ParameterType.RequestBody);
+                RestResponse response = await client.ExecuteAsync(request);
+                var output = response.Content;
+                return;
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+        }
         #endregion
     }
 }

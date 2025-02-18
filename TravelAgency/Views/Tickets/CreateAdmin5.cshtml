@@ -1231,7 +1231,7 @@
                 $('#Modal_Accept').modal('show');
             });
 
-            $("#ClientName").on("click", function () {
+            $("#ClientName").keyup(function () {
                 var PhoneNumber = document.getElementById('ClientName');
 
                 $.ajax({
