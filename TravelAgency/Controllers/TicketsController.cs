@@ -337,10 +337,10 @@ namespace TravelAgency.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddCustomerAdmin(string name, string phone, string Adreess1)
+        public JsonResult AddCustomerAdmin(string name, string phone, string Adreess1)
         {
             if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone) || phone.Length != 11)
-                return RedirectToAction(nameof(CreateAdmin));
+                return Json(false);
 
             var nCustomer = new Customers();
 
@@ -359,7 +359,7 @@ namespace TravelAgency.Controllers
                 _context.Customers.Add(nCustomer);
             }
             _context.SaveChanges();
-            return RedirectToAction(nameof(CreateAdmin));
+            return Json(true);
         }
 
         [HttpPost]
