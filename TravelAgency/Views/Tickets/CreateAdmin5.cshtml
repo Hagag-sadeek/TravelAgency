@@ -89,15 +89,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
 
@@ -112,15 +112,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -130,15 +130,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -149,15 +149,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -166,15 +166,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -187,15 +187,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -205,15 +205,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -224,15 +224,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -241,15 +241,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -262,15 +262,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -280,15 +280,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -299,15 +299,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -316,15 +316,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -337,15 +337,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -355,15 +355,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -374,15 +374,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -391,15 +391,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -412,15 +412,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -430,15 +430,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -449,15 +449,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -466,15 +466,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -491,15 +491,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -508,15 +508,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -532,15 +532,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -549,15 +549,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -571,15 +571,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -590,15 +590,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -610,15 +610,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -628,15 +628,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -650,15 +650,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -669,15 +669,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -689,15 +689,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -707,15 +707,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -729,15 +729,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -748,15 +748,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -768,15 +768,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -786,15 +786,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -808,15 +808,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -827,15 +827,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -846,15 +846,15 @@
                     seat = Model.reservedTickets.FirstOrDefault(x => x.SeatId == seatNumber);
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -864,15 +864,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -886,15 +886,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -905,15 +905,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -925,15 +925,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -943,15 +943,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -965,15 +965,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -984,15 +984,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -1004,15 +1004,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -1022,15 +1022,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -1040,15 +1040,15 @@
 
                     if (seat == null)
                     {
-                                    <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
+                                        <input data-seat-num="@seatNumber" type="button" class="btn btn-success  col-md-2 col-sm-2  seat" title="متاح" value="@(seatNumber)" id="@seatNumber" style="height: 100px" />
                     }
 
                     else
                     {
-                                    <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                            data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
-                                        @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
-                                    </button>
+                                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
+                                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId" data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                                            @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
+                                        </button>
                     }
                 }
                 &nbsp;
@@ -1091,7 +1091,7 @@
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3 col-sm-12">الهاتف </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="number" class="form-control " maxlength=12 name="phone" />
+                                <input type="number" class="form-control " maxlength=12 name="phone" id="phone"/>
                             </div>
                         </div>
 
@@ -1231,6 +1231,9 @@
             });
 
             $("#Addclient").click(function () {
+                var PhoneNumber = document.getElementById('ClientName');
+                
+                $("#phone").val(PhoneNumber.value);
                 $('#Modal_Accept').modal('show');
             });
 
