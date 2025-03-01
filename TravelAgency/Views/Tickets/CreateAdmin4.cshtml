@@ -66,11 +66,11 @@
         <div class="form-group ">
             <input type='hidden' asp-for="CustomerId" class="form-control" id="CustomerIdadded" />
             <input type='hidden' class="form-control" id="DeleteTicketId" />
-
             <input type="submit" value="تاكيد الحجز" asp-action="createAdmin" class="btn btn-primary" /> 
-            <a id="call" class="btn btn-success"> <i style="color: white" class="fa fa-phone"></i> اتصال </a>
+            
             <a id="doDeleteSeat" class="btn btn-danger"> <i class="fa fa-trash"></i> حذف الحجز </a>
-         
+            <a id="call" class="btn btn-success"> <i style="color: white" class="fa fa-phone"></i> اتصال </a>
+            <a id="copytext" class="btn btn-success"> <i class="fa fa-copy"></i> نسح </a>
 
         </div>
 
@@ -1286,6 +1286,13 @@
                 searchAboutCustomer();
             });
 
+            $("#copytext").click(function () {
+
+                var copyText = document.getElementById('ClientName');
+                navigator.clipboard.writeText(copyText.value);
+
+            });
+
             function searchAboutCustomer() {
                 var PhoneNumber = document.getElementById('ClientName');
 
@@ -1334,6 +1341,7 @@
                     }
                 });
             }
+
         });
     </script>
 }
