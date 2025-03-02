@@ -70,7 +70,7 @@
             
             <a id="doDeleteSeat" class="btn btn-danger"> <i class="fa fa-trash"></i> حذف الحجز </a>
             <a id="call" class="btn btn-success"> <i style="color: white" class="fa fa-phone"></i> اتصال </a>
-            <a id="copytext" class="btn btn-success"> <i class="fa fa-copy"></i> نسح </a>
+          
 
         </div>
 
@@ -1285,13 +1285,7 @@
             $("#searchedCustomerId").click(function () {
                 searchAboutCustomer();
             });
-
-            $("#copytext").click(function () { 
-
-                 const copyText = document.getElementById("ClientName").value;  
-                 navigator.clipboard.writeText(copyText) 
-            });
-
+             
             function searchAboutCustomer() {
                 var PhoneNumber = document.getElementById('ClientName');
 
