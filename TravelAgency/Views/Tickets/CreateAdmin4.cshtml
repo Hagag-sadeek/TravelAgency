@@ -1228,7 +1228,7 @@
                 }
             });
 
-           $("#doAddClient").click(function () {
+            $("#doAddClient").click(function () {
                 var name = document.getElementById('cname').value;
                 var phone = document.getElementById('cphone').value;
                 var adreess = document.getElementById('cAdreess').value;
@@ -1286,11 +1286,10 @@
                 searchAboutCustomer();
             });
 
-            $("#copytext").click(function () {
+            $("#copytext").click(function () { 
 
-                var copyText = document.getElementById('ClientName');
-                navigator.clipboard.writeText(copyText.value);
-
+                 const copyText = document.getElementById("ClientName").value;  
+                 navigator.clipboard.writeText(copyText) 
             });
 
             function searchAboutCustomer() {

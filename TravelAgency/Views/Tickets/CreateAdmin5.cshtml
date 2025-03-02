@@ -1302,11 +1302,10 @@
                 })
             });
 
-            $("#copytext").click(function () {
+            $("#copytext").click(function () { 
 
-                var copyText = document.getElementById('ClientName');
-                navigator.clipboard.writeText(copyText.value);
-
+                 const copyText = document.getElementById("ClientName").value;  
+                 navigator.clipboard.writeText(copyText) 
             });
 
             function resetSeatColor() {
