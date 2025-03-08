@@ -352,10 +352,17 @@ namespace TravelAgency.Controllers
             }
             else
             {
+
+
+                var lastCustomer =  _context.Customers.OrderByDescending(c => c.CustomerId).FirstOrDefaultAsync();
+                int newCode = (lastCustomer != null && int.TryParse(lastCustomer.Result.Code, out int lastCode)) ? lastCode + 1 : 1;
+
+              
                 nCustomer.FullName = name;
                 nCustomer.Phone1 = phone.Trim();
                 nCustomer.IsActive = true;
                 nCustomer.Adreess1 = Adreess1;
+                nCustomer.Code = newCode.ToString();
                 _context.Customers.Add(nCustomer);
             }
             _context.SaveChanges();
