@@ -287,8 +287,12 @@ namespace TravelAgency.Controllers
                 //  ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
 
                 var cus=_context.Customers.First(x=>x.CustomerId == ticket.CustomerId);
-                cus.Points -= 10;
-                _context.SaveChanges();
+
+                if (cus != null && cus.Points >= 10)
+                {
+                    cus.Points -= 10;
+                    _context.SaveChanges();
+                }
 
                 return Json(true);
             }
