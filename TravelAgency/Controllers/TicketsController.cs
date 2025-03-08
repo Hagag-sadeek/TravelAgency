@@ -285,6 +285,11 @@ namespace TravelAgency.Controllers
             {
                 //sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
                 //  ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
+
+                var cus=_context.Customers.First(x=>x.CustomerId == ticket.CustomerId);
+                cus.Points -= 10;
+                _context.SaveChanges();
+
                 return Json(true);
             }
 
