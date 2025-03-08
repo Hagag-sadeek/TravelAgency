@@ -376,7 +376,21 @@ namespace TravelAgency.Controllers
 
             if (customer != null)
             {
-                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1;
+                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1 + "&&" + customer.Code;
+                return Json(x);
+            }
+
+            return Json("غير موجود");
+        }
+
+        [HttpPost]
+        public IActionResult FindCustomerByCode(string code)
+        {
+            var customer = _context.Customers.FirstOrDefault(x => x.Code == code && x.IsActive);
+
+            if (customer != null)
+            {
+                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1 + "&&" + customer.Code;
                 return Json(x);
             }
 
