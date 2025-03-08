@@ -1297,8 +1297,7 @@
                     success: function (data) {
                         $("#CustomerIdadded").val(data.split("&&")[0]);
                         $("#CustomerName").val(data.split("&&")[1]);
-                        
-
+                     $("#ClientPhone").val(data.split("&&")[2]);
                     },
                     error: function (result) {
                         alert("Data is not in the right formate!! please contact with IT department");

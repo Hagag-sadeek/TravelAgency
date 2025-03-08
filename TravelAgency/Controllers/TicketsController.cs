@@ -390,7 +390,7 @@ namespace TravelAgency.Controllers
 
             if (customer != null)
             {
-                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1 + "&&" + customer.Code;
+                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1;
                 return Json(x);
             }
 
