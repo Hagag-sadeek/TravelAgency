@@ -295,7 +295,7 @@ namespace TravelAgency.Controllers
             var customer = _context.Customers.FirstOrDefault(x => x.CustomerId == ticket.CustomerId);
             if (customer == null) return Json(false);
 
-            var com = customer.Phone1 + "&&" + ticket.SupplierId;
+            var com = customer.Phone1 + "&&" + ticket.SupplierId + "&&" + customer.CustomerId + "&&" + customer.FullName;
 
             return Json(com);
         }
@@ -661,6 +661,7 @@ namespace TravelAgency.Controllers
                         SeatId = item.SeatId,
                         //       FromBranch = item.FromBranch.Title,
                         //      ToBranch = item.ToBranch.Title,
+                        Code=item.Customer.Code,
                         IsPaid = item.Price != 0,
                         Price = item.Price,
                         IsMine = (item.SupplierId == _context.Users.Find(UserId).SupplierId) ||
