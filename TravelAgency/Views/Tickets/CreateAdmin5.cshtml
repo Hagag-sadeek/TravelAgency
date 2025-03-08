@@ -13,7 +13,7 @@
             <select asp-for="AppointmentId" class="form-control" asp-items="Model.AppointmentsList"></select>
         </div>
 
-        <div class="form-group col-sm-2">
+        <div class="form-group col-sm-3">
             <label asp-for="TicketDate" class="control-label">يوم الحجز</label>
             <input data-seat-num="@seatNumber" asp-for="TicketDate" class="form-control" />
             <span asp-validation-for="TicketDate" class="text-danger"></span>
@@ -29,55 +29,43 @@
     <hr />
     <div class="row">
 
-        <div class="form-group col-sm-2">   <input type='number' placeholder="الهاتف" class="form-control" id="ClientPhone" />  </div>
-        <div class="form-group col-sm-2">   <input type='number' placeholder="الكود" class="form-control" id="ClientCode" />  </div>
+        <div class="form-group col-sm-2"><input type='number' placeholder="الهاتف" class="form-control" id="ClientPhone"/></div>
+        <div class="form-group col-sm-2"><input type='number' placeholder="الكود" class="form-control" id="ClientCode"/></div>
+        <div class="form-group"> <a class="btn btn-outline-success btn-small" id="searchedCustomerId"> <span class="fa fa-search"></span></a></div>
+        <div class="form-group col-sm-2"><input type='text' placeholder="الاسم" class="form-control" id="CustomerName"/></div> 
+        <div class="form-group"> <a class="btn btn-outline-success btn-small" id="Addclient"> <span class="fa fa-plus"></span></a></div>
+        <div class="form-group col-sm-1"><input type='text' placeholder="النقاط" class="form-control" id="CustomerPoints"/> </div> 
+    </div>
 
-        <div class="form-group">
-            <a class="btn btn-outline-success btn-small" id="searchedCustomerId"> <span class="fa fa-search"> </span> </a>
-        </div>
-
-        <div class="form-group col-sm-2">  <input type='text' class="form-control" id="CustomerName" />  </div>
-
-        <div class="form-group">
-            <a class="btn btn-outline-success btn-small" id="Addclient"> <span class="fa fa-plus">   </span>  </a>
-
-        </div>
-
-        <div class="form-group  col-sm-2">
-            <select asp-for="SupplierId" id="SupplierId" class="form-control " asp-items="Model.SuppliersList" style="width:100%"></select>
-        </div>
+    <div class="row">
+        <div class="form-group  col-sm-2"><select asp-for="SupplierId" id="SupplierId" class="form-control " asp-items="Model.SuppliersList" style="width:100%"></select>  </div>
 
         <div class="form-group" style=" margin-top: 10PX">  <label class="control-label">سعر</label> </div>
 
-        <div class="form-group  col-sm-1">
+        <div class="form-group  col-sm-2">
             <input asp-for="Price" class="form-control" value="0" />
             <span asp-validation-for="Price" class="text text-danger"></span>
         </div>
 
         <div class="form-group" style=" margin-top: 10PX">  <label class="control-label">مقعد</label> </div>
-        <div class="form-group  col-sm-1">
+
+        <div class="form-group  col-sm-2">
             <input asp-for="SeatId" class="form-control" id="SeatNumber" value="0" />
-            <span asp-validation-for="SeatId" class="text text-danger"></span>
-
+            <span asp-validation-for="SeatId" class="text text-danger"></span> 
         </div>
-
-    </div>
-
-    <div class="row">
-
+         
         <div class="form-group ">
             <input type='hidden' asp-for="CustomerId" class="form-control" id="CustomerIdadded" />
             <input type='hidden' class="form-control" id="DeleteTicketId" />
 
-            <input type="submit" value="تاكيد الحجز" asp-action="createAdmin" class="btn btn-primary" />
-
+            <input type="submit" value="تاكيد الحجز" asp-action="createAdmin" class="btn btn-primary" /> 
             <a id="doDeleteSeat" class="btn btn-danger"> <i class="fa fa-trash"></i> حذف الحجز </a>
-            <a id="call" class="btn btn-success"> <i style="color: white" class="fa fa-phone"></i> اتصال </a>
-
+            <a id="call" class="btn btn-success"> <i style="color: white" class="fa fa-phone"></i> اتصال </a> 
         </div>
 
     </div>
     <hr />
+
     <div class="row" style="color:red;font-weight:bold">
 
         <div class=" col-sm-12  col-md-12   ">
@@ -1170,7 +1158,7 @@
                         document.getElementById("SupplierId").value = data.split("&&")[1];
                         $("#CustomerIdadded").val(data.split("&&")[2]);
                         $("#CustomerName").val(data.split("&&")[3]);
-
+                        $("#CustomerPoints").val(data.split("&&")[4]);
                     },
                     error: function (result) {
                         alert("Data is not in the right formate!! please contact with IT department");
@@ -1279,6 +1267,7 @@
                         $("#CustomerIdadded").val(data.split("&&")[0]);
                         $("#CustomerName").val(data.split("&&")[1]);
                         $("#ClientCode").val(data.split("&&")[3]);
+                        $("#CustomerPoints").val(data.split("&&")[4]);
 
                     },
                     error: function (result) {
@@ -1299,6 +1288,7 @@
                         $("#CustomerIdadded").val(data.split("&&")[0]);
                         $("#CustomerName").val(data.split("&&")[1]);
                         $("#ClientPhone").val(data.split("&&")[2]);
+                        $("#CustomerPoints").val(data.split("&&")[3]);
                          
                     },
                     error: function (result) {

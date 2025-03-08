@@ -116,6 +116,11 @@ namespace TravelAgency.Controllers
                 tickets.IsActive = true;
                 tickets.ReserveDate = DateTime.Now;
                 _context.Tickets.Add(tickets);
+
+                var cus = _context.Customers.First(x => x.CustomerId == tickets.CustomerId);
+                cus.Points += 10;
+
+
                 _context.SaveChanges();
             }
 
@@ -295,7 +300,7 @@ namespace TravelAgency.Controllers
             var customer = _context.Customers.FirstOrDefault(x => x.CustomerId == ticket.CustomerId);
             if (customer == null) return Json(false);
 
-            var com = customer.Phone1 + "&&" + ticket.SupplierId + "&&" + customer.CustomerId + "&&" + customer.FullName;
+            var com = customer.Phone1 + "&&" + ticket.SupplierId + "&&" + customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Points;
 
             return Json(com);
         }
@@ -330,7 +335,7 @@ namespace TravelAgency.Controllers
             if (customer != null)
                 customer.FullName = name.Trim();
             else
-                _context.Customers.Add(new Customers() { FullName = name.Trim(), Phone1 = phone.Trim(), IsActive = true });
+                _context.Customers.Add(new Customers() { FullName = name.Trim(), Phone1 = phone.Trim(), Points = 0, IsActive = true });
 
             _context.SaveChanges();
             return RedirectToAction(nameof(CreateNotAdmin));
@@ -363,6 +368,7 @@ namespace TravelAgency.Controllers
                 nCustomer.IsActive = true;
                 nCustomer.Adreess1 = Adreess1;
                 nCustomer.Code = newCode.ToString();
+                nCustomer.Points = 0;
                 _context.Customers.Add(nCustomer);
             }
             _context.SaveChanges();
@@ -376,7 +382,7 @@ namespace TravelAgency.Controllers
 
             if (customer != null)
             {
-                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1 + "&&" + customer.Code;
+                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1 + "&&" + customer.Code + "&&" + customer.Points;
                 return Json(x);
             }
 
@@ -390,7 +396,7 @@ namespace TravelAgency.Controllers
 
             if (customer != null)
             {
-                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1;
+                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1 + "&&" + customer.Points;
                 return Json(x);
             }
 
