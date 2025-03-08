@@ -1298,8 +1298,8 @@
                     success: function (data) {
                         $("#CustomerIdadded").val(data.split("&&")[0]);
                         $("#CustomerName").val(data.split("&&")[1]);
-                        
-
+                        $("#ClientCode").val(data.split("&&")[3]);
+                         
                     },
                     error: function (result) {
                         alert("Data is not in the right formate!! please contact with IT department");
