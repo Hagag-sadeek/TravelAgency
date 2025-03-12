@@ -160,26 +160,17 @@ namespace TravelAgency.Controllers
         public IActionResult CreateNotAdmin(Tickets tickets, string name, string phone)
         {
 
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1) return RedirectToAction("Login", "Account");
 
-            var viewName = "CreateNotAdmin";
+            var viewName = "CreateNotAdmin5";
+            var row = _context.AppointmentBusView.Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date).FirstOrDefault();
 
-            var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date).FirstOrDefault();
+            if (row != null) viewName = "CreateNotAdmin4";
 
-            if (row != null)
-                viewName += row.ViewName.ToString();
-            else
-                viewName = "CreateNotAdmin5";
+            if (!ModelState.IsValid) return View(viewName, PopulateReserveViewModel(tickets));
 
-
-            if (tickets.SeatId <= 0 || tickets.SeatId > 50 ||
-                tickets.TicketDate.Date < DateTime.Now.Date ||
-                TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) ||
-                    tickets.CustomerId == null)
+            if (tickets.SeatId <= 0 || tickets.SeatId > 50 || tickets.TicketDate.Date < DateTime.Now.Date ||
+                TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) || tickets.CustomerId == null)
                 return View(viewName, PopulateReserveViewModel(tickets));
 
 
@@ -188,9 +179,11 @@ namespace TravelAgency.Controllers
             tickets.ReserveDate = DateTime.Now;
             _context.Tickets.Add(tickets);
 
-            _context.SaveChanges();
+            var cus = _context.Customers.First(x => x.CustomerId == tickets.CustomerId);
+            cus.Points += 10;
 
-            var cus = _context.Customers.Find(tickets.CustomerId);
+            _context.SaveChanges();
+             
             if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
                 sendWhatsAppNotifications(cus.Phone1, cus.Points, cus.Code, tickets.SeatId, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
             else
@@ -329,7 +322,15 @@ namespace TravelAgency.Controllers
             {
                 var lastCustomer = _context.Customers.OrderByDescending(c => c.CustomerId).FirstOrDefaultAsync();
                 int newCode = (lastCustomer != null && int.TryParse(lastCustomer.Result.Code, out int lastCode)) ? lastCode + 1 : 1;
-                _context.Customers.Add(new Customers() { FullName = name.Trim(), Phone1 = phone.Trim(), Points = 0, Code = newCode.ToString(), IsActive = true });
+                _context.Customers.Add(
+                    new Customers()
+                    {
+                        FullName = name.Trim(),
+                        Phone1 = phone.Trim(),
+                        Points = 0,
+                        Code = newCode.ToString(),
+                        IsActive = true
+                    });
             }
             _context.SaveChanges();
             return RedirectToAction(nameof(CreateNotAdmin));
