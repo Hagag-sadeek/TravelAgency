@@ -255,23 +255,20 @@ namespace TravelAgency.Controllers
             ticket.IsActive = false;
             ticket.Comment = "Deleted by" + _context.Users.Find(HttpContext.Session.GetInt32("UserId")).Firstname + DateTime.Now;
 
-            if (_context.SaveChanges() > 0)
-            {
-                //sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
-                //  ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
 
-                var cus = _context.Customers.First(x => x.CustomerId == ticket.CustomerId);
+            //sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
+            //  ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
 
-                if (cus != null && cus.Points >= 10)
-                {
-                    cus.Points -= 10;
-                    _context.SaveChanges();
-                }
+            var cus = _context.Customers.First(x => x.CustomerId == ticket.CustomerId);
 
-                return Json(true);
-            }
+            if (cus != null && cus.Points >= 10)
+                cus.Points -= 10;
 
-            return Json(false);
+            var result = _context.SaveChanges();
+
+            sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
+
+            return Json(result);
         }
         public JsonResult GetCustomerInfo(int id)
         {
