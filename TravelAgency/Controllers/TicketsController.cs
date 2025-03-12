@@ -83,50 +83,37 @@ namespace TravelAgency.Controllers
         public IActionResult CreateAdmin(Tickets tickets)
         {
 
+
             if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            {
                 return RedirectToAction("Login", "Account");
-            }
 
-            var viewName = "CreateAdmin";
-            var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date).FirstOrDefault();
+            var viewName = "CreateAdmin5";
+            var row = _context.AppointmentBusView.Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date).FirstOrDefault();
 
-            if (row != null)
-                viewName += row.ViewName.ToString();
-            else
-                viewName = "CreateAdmin5";
+            if (row != null) viewName = "CreateAdmin4";
 
-            if (ModelState.IsValid)
-            {
+            if (!ModelState.IsValid) return View(viewName, PopulateReserveViewModel(tickets));
 
-                if (tickets.SeatId <= 0 || tickets.SeatId > 50 ||
-                    (TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) ||
-                    tickets.CustomerId == null))
+            if (tickets.SeatId <= 0 || tickets.SeatId > 50 || (TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) || tickets.CustomerId == null))
+                return View(viewName, PopulateReserveViewModel(tickets));
 
-                    return View(viewName, PopulateReserveViewModel(tickets));
 
-                if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-                {
-                    return RedirectToAction("Login", "Account");
-                }
+            tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
+            tickets.IsActive = true;
+            tickets.ReserveDate = DateTime.Now;
+            _context.Tickets.Add(tickets);
 
-                tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
-
-                tickets.IsActive = true;
-                tickets.ReserveDate = DateTime.Now;
-                _context.Tickets.Add(tickets);
-                _context.SaveChanges();
-            }
+            var cus = _context.Customers.First(x => x.CustomerId == tickets.CustomerId);
+            cus.Points += 10;
+            _context.SaveChanges();
 
             if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
-
-                sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
-                    tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
+                sendWhatsAppNotifications(cus.Phone1, cus.Points, cus.Code, tickets.SeatId, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
+            else
+                sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
-
         #endregion
 
         #region CreateNotAdmin
@@ -199,15 +186,15 @@ namespace TravelAgency.Controllers
             tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
             tickets.IsActive = true;
             tickets.ReserveDate = DateTime.Now;
-
             _context.Tickets.Add(tickets);
 
             _context.SaveChanges();
 
+            var cus = _context.Customers.Find(tickets.CustomerId);
             if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
-
-                sendWhatsAppNotifications(_context.Customers.Find(tickets.CustomerId).Phone1, tickets.SeatId,
-                    tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
+                sendWhatsAppNotifications(cus.Phone1, cus.Points, cus.Code, tickets.SeatId, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
+            else
+                sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
@@ -278,8 +265,17 @@ namespace TravelAgency.Controllers
 
             if (_context.SaveChanges() > 0)
             {
-                sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
-                  ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
+                //sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
+                //  ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
+
+                var cus = _context.Customers.First(x => x.CustomerId == ticket.CustomerId);
+
+                if (cus != null && cus.Points >= 10)
+                {
+                    cus.Points -= 10;
+                    _context.SaveChanges();
+                }
+
                 return Json(true);
             }
 
@@ -295,7 +291,7 @@ namespace TravelAgency.Controllers
             var customer = _context.Customers.FirstOrDefault(x => x.CustomerId == ticket.CustomerId);
             if (customer == null) return Json(false);
 
-            var com = customer.Phone1 + "&&" + ticket.SupplierId;
+            var com = customer.Phone1 + "&&" + ticket.SupplierId + "&&" + customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Points;
 
             return Json(com);
         }
@@ -330,17 +326,20 @@ namespace TravelAgency.Controllers
             if (customer != null)
                 customer.FullName = name.Trim();
             else
-                _context.Customers.Add(new Customers() { FullName = name.Trim(), Phone1 = phone.Trim(), IsActive = true });
-
+            {
+                var lastCustomer = _context.Customers.OrderByDescending(c => c.CustomerId).FirstOrDefaultAsync();
+                int newCode = (lastCustomer != null && int.TryParse(lastCustomer.Result.Code, out int lastCode)) ? lastCode + 1 : 1;
+                _context.Customers.Add(new Customers() { FullName = name.Trim(), Phone1 = phone.Trim(), Points = 0, Code = newCode.ToString(), IsActive = true });
+            }
             _context.SaveChanges();
             return RedirectToAction(nameof(CreateNotAdmin));
         }
 
         [HttpPost]
-        public IActionResult AddCustomerAdmin(string name, string phone, string Adreess1)
+        public JsonResult AddCustomerAdmin(string name, string phone, string Adreess1)
         {
             if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone) || phone.Length != 11)
-                return RedirectToAction(nameof(CreateAdmin));
+                return Json(false);
 
             var nCustomer = new Customers();
 
@@ -352,14 +351,20 @@ namespace TravelAgency.Controllers
             }
             else
             {
+
+                var lastCustomer = _context.Customers.OrderByDescending(c => c.CustomerId).FirstOrDefaultAsync();
+                int newCode = (lastCustomer != null && int.TryParse(lastCustomer.Result.Code, out int lastCode)) ? lastCode + 1 : 1;
+
                 nCustomer.FullName = name;
                 nCustomer.Phone1 = phone.Trim();
                 nCustomer.IsActive = true;
                 nCustomer.Adreess1 = Adreess1;
+                nCustomer.Code = newCode.ToString();
+                nCustomer.Points = 0;
                 _context.Customers.Add(nCustomer);
             }
             _context.SaveChanges();
-            return RedirectToAction(nameof(CreateAdmin));
+            return Json(true);
         }
 
         [HttpPost]
@@ -369,7 +374,21 @@ namespace TravelAgency.Controllers
 
             if (customer != null)
             {
-                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1;
+                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1 + "&&" + customer.Code + "&&" + customer.Points;
+                return Json(x);
+            }
+
+            return Json("غير موجود");
+        }
+
+        [HttpPost]
+        public IActionResult FindCustomerByCode(string code)
+        {
+            var customer = _context.Customers.FirstOrDefault(x => x.Code == code && x.IsActive);
+
+            if (customer != null)
+            {
+                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1 + "&&" + customer.Points;
                 return Json(x);
             }
 
@@ -591,8 +610,8 @@ namespace TravelAgency.Controllers
             var x = _context.Tickets.Count(e =>
                 e.CustomerId == customerId &&
                 e.TicketDate.Date == date.Date &&
-                e.AppointmentId == AppointmentId &&
-                e.IsActive);
+                e.AppointmentId == AppointmentId
+                );
 
             return x == 1;
         }
@@ -640,6 +659,7 @@ namespace TravelAgency.Controllers
                         SeatId = item.SeatId,
                         //       FromBranch = item.FromBranch.Title,
                         //      ToBranch = item.ToBranch.Title,
+                        Code = item.Customer.Code,
                         IsPaid = item.Price != 0,
                         Price = item.Price,
                         IsMine = (item.SupplierId == _context.Users.Find(UserId).SupplierId) ||
@@ -687,7 +707,7 @@ namespace TravelAgency.Controllers
         #endregion
 
         #region send_Whatsapp
-        private async void sendWhatsAppNotifications(string number, int seatNumber, DateTime tDate, string from, string viewName)
+        private async void sendWhatsAppNotifications(string number, int points, string code, int seatNumber, DateTime tDate, string from, string viewName)
         {
             try
             {
@@ -716,41 +736,40 @@ namespace TravelAgency.Controllers
 
                 var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا ❤️.";
                 msg += "\n\n";
-
-
-                msg += "-الرجاء تسجيل هذا الرقم علي الهاتف ليصلك كل عروض ومستجدات العمل عبر منصه واتس اب";
+                ///----------------------------------------
+                msg += "-عد نقاطك :" + points;
                 msg += "\n";
-                msg += "فورباص القاهره الرئيسي";
+                msg += "- الكود الخاص بك داخل نظام الحجز الاليكتروني للشركه هو :  " + code;
                 msg += "\n";
-                msg += "01030565720";
+                msg += "- الان مع كل 50 نقطه تقدر تحصل علي 50 جنيه خصم علي سعر التذكره";
+                ///----------------------------------------
                 msg += "\n\n";
-
-                msg += "-تفاصيل حجز حضرتك :";
+                msg += "-تفاصيل الحجز  :";
                 msg += "\n";
                 msg += "يوم : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
                 msg += "\n";
                 msg += "مــن : " + from;
-                //msg += "\n";
-                //msg += "كرسي رقم: " + seatNumber.ToString() + " - " + dir;
+                ///----------------------------------------
 
                 msg += "\n\n";
                 msg += "-الرجاء في حاله الغاء التذكره الاتصال بالمكتب قبل الميعاد بالوقت الكافي ";
                 msg += "\n\n";
-                 
+                ///----------------------------------------
                 msg += "-الرجاء في حاله وجود اي ملاحظه سواء من المكاتب او السائقين او الباصات الاتصال علي";
                 msg += "\n";
                 msg += "01030565720";
+                ///----------------------------------------
                 msg += "\n\n";
-                msg += "لارقام المكاتب  والعناوين اضغط 1";
+                msg += "-لارقام المكاتب  والعناوين اضغط 1";
                 msg += "\n";
-                msg += "للاسعار اضغط 2";
+                msg += "-للاسعار اضغط 2";
                 msg += "\n";
-                msg += "للمواعيد اضغط 3";
+                msg += "-للمواعيد اضغط 3";
                 msg += "\n";
-                msg += "لموقع رمسيس على الخرسطه اضغط 4";
+                msg += "-لموقع رمسيس على الخريطه اضغط 4";
                 msg += "\n";
-                msg += "لموقع عين شمس على الخريطه اضغط 5";
-              
+                msg += "-لموقع عين شمس على الخريطه اضغط 5";
+
 
 
                 var body = new
@@ -797,7 +816,7 @@ namespace TravelAgency.Controllers
                 msg += "\n";
                 msg += "للمواعيد اضغط 3";
                 msg += "\n";
-                msg += "لموقع رمسيس على الخرسطه اضغط 4";
+                msg += "لموقع رمسيس على الخريطه اضغط 4";
                 msg += "\n";
                 msg += "لموقع عين شمس على الخريطه اضغط 5";
 
@@ -817,6 +836,39 @@ namespace TravelAgency.Controllers
                 return;
             }
         }
+
+
+        private async void sendWhatsAppNotificationsWithPointsOnly(string number, int points)
+        {
+            try
+            {
+                var url = "https://api.ultramsg.com/instance95337/messages/chat";
+                var client = new RestClient(url);
+                var request = new RestRequest(url, RestSharp.Method.Post);
+                request.AddHeader("content-type", "application/json");
+
+
+                var msg = "-عد نقاطك : " + points;
+                msg += "\n";
+                msg += "- الان مع كل 50 نقطه تقدر تحصل علي 50 جنيه خصم علي سعر التذكره ";
+
+                var body = new
+                {
+                    token = "a516itsp3id9b8w0khhh",
+                    to = "+2" + number,
+                    body = msg
+                };
+                request.AddParameter("application/json", body, ParameterType.RequestBody);
+                RestResponse response = await client.ExecuteAsync(request);
+                var output = response.Content;
+                return;
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+        }
+
         #endregion
     }
 }
