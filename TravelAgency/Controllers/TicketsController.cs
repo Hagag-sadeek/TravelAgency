@@ -268,7 +268,7 @@ namespace TravelAgency.Controllers
 
             sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
 
-            return Json(result);
+            return Json(result > 0 ? true : false);
         }
         public JsonResult GetCustomerInfo(int id)
         {
