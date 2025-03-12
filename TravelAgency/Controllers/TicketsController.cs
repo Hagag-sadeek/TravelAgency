@@ -157,7 +157,7 @@ namespace TravelAgency.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("CreateNotAdmin")]
-        public IActionResult CreateNotAdmin(Tickets tickets, string name, string phone)
+        public IActionResult CreateNotAdmin(Tickets tickets)
         {
 
             if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1) return RedirectToAction("Login", "Account");
@@ -167,10 +167,9 @@ namespace TravelAgency.Controllers
 
             if (row != null) viewName = "CreateNotAdmin4";
 
-            if (!ModelState.IsValid) return View(viewName, PopulateReserveViewModel(tickets));
+            var ticketsExist = TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId);
 
-            if (tickets.SeatId <= 0 || tickets.SeatId > 50 || tickets.TicketDate.Date < DateTime.Now.Date ||
-                TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) || tickets.CustomerId == null)
+            if (tickets.SeatId <= 0 || tickets.SeatId > 50 || tickets.TicketDate.Date < DateTime.Now.Date || ticketsExist || tickets.CustomerId == null)
                 return View(viewName, PopulateReserveViewModel(tickets));
 
 
@@ -183,7 +182,7 @@ namespace TravelAgency.Controllers
             cus.Points += 10;
 
             _context.SaveChanges();
-             
+
             if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
                 sendWhatsAppNotifications(cus.Phone1, cus.Points, cus.Code, tickets.SeatId, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
             else
