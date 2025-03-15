@@ -76,7 +76,6 @@ namespace TravelAgency.Controllers
             return View(viewName, model);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("CreateAdmin")]
@@ -96,7 +95,6 @@ namespace TravelAgency.Controllers
 
             if (tickets.SeatId <= 0 || tickets.SeatId > 50 || (TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) || tickets.CustomerId == null))
                 return View(viewName, PopulateReserveViewModel(tickets));
-
 
             tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
             tickets.IsActive = true;
@@ -152,7 +150,6 @@ namespace TravelAgency.Controllers
 
             return View(viewName, model);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -243,7 +240,6 @@ namespace TravelAgency.Controllers
         #endregion
 
         #region Delete & confirm
-
         public JsonResult DeleteTicket(int id)
         {
             if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
@@ -301,10 +297,10 @@ namespace TravelAgency.Controllers
             return Json(false);
         }
 
-
         #endregion
 
         #region Customers
+
         [HttpPost]
         public IActionResult AddCustomer(string name, string phone)
         {
@@ -318,6 +314,7 @@ namespace TravelAgency.Controllers
             {
                 var lastCustomer = _context.Customers.OrderByDescending(c => c.CustomerId).FirstOrDefaultAsync();
                 int newCode = (lastCustomer != null && int.TryParse(lastCustomer.Result.Code, out int lastCode)) ? lastCode + 1 : 1;
+
                 _context.Customers.Add(
                     new Customers()
                     {

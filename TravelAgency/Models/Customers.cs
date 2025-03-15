@@ -13,7 +13,7 @@ namespace TravelAgency.Models
 
         public int CustomerId { get; set; }
 
-        public string Code { get; set; }
+        public string Code { get; set; } = null!;
         public string Job { get; set; }
         [Required]
         public string FullName { get; set; }

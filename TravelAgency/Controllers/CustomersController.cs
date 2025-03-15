@@ -183,12 +183,34 @@ namespace TravelAgency.Controllers
             if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone) || phone.Length != 11)
                 return RedirectToAction(nameof(QuickAdd));
 
+            //var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == phone.Trim() && x.IsActive);
+            //if (customer != null)
+            //    customer.FullName = name.Trim();
+            //else
+            //    _context.Customers.Add(new Customers() { FullName = name.Trim(), Phone1 = phone.Trim(), IsActive = true });
+
+            var nCustomer = new Customers();
+
             var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == phone.Trim() && x.IsActive);
             if (customer != null)
-                customer.FullName = name.Trim();
+            {
+                customer.FullName = name;
+                //customer.Adreess1 = Adreess1;
+            }
             else
-                _context.Customers.Add(new Customers() { FullName = name.Trim(), Phone1 = phone.Trim(), IsActive = true });
+            {
 
+                var lastCustomer = _context.Customers.OrderByDescending(c => c.CustomerId).FirstOrDefaultAsync();
+                int newCode = (lastCustomer != null && int.TryParse(lastCustomer.Result.Code, out int lastCode)) ? lastCode + 1 : 1;
+
+                nCustomer.FullName = name;
+                nCustomer.Phone1 = phone.Trim();
+                nCustomer.IsActive = true;
+                //nCustomer.Adreess1 = Adreess1;
+                nCustomer.Code = newCode.ToString();
+                nCustomer.Points = 0;
+                _context.Customers.Add(nCustomer);
+            }
             _context.SaveChanges();
             return RedirectToAction(nameof(QuickAdd));
         }
