@@ -485,9 +485,6 @@ namespace TravelAgency.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("CreateMore")]
        
         #endregion
 
