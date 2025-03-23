@@ -16,16 +16,14 @@
 
       <div class="form-group col-3">
         <label asp-for="TicketDate" class="control-label">يوم الحجز</label>
-        <input data-seat-num="@seatNumber" asp-for="TicketDate" class="form-control" />
+        <input   asp-for="TicketDate" class="form-control" />
 
         <span asp-validation-for="TicketDate" class="text-danger"></span>
       </div>
       <div class="form-group   col-6" style="padding-top: 29px">
-        <input data-seat-num="@seatNumber" type="submit" value="عرض الحجز"
-               name="okshow" asp-action="ShowTickets" class="btn btn-primary" />
+        <input   type="submit" value="عرض الحجز"   asp-action="ShowTickets" class="btn btn-primary" />
         &nbsp;
-        <input type="submit" value="عرض مفصل"
-               name="okshow" asp-action="MyTickets" class="btn btn-success" />
+        <input type="submit" value="عرض مفصل"   asp-action="MyTickets" class="btn btn-success" />
         &nbsp;    
         <label asp-for="CustomerId" class="control-label" style="background-color: darkgray">
           العميل
