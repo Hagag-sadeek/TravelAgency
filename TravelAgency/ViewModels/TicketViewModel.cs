@@ -26,6 +26,7 @@ namespace TravelAgency.ViewModels
         [Range(0, 500, ErrorMessage = "من فضلك ادخل سعر التذكره")]
         [Required(ErrorMessage = "من فضلك ادخل سعر التذكره")]
         public int Price { get; set; }
+        public bool IsFemale { get; set; }
 
         public int? FromBranchId { get; set; }
         public int? ToBranchId { get; set; }

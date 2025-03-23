@@ -76,7 +76,6 @@ namespace TravelAgency.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Route("CreateAdmin")]
         public IActionResult CreateAdmin(Tickets tickets)
         {
@@ -101,6 +100,8 @@ namespace TravelAgency.Controllers
             tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
             tickets.IsActive = true;
             tickets.ReserveDate = DateTime.Now;
+            tickets.Price = 0;
+
             _context.Tickets.Add(tickets);
 
             var cus = _context.Customers.First(x => x.CustomerId == tickets.CustomerId);
@@ -263,9 +264,9 @@ namespace TravelAgency.Controllers
 
             var result = _context.SaveChanges();
 
-            sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
+           // sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
 
-            return Json(result > 0 ? true : false);
+            return Json(result > 0);
         }
         public JsonResult GetCustomerInfo(int id)
         {
@@ -471,14 +472,14 @@ namespace TravelAgency.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            var model = new MoreTicketViewModel()
+            var model = new MoreTicketViewModel
             {
                 AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive), "AppointmentId", "Title"),
                 CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 // BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
-                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName")
+                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
+                TicketDate = DateTime.Now.Date
             };
-            model.TicketDate = DateTime.Now.Date;
 
             var BranchId = _context.Users.Find(HttpContext.Session.GetInt32("UserId")).BranchId;
             return View(model);
@@ -487,66 +488,7 @@ namespace TravelAgency.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("CreateMore")]
-        public async Task<IActionResult> CreateMore(MoreTicketViewModel tickets, string name, string phone)
-        {
-            if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone))
-                tickets.CustomerId = 20;
-
-            if (HttpContext.Session.GetInt32("UserId") == null
-                            || HttpContext.Session.GetInt32("UserId") < 1)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-
-            if (ModelState.IsValid)
-            {
-                if (tickets.TicketDate < DateTime.Now.Date)
-                    return RedirectToAction(nameof(CreateNotAdmin));
-
-
-                if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(phone))
-                {
-                    var cus = _context.Customers.FirstOrDefault(x => x.IsActive && x.Phone1 == phone);
-                    if (cus != null)
-                    {
-                        cus.FullName = name;
-                        _context.SaveChanges();
-                        tickets.CustomerId = cus.CustomerId;
-                    }
-                    else
-                    {
-                        _context.Customers.Add(new Customers()
-                        {
-                            FullName = name.Trim(),
-                            Phone1 = phone.Trim(),
-                            IsActive = true
-                        });
-                        _context.SaveChanges();
-                        tickets.CustomerId = _context.Customers.First(x => x.IsActive && x.Phone1 == phone)
-                            .CustomerId;
-                    }
-                }
-
-                tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
-                tickets.FromBranchId = _context.Users.Find(tickets.UserId).BranchId;
-
-                if (tickets.SupplierId == null)
-                    tickets.SupplierId = _context.Users.Find(tickets.UserId).SupplierId;
-
-                if (tickets.ToBranchId == null)
-                    tickets.ToBranchId = 1;
-
-                tickets.Price = _context.AppointmentPrice.First(e =>
-                    e.AppointmentId == tickets.AppointmentId && e.SupplierId == tickets.SupplierId).Price;
-
-                _context.Add(tickets);
-
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToAction(nameof(CreateNotAdmin));
-        }
-
+       
         #endregion
 
         #region setBusView
@@ -556,7 +498,7 @@ namespace TravelAgency.Controllers
         public IActionResult BusView()
         {
 
-            var model = new BusViewViewModel
+            var model = new BusViewViewModel()
             {
                 AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive), "AppointmentId", "Title"),
                 TicketDate = DateTime.Now
@@ -619,9 +561,7 @@ namespace TravelAgency.Controllers
 
             var Rtickets = _context.Tickets
                 .Include(x => x.Customer)
-                .Include(x => x.Supplier)
-                // .Include(x => x.FromBranch)
-                //  .Include(x => x.ToBranch)
+                .Include(x => x.Supplier) 
                 .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate && x.IsActive)
                 .ToList();
 
@@ -635,8 +575,7 @@ namespace TravelAgency.Controllers
             {
                 AppointmentsList =
                     new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)), "AppointmentId", "Title"),
-                CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
-                //  BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive).OrderBy(x=>x.BranchOrder), "BranchId", "Title"),
+                CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"), 
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive).OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
                 TicketDate = model.TicketDate.Date
             };
@@ -651,11 +590,9 @@ namespace TravelAgency.Controllers
                         Customer = item.Customer.FullName,
                         Supplier = item.Supplier.FullName,
                         Phone = item.Customer.Phone1,
-                        SeatId = item.SeatId,
-                        //       FromBranch = item.FromBranch.Title,
-                        //      ToBranch = item.ToBranch.Title,
+                        SeatId = item.SeatId, 
                         Code = item.Customer.Code,
-                        IsPaid = item.Price != 0,
+                        IsFemale = item.IsFemale,
                         Price = item.Price,
                         IsMine = (item.SupplierId == _context.Users.Find(UserId).SupplierId) ||
                                   // || item.FromBranchId == _context.Users.Find(UserId).BranchId ||
@@ -702,7 +639,7 @@ namespace TravelAgency.Controllers
         #endregion
 
         #region send_Whatsapp
-        private async void sendWhatsAppNotifications(string number, int points, string code, int seatNumber, DateTime tDate, string from, string viewName)
+        private async void SendWhatsAppNotifications(string number, int points, string code, int seatNumber, DateTime tDate, string from, string viewName)
         {
             try
             {
@@ -778,13 +715,13 @@ namespace TravelAgency.Controllers
                 var output = response.Content;
                 return;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return;
             }
         }
 
-        private async void sendWhatsAppNotificationsWithCancell(string number, int seatNumber, DateTime tDate, string from)
+        private async void SendWhatsAppNotificationsWithCancell(string number, int seatNumber, DateTime tDate, string from)
         {
 
             try
@@ -826,14 +763,14 @@ namespace TravelAgency.Controllers
                 var output = response.Content;
                 return;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return;
             }
         }
 
 
-        private async void sendWhatsAppNotificationsWithPointsOnly(string number, int points)
+        private async void SendWhatsAppNotificationsWithPointsOnly(string number, int points)
         {
             try
             {
@@ -858,7 +795,7 @@ namespace TravelAgency.Controllers
                 var output = response.Content;
                 return;
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 return;
             }

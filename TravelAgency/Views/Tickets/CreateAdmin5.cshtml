@@ -33,19 +33,23 @@
         <div class="form-group col-sm-2"><input type='number' placeholder="الكود" class="form-control" id="ClientCode"/></div>
         <div class="form-group"> <a class="btn btn-outline-success btn-small" id="searchedCustomerId"> <span class="fa fa-search"></span></a></div>
         <div class="form-group col-sm-2"><input type='text' placeholder="الاسم" class="form-control" id="CustomerName"/></div> 
-        <div class="form-group"> <a class="btn btn-outline-success btn-small" id="Addclient"> <span class="fa fa-plus"></span></a></div>
+        <div class="form-group"> <a class="btn btn-outline-success btn-small" id="AddClient"> <span class="fa fa-plus"></span></a></div>
         <div class="form-group col-sm-2"><input type='text' placeholder="النقاط" class="form-control" id="CustomerPoints" disabled/> </div> 
     </div>
 
     <div class="row">
         <div class="form-group  col-sm-2"><select asp-for="SupplierId" id="SupplierId" class="form-control " asp-items="Model.SuppliersList" style="width:100%"></select>  </div>
 
-        <div class="form-group" style=" margin-top: 10PX">  <label class="control-label">سعر</label> </div>
+        <span class="form-group" style=" margin-top: 10PX">  <label class="control-label">ســـت </label> </span>
+
+        <div class="form-group  col-sm-1">    <input asp-for="IsFemale" class="form-control" />   </div>
+
+        @* <div class="form-group" style=" margin-top: 10PX">  <label class="control-label">سعر</label> </div>
 
         <div class="form-group  col-sm-2">
             <input asp-for="Price" class="form-control" value="0" />
             <span asp-validation-for="Price" class="text text-danger"></span>
-        </div>
+        </div> *@
 
         <div class="form-group" style=" margin-top: 10PX">  <label class="control-label">مقعد</label> </div>
 
@@ -55,7 +59,7 @@
         </div>
          
         <div class="form-group ">
-            <input type='hidden' asp-for="CustomerId" class="form-control" id="CustomerIdadded" />
+            <input type='hidden' asp-for="CustomerId" class="form-control" id="CustomerIdAdded" />
             <input type='hidden' class="form-control" id="DeleteTicketId" />
 
             <input type="submit" value="تاكيد الحجز" asp-action="createAdmin" class="btn btn-primary" /> 
@@ -66,7 +70,7 @@
     </div>
     <hr />
 
-    <div class="row" style="color:red;font-weight:bold">
+    <div class="row" style="font-weight:bold">
 
         <div class=" col-sm-12  col-md-12   ">
             @*50*@
@@ -83,8 +87,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -106,8 +110,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -124,8 +128,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -143,8 +147,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -160,8 +164,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -181,8 +185,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -199,8 +203,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -218,8 +222,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -235,8 +239,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -256,8 +260,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -274,8 +278,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -293,8 +297,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -310,8 +314,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -331,8 +335,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -349,8 +353,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -368,8 +372,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -385,8 +389,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -406,8 +410,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -424,8 +428,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -443,8 +447,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -460,8 +464,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -485,8 +489,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -502,8 +506,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -526,8 +530,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -543,8 +547,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -565,8 +569,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -584,8 +588,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -604,8 +608,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -622,8 +626,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -644,8 +648,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -663,8 +667,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -683,8 +687,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -701,8 +705,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -723,8 +727,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -742,8 +746,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -762,8 +766,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -780,8 +784,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -802,8 +806,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -821,8 +825,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -840,8 +844,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -858,8 +862,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -880,8 +884,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -899,8 +903,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -919,8 +923,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -937,8 +941,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -959,8 +963,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -978,8 +982,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -998,8 +1002,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -1016,8 +1020,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -1034,8 +1038,8 @@
 
                     else
                     {
-                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsPaid ? "btn btn-danger  col-md-2 col-sm-2   reservedseat" : "btn btn-info  col-md-2 col-sm-2 reservedseat")"
-                                data-IsPaid="@seat.IsPaid" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
+                        <button data-seat-num="@seatNumber" type="button" class="@(seat.IsFemale ? "btn btn-danger  col-md-2 col-sm-2   reservedSeat" : "btn btn-info  col-md-2 col-sm-2 reservedSeat")"
+                                data-IsFemale="@seat.IsFemale" data-Ticke-Id="@seat.TicketId"  data-cust-code="@seat.Code"  data-PhoneNumber="@seat.Phone" id="@seatNumber" style="height: 100px">
                             @(seatNumber)-@(seat.Supplier) <br /> @(seat.Customer) <br /> @(seat.Phone)
                         </button>
                     }
@@ -1129,7 +1133,7 @@
 
             });
 
-            $(".reservedseat").click(function () {
+            $(".reservedSeat").click(function () {
                 var selectedSeat = $(this);
                 var seatNum = $(this).attr("data-seat-num");
                 var tickeId = $(this).attr("data-Ticke-Id");
@@ -1144,7 +1148,7 @@
                 $("#ClientCode").val(customerCode);
 
                 selectedSeat.removeClass();
-                selectedSeat.addClass("btn btn-warning  col-md-2 col-sm-2  reservedseat");
+                selectedSeat.addClass("btn btn-warning  col-md-2 col-sm-2  reservedSeat");
 
                 var ticketNumber = document.getElementById('DeleteTicketId');
                 $.ajax({
@@ -1156,7 +1160,7 @@
                         console.log(data);
                         $("#ClientPhone").val(data.split("&&")[0]);
                         document.getElementById("SupplierId").value = data.split("&&")[1];
-                        $("#CustomerIdadded").val(data.split("&&")[2]);
+                        $("#CustomerIdAdded").val(data.split("&&")[2]);
                         $("#CustomerName").val(data.split("&&")[3]);
                         $("#CustomerPoints").val(data.split("&&")[4]);
                     },
@@ -1221,7 +1225,7 @@
                 }
             });
 
-            $("#Addclient").click(function () {
+            $("#AddClient").click(function () {
                 var PhoneNumber = document.getElementById('ClientPhone');
                 var customerName = document.getElementById('CustomerName');
                 $("#cphone").val(PhoneNumber.value);
@@ -1264,7 +1268,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (data) {
-                        $("#CustomerIdadded").val(data.split("&&")[0]);
+                        $("#CustomerIdAdded").val(data.split("&&")[0]);
                         $("#CustomerName").val(data.split("&&")[1]);
                         $("#ClientCode").val(data.split("&&")[3]);
                         $("#CustomerPoints").val(data.split("&&")[4]);
@@ -1285,7 +1289,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (data) {
-                        $("#CustomerIdadded").val(data.split("&&")[0]);
+                        $("#CustomerIdAdded").val(data.split("&&")[0]);
                         $("#CustomerName").val(data.split("&&")[1]);
                         $("#ClientPhone").val(data.split("&&")[2]);
                         $("#CustomerPoints").val(data.split("&&")[3]);
@@ -1308,7 +1312,7 @@
                     dataType: "json",
                     success: function (data) {
 
-                        $("#CustomerIdadded").val(data.split("&&")[0]);
+                        $("#CustomerIdAdded").val(data.split("&&")[0]);
                         $("#CustomerName").val(data.split("&&")[1]);
                       
 
@@ -1329,17 +1333,17 @@
                     }
                 });
 
-                $(".reservedseat").each(function () {
+                $(".reservedSeat").each(function () {
                     var seat = $(this);
                     if (seat.hasClass("btn btn-warning")) {
                         seat.removeClass();
-                        seat.addClass("btn btn-info  col-md-2 col-sm-2  reservedseat");
+                        seat.addClass("btn btn-info  col-md-2 col-sm-2  reservedSeat");
                     }
                 });
             }
 
             function resetSeatColorAfterDelet() {
-                $(".reservedseat").each(function () {
+                $(".reservedSeat").each(function () {
                     var seat = $(this);
                     if (seat.hasClass("btn btn-warning")) {
                         seat.removeClass();
