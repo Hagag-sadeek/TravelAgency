@@ -104,10 +104,10 @@ namespace TravelAgency.Controllers
             cus.Points += 10;
             _context.SaveChanges();
 
-            if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
-                sendWhatsAppNotifications(cus.Phone1, cus.Points, cus.Code, tickets.SeatId, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
-            else
-                sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
+            //if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
+            //    sendWhatsAppNotifications(cus.Phone1, cus.Points, cus.Code, tickets.SeatId, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
+            //else
+            //    sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
