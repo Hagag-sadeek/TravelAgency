@@ -59,7 +59,6 @@ namespace TravelAgency.Controllers
                 AppointmentsList =
                     new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)).OrderBy(x => x.SortOrder)
                     , "AppointmentId", "Title"),
-                // BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive).OrderBy(x => x.BranchOrder), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive).OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now.Date
             };
