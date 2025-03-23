@@ -135,20 +135,17 @@ namespace TravelAgency.Controllers
             var model = new TicketViewModel()
             {
                 AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)), "AppointmentId", "Title"),
-                //    BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now
             };
 
-            var viewName = "CreateNotAdmin";
+            var viewName = "CreateNotAdmin5";
 
             var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
+               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date)
+               .OrderBy(x => x.AppointmentBusViewtId).LastOrDefault();
 
-            if (row != null)
-                viewName += row.ViewName.ToString();
-            else
-                viewName = "CreateNotAdmin5";
+            if (row != null && row.ViewName == "4") viewName = "CreateNotAdmin4";
 
             return View(viewName, model);
         }
@@ -162,9 +159,13 @@ namespace TravelAgency.Controllers
             if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1) return RedirectToAction("Login", "Account");
 
             var viewName = "CreateNotAdmin5";
-            var row = _context.AppointmentBusView.Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date).FirstOrDefault();
 
-            if (row != null) viewName = "CreateNotAdmin4";
+            var row = _context.AppointmentBusView
+               .Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date)
+               .OrderBy(x => x.AppointmentBusViewtId).LastOrDefault();
+
+            if (row != null && row.ViewName == "4") viewName = "CreateNotAdmin4";
+
 
             var ticketsExist = TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId);
 
@@ -182,10 +183,10 @@ namespace TravelAgency.Controllers
 
             _context.SaveChanges();
 
-            if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
-                sendWhatsAppNotifications(cus.Phone1, cus.Points, cus.Code, tickets.SeatId, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
-            else
-                sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
+            //if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
+            //    sendWhatsAppNotifications(cus.Phone1, cus.Points, cus.Code, tickets.SeatId, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
+            //else
+            //    sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
@@ -200,15 +201,14 @@ namespace TravelAgency.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            var viewName = "CreateAdmin";
+           
+             var viewName = "CreateAdmin5";
 
             var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
+               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date)
+               .OrderBy(x => x.AppointmentBusViewtId).LastOrDefault();
 
-            if (row != null)
-                viewName += row.ViewName.ToString();
-            else
-                viewName = "CreateAdmin5";
+            if (row != null && row.ViewName == "4") viewName = "CreateAdmin4";
 
             return View(viewName, PopulateReserveViewModel(model));
         }
@@ -224,16 +224,15 @@ namespace TravelAgency.Controllers
             {
                 model.TicketDate = DateTime.Now.Date;
             }
+             
 
-            var viewName = "CreateNotAdmin";
+            var viewName = "CreateNotAdmin5";
 
             var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
+               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date)
+               .OrderBy(x => x.AppointmentBusViewtId).LastOrDefault();
 
-            if (row != null)
-                viewName += row.ViewName.ToString();
-            else
-                viewName = "CreateNotAdmin5";
+            if (row != null && row.ViewName == "4") viewName = "CreateNotAdmin4";
 
 
             return View(viewName, PopulateReserveViewModel(model));
