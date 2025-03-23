@@ -437,29 +437,33 @@ namespace TravelAgency.Controllers
         #endregion
 
         #region DOConfirm
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("DoConfirmReserve")]
-        public IActionResult DoConfirmReserve(Tickets model, int confirmPrice)
+        public JsonResult PayTicket(int id)
         {
+            if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
 
-            var ticket = _context.Tickets.Find(model.TicketId);
-            ticket.Price = _context.AppointmentPrice.First(x =>
-                x.SupplierId == ticket.SupplierId && x.AppointmentId == ticket.AppointmentId).Price;
-            _context.Update(ticket);
-            _context.SaveChanges();
+            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
 
-            var viewName = "CreateNotAdmin";
+            if (ticket == null) return Json(false);
 
-            var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
+            ticket.Price = 270;
 
-            if (row != null)
-                viewName += row.ViewName.ToString();
-            else
-                viewName = "CreateNotAdmin5";
+            var result = _context.SaveChanges();
 
-            return View(viewName, PopulateReserveViewModel(model));
+            return Json(result > 0);
+        }
+        public JsonResult CancelPayTicket(int id)
+        {
+            if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
+
+            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
+
+            if (ticket == null) return Json(false);
+
+            ticket.Price = 0;
+
+            var result = _context.SaveChanges();
+
+            return Json(result > 0);
         }
         #endregion
 

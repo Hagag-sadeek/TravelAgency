@@ -64,7 +64,10 @@
 
             <input type="submit" value="تاكيد الحجز" asp-action="createAdmin" class="btn btn-primary" /> 
             <a id="doDeleteSeat" class="btn btn-danger"> <i class="fa fa-trash"></i> حذف الحجز </a>
-            <a id="call" class="btn btn-success"> <i style="color: white" class="fa fa-phone"></i> اتصال </a> 
+            <a id="call" class="btn btn-success"> <i style="color: white" class="fa fa-phone"></i> اتصال </a>
+
+            <a id="payedAction" class="btn btn-warning">  تم الدفع </a>
+            <a id="cancelPayedAction" class="btn btn-warning">  الغاء الدفع </a>
         </div>
 
     </div>
@@ -1224,6 +1227,54 @@
                     })
                 }
             });
+
+            $("#payedAction").click(function () {
+
+                    var ticketNumber = document.getElementById('DeleteTicketId');
+
+                        $.ajax({
+                                url: '/Tickets/PayTicket?id=' + ticketNumber.value,
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data === true) {
+                                      alert("تم الدفع بنجاح الرجاء تحديث الصفحه");
+
+                                } else {
+                                    alert("حدث خطأ اثناء الدفع التذكره");
+                                }
+                            },
+                            error: function (result) {
+                                alert("Data is not in the right formate!! please contact with IT department");
+                            }
+                        })
+
+                });
+
+            $("#cancelPayedAction").click(function () {
+
+                    var ticketNumber = document.getElementById('DeleteTicketId');
+
+                        $.ajax({
+                                url: '/Tickets/CancelPayTicket?id=' + ticketNumber.value,
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data === true) {
+                                     alert("تم الغاء الدفع بنجاح الرجاء تحديث الصفحه");
+
+                                } else {
+                                    alert("حدث خطأ اثناء الدفع التذكره");
+                                }
+                            },
+                            error: function (result) {
+                                alert("Data is not in the right formate!! please contact with IT department");
+                            }
+                        })
+
+                });
 
             $("#AddClient").click(function () {
                 var PhoneNumber = document.getElementById('ClientPhone');
