@@ -64,8 +64,8 @@
             <input type='hidden' class="form-control" id="DeleteTicketId" />
 
             <input type="submit" value="تاكيد الحجز" asp-action="createAdmin" class="btn btn-primary" />
-            <a id="callAction" class="btn btn-danger"> <i class="fa fa-trash"></i> حذف الحجز </a>
-            <a id="callAction" class="btn btn-success"> <i style="color: white" class="fa fa-phone"></i> اتصال </a>
+            <a id="doDeleteSeat" class="btn btn-danger"> <i class="fa fa-trash"></i> حذف الحجز </a>
+            <a id="call" class="btn btn-success"> <i style="color: white" class="fa fa-phone"></i> اتصال </a>
           
              <a id="payedAction" class="btn btn-warning">  تم الدفع </a>
             <a id="cancelPayedAction" class="btn btn-warning">  الغاء الدفع </a>
@@ -1077,20 +1077,20 @@
                     <div class="form-group row">
                         <label class="col-form-label col-lg-3 col-sm-12">الاسم </label>
                         <div class="col-lg-9 col-md-9 col-sm-12">
-                            <input type="text" class="form-control " id="cName" />
+                            <input type="text" class="form-control " id="cname" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-lg-3 col-sm-12">الهاتف </label>
                         <div class="col-lg-9 col-md-9 col-sm-12">
-                            <input type="number" class="form-control " maxlength=12 id="cPhone" />
+                            <input type="number" class="form-control " maxlength=12 id="cphone" />
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-form-label col-lg-3 col-sm-12">البلد </label>
                         <div class="col-lg-9 col-md-9 col-sm-12">
-                            <select name="Adreess1" id="cAdreess" class="form-control" required>
+                            <select name="Adreess1" id="cadreess" class="form-control" required>
                                 <option value="" selected></option>
                                 <option value="الوقف">الوقف</option>
                                 <option value="المراشده">المراشده</option>
@@ -1276,9 +1276,9 @@
 
 
             $("#doAddClient").click(function () {
-                var name = document.getElementById('cName').value;
-                var phone = document.getElementById('cPhone').value;
-                var adreess = document.getElementById('cAdreess').value;
+                var name = document.getElementById('cname').value;
+                var phone = document.getElementById('cphone').value;
+                var adreess = document.getElementById('cadreess').value;
 
                 $.ajax({
                     url: '/Tickets/AddCustomerAdmin',
@@ -1305,8 +1305,8 @@
             $("#AddClient").click(function () {
                 var PhoneNumber = document.getElementById('ClientPhone');
                 var customerName = document.getElementById('CustomerName');
-               $("#cPhone").val(PhoneNumber.value);
-                $("#cName").val(CustomerName.value);
+               $("#cphone").val(PhoneNumber.value);
+                $("#cname").val(CustomerName.value);
                 $('#Modal_Accept').modal('show');
             });
 
