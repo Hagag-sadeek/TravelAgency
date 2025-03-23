@@ -63,14 +63,14 @@ namespace TravelAgency.Controllers
                 TicketDate = DateTime.Now.Date
             };
 
-            var viewName = "CreateAdmin";
+            var viewName = "CreateAdmin5";
+             
             var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
+                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date)
+                .OrderBy(x => x.AppointmentBusViewtId)
+                .LastOrDefault();
 
-            if (row != null)
-                viewName += row.ViewName.ToString();
-            else
-                viewName = "CreateAdmin5";
+            if (row != null && row.ViewName == "4") viewName = "CreateAdmin4";
 
             return View(viewName, model);
         }
@@ -86,9 +86,12 @@ namespace TravelAgency.Controllers
                 return RedirectToAction("Login", "Account");
 
             var viewName = "CreateAdmin5";
-            var row = _context.AppointmentBusView.Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date).FirstOrDefault();
+            var row = _context.AppointmentBusView
+                .Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date)
+                .OrderBy(x => x.AppointmentBusViewtId)
+                .LastOrDefault();
 
-            if (row != null) viewName = "CreateAdmin4";
+            if (row != null && row.ViewName == "4") viewName = "CreateAdmin4";
 
             if (!ModelState.IsValid) return View(viewName, PopulateReserveViewModel(tickets));
 
