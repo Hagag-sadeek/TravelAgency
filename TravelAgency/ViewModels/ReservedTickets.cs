@@ -7,8 +7,10 @@
         public string Supplier { get; set; }
         public string FromBranch { get; set; }
         public string ToBranch { get; set; }
-        public string Phone { get; set; } 
+        public string Phone { get; set; }
         public bool IsFemale { get; set; }
+        public bool IsConformed { get; set; }
+
         public bool IsMine { get; set; }
         public int SeatId { get; set; }
         public int Price { get; set; }

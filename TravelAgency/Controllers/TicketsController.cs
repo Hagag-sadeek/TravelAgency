@@ -101,6 +101,7 @@ namespace TravelAgency.Controllers
             tickets.IsActive = true;
             tickets.ReserveDate = DateTime.Now;
             tickets.Price = 0;
+            tickets.IsConformed = false;
 
             _context.Tickets.Add(tickets);
 
@@ -177,6 +178,7 @@ namespace TravelAgency.Controllers
             tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
             tickets.IsActive = true;
             tickets.ReserveDate = DateTime.Now;
+            tickets.IsConformed = false;
             _context.Tickets.Add(tickets);
 
             var cus = _context.Customers.First(x => x.CustomerId == tickets.CustomerId);
@@ -465,6 +467,37 @@ namespace TravelAgency.Controllers
 
             return Json(result > 0);
         }
+
+        #region DOConfirm
+        public JsonResult ConformTicket(int id)
+        {
+            if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
+
+            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
+
+            if (ticket == null) return Json(false);
+
+            ticket.IsConformed = true;
+
+            var result = _context.SaveChanges();
+
+            return Json(result > 0);
+        }
+        public JsonResult CancelConformTicket(int id)
+        {
+            if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
+
+            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
+
+            if (ticket == null) return Json(false);
+
+            ticket.IsConformed = false;
+
+            var result = _context.SaveChanges();
+
+            return Json(result > 0);
+        }
+        #endregion
         #endregion
 
         #region CreateMORE
@@ -595,6 +628,7 @@ namespace TravelAgency.Controllers
                         Code = item.Customer.Code,
                         IsFemale = item.IsFemale,
                         Price = item.Price,
+                        IsConformed=item.IsConformed,
                         IsMine = (item.SupplierId == _context.Users.Find(UserId).SupplierId) ||
                                   // || item.FromBranchId == _context.Users.Find(UserId).BranchId ||
                                   (CurrentUserTypeId == "True") || item.UserId == UserId

@@ -18,7 +18,9 @@ namespace TravelAgency.Models
         public int SeatId { get; set; }
         public string Comment { get; set; }
         public bool IsActive { get; set; } = true;
-        public bool IsFemale { get; set; } 
+        public bool IsFemale { get; set; }
+
+        public bool IsConformed { get; set; }
 
         public virtual Appointments Appointment { get; set; }
         public virtual Customers Customer { get; set; }
