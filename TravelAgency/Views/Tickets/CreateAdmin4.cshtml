@@ -19,7 +19,7 @@
             <span asp-validation-for="TicketDate" class="text-danger"></span>
         </div>
 
-        <div class="form-group row col-4" style="height:40PX ;margin-top: 20PX">
+        <div class="form-group row col-4" style="height:50PX; width:100PX;margin-top: 20PX">
             <input type="submit" value="عرض الحجز" class="btn btn-primary" asp-action="ShowTicketsForAdmin" />
             @*  &nbsp; &nbsp;
             <input type="submit" value="عرض مفصل" asp-action="MyTickets" class="btn btn-info" /> *@
@@ -64,14 +64,12 @@
             <input type='hidden' class="form-control" id="DeleteTicketId" />
 
             <input type="submit" value="تاكيد الحجز" asp-action="createAdmin" class="btn btn-primary"  style="height:100PX"/> 
-            <a id="doDeleteSeat" class="btn btn-danger"> <i class="fa fa-trash" style="height:100PX; width:100PX"></i> حذف الحجز </a>
-            <a id="call" class="btn btn-success" style="height:100PX; width:100PX"> <i style="color: white" class="fa fa-phone"></i> اتصال </a>
-
-            <a id="payedAction" class="btn btn-warning" style="height:100PX; width:100PX ">  تم الدفع </a>
-            <a id="cancelPayedAction" class="btn btn-warning" style="height:100PX; width:100PX">  الغاء الدفع </a>
-
-            <a id="conformAction" class="btn btn-primary" style="height:100PX; width:100PX">  تم التاكيد </a>
-            <a id="cancelconformAction" class="btn btn-primary" style="height:100PX; width:100PX">  الغاء التاكيد </a>
+            <a id="doDeleteSeat" class="btn btn-danger" style="height:100PX; width:100PX; font-weight:bolder">   حذف الحجز </a>
+            <a id="call" class="btn btn-success" style="height:100PX; width:100PX; font-weight:bolder">  اتصال </a> 
+            <a id="payedAction" class="btn btn-warning" style="height:100PX; width:100PX; font-weight:bolder ">  تم الدفع </a>
+            <a id="cancelPayedAction" class="btn btn-warning" style="height:100PX; width:100PX; font-weight:bolder">  الغاء الدفع </a> 
+            <a id="conformAction" class="btn btn-primary" style="height:100PX; width:100PX ; font-weight:bolder">  تم التاكيد </a>
+            <a id="cancelconformAction" class="btn btn-primary" style="height:100PX; width:100PX; font-weight:bolder">  الغاء التاكيد </a>
              
         </div>
 
