@@ -79,8 +79,7 @@ namespace TravelAgency.Controllers
         [Route("CreateAdmin")]
         public IActionResult CreateAdmin(Tickets tickets)
         {
-
-
+   
             if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
                 return RedirectToAction("Login", "Account");
 
@@ -200,6 +199,9 @@ namespace TravelAgency.Controllers
 
         public IActionResult ShowTicketsForAdmin(Tickets model)
         {
+            if (model.TicketDate < DateTime.Now.Date && HttpContext.Session.GetInt32("UserId") !=65)
+                model.TicketDate = DateTime.Now.Date;
+
             if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
             {
                 return RedirectToAction("Login", "Account");
