@@ -214,12 +214,17 @@ namespace TravelAgency.Controllers
                .OrderBy(x => x.AppointmentBusViewtId).LastOrDefault();
 
             if (row != null && row.ViewName == "4") viewName = "CreateAdmin4";
-
+             
             return View(viewName, PopulateReserveViewModel(model));
         }
 
         public IActionResult ShowTickets(Tickets model)
         {
+
+            if (model.TicketDate < DateTime.Now.Date && HttpContext.Session.GetInt32("UserId") != 65)
+                model.TicketDate = DateTime.Now.Date;
+
+
             if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
             {
                 return RedirectToAction("Login", "Account");
