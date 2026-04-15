@@ -108,10 +108,13 @@ namespace TravelAgency.Controllers
             cus.Points += 10;
             _context.SaveChanges();
 
-            //if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
+            // if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
             //    sendWhatsAppNotifications(cus.Phone1, cus.Points, cus.Code, tickets.SeatId, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
             //else
             //    sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
+
+              if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
+                SendWelcomeWhatsApp(cus.Phone1);
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
@@ -189,6 +192,10 @@ namespace TravelAgency.Controllers
             //    sendWhatsAppNotifications(cus.Phone1, cus.Points, cus.Code, tickets.SeatId, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
             //else
             //    sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
+
+
+            if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
+                SendWelcomeWhatsApp(cus.Phone1);
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
@@ -681,6 +688,56 @@ namespace TravelAgency.Controllers
         #endregion
 
         #region send_Whatsapp
+
+        private async void SendWelcomeWhatsApp(string number )
+        {
+            try
+            {
+               
+
+                var url = "https://api.ultramsg.com/instance138410/messages/chat";
+                var client = new RestClient(url);
+
+                var request = new RestRequest(url, RestSharp.Method.Post);
+                request.AddHeader("content-type", "application/json");
+
+                var msg = "-مرحباً بحضرتك في شركة فـــوربـــاص للنقل البــــري، تم تأكيد حجز حضرتك بنجاح ونشكر ثقتك الغالية بنا ❤️";
+                msg += "\n\n";
+                msg += "-في حالة وجود أي استفسار أو تعديل، فريق فورباص دائماً في خدمتك 👍";
+                msg += "\n\n";
+                msg += "-نتمنى لحضرتك رحلة مريحة وسفراً سعيداً 🚍";
+                ///----------------------------------------
+
+                //msg += "\n\n";
+                //msg += "-لارقام المكاتب  والعناوين اضغط 1";
+                //msg += "\n";
+                //msg += "-للاسعار اضغط 2";
+                //msg += "\n";
+                //msg += "-للمواعيد اضغط 3";
+                //msg += "\n";
+                //msg += "-لموقع رمسيس على الخريطه اضغط 4";
+                //msg += "\n";
+                //msg += "-لموقع عين شمس على الخريطه اضغط 5";
+
+
+
+                var body = new
+                {
+                    token = "4eskefkg07hbwru8",
+                    to = "+2" + number,
+                    body = msg
+                };
+                request.AddParameter("application/json", body, ParameterType.RequestBody);
+                RestResponse response = await client.ExecuteAsync(request);
+                var output = response.Content;
+                return;
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
         private async void SendWhatsAppNotifications(string number, int points, string code, int seatNumber, DateTime tDate, string from, string viewName)
         {
             try
@@ -702,7 +759,7 @@ namespace TravelAgency.Controllers
                 //        dir = Window4.Contains(seatNumber) ? "شــباك" : "مــمر";
                 //}
 
-                var url = "https://api.ultramsg.com/instance95337/messages/chat";
+                var url = "https://api.ultramsg.com/instance138410/messages/chat";
                 var client = new RestClient(url);
 
                 var request = new RestRequest(url, RestSharp.Method.Post);
@@ -711,27 +768,27 @@ namespace TravelAgency.Controllers
                 var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا ❤️.";
                 msg += "\n\n";
                 ///----------------------------------------
-                msg += "-عد نقاطك :" + points;
-                msg += "\n";
-                msg += "- الكود الخاص بك داخل نظام الحجز الاليكتروني للشركه هو :  " + code;
-                msg += "\n";
-                msg += "- الان مع كل 50 نقطه تقدر تحصل علي 50 جنيه خصم علي سعر التذكره";
+                //msg += "-عد نقاطك :" + points;
+                //msg += "\n";
+                //msg += "- الكود الخاص بك داخل نظام الحجز الاليكتروني للشركه هو :  " + code;
+                //msg += "\n";
+                //msg += "- الان مع كل 50 نقطه تقدر تحصل علي 50 جنيه خصم علي سعر التذكره";
                 ///----------------------------------------
-                msg += "\n\n";
-                msg += "-تفاصيل الحجز  :";
-                msg += "\n";
-                msg += "يوم : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
-                msg += "\n";
-                msg += "مــن : " + from;
+                //msg += "\n\n";
+                //msg += "-تفاصيل الحجز  :";
+                //msg += "\n";
+                //msg += "يوم : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
+                //msg += "\n";
+                //msg += "مــن : " + from;
                 ///----------------------------------------
 
-                msg += "\n\n";
-                msg += "-الرجاء في حاله الغاء التذكره الاتصال بالمكتب قبل الميعاد بالوقت الكافي ";
-                msg += "\n\n";
+                //msg += "\n\n";
+                //msg += "-الرجاء في حاله الغاء التذكره الاتصال بالمكتب قبل الميعاد بالوقت الكافي ";
+                //msg += "\n\n";
                 ///----------------------------------------
-                msg += "-الرجاء في حاله وجود اي ملاحظه سواء من المكاتب او السائقين او الباصات الاتصال علي";
-                msg += "\n";
-                msg += "01030565720";
+                //msg += "-الرجاء في حاله وجود اي ملاحظه سواء من المكاتب او السائقين او الباصات الاتصال علي";
+                //msg += "\n";
+                //msg += "01030565720";
                 ///----------------------------------------
                 msg += "\n\n";
                 msg += "-لارقام المكاتب  والعناوين اضغط 1";
@@ -748,7 +805,7 @@ namespace TravelAgency.Controllers
 
                 var body = new
                 {
-                    token = "a516itsp3id9b8w0khhh",
+                    token = "4eskefkg07hbwru8",
                     to = "+2" + number,
                     body = msg
                 };
