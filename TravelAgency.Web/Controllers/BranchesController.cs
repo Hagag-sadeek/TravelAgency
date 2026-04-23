@@ -1,26 +1,24 @@
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using TravelAgency.Core.Entities;
-using TravelAgency.Infrastructure.Data;
+using TravelAgency.Application.DTOs.Branches;
+using TravelAgency.Application.Interfaces;
 
 namespace TravelAgency.Web.Controllers
 {
     public class BranchesController : Controller
     {
-        private readonly TravelAgencyContext _context;
+        private readonly IBranchService _branchService;
 
-        public BranchesController(TravelAgencyContext context)
+        public BranchesController(IBranchService branchService)
         {
-            _context = context;
+            _branchService = branchService;
         }
 
         // GET: Branches
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Branches.Where(x => x.IsActive).ToListAsync());
+            var branches = await _branchService.GetAllActiveBranchesAsync();
+            return View(branches);
         }
 
         // GET: Branches/Details/5
@@ -31,35 +29,32 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var branches = await _context.Branches
-                .FirstOrDefaultAsync(m => m.BranchId == id);
-            if (branches == null)
+            var branch = await _branchService.GetBranchByIdAsync(id.Value);
+            if (branch == null)
             {
                 return NotFound();
             }
 
-            return View(branches);
+            return View(branch);
         }
 
         // GET: Branches/Create
         public IActionResult Create()
         {
-            
             return View();
         }
 
         // POST: Branches/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Branches branches)
+        public async Task<IActionResult> Create(CreateBranchDto createDto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(branches);
-                await _context.SaveChangesAsync();
+                await _branchService.CreateBranchAsync(createDto);
                 return RedirectToAction(nameof(Index));
             }
-            return View(branches);
+            return View(createDto);
         }
 
         // GET: Branches/Edit/5
@@ -70,46 +65,46 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var branches = await _context.Branches.FindAsync(id);
-            if (branches == null)
+            var branch = await _branchService.GetBranchByIdAsync(id.Value);
+            if (branch == null)
             {
                 return NotFound();
             }
-            return View(branches);
+
+            var updateDto = new UpdateBranchDto
+            {
+                BranchId = branch.BranchId,
+                Title = branch.Title,
+                Description = branch.Description,
+                BranchOrder = branch.BranchOrder,
+                Address = branch.Address,
+                Phone = branch.Phone,
+                IsActive = branch.IsActive
+            };
+
+            return View(updateDto);
         }
 
         // POST: Branches/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  Branches branches)
+        public async Task<IActionResult> Edit(int id, UpdateBranchDto updateDto)
         {
-            if (id != branches.BranchId)
+            if (id != updateDto.BranchId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
+                var result = await _branchService.UpdateBranchAsync(updateDto);
+                if (result == null)
                 {
-                    branches.IsActive = true;
-                    _context.Update(branches);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BranchesExists(branches.BranchId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(branches);
+            return View(updateDto);
         }
 
         // GET: Branches/Delete/5
@@ -120,14 +115,13 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var branches = await _context.Branches
-                .FirstOrDefaultAsync(m => m.BranchId == id);
-            if (branches == null)
+            var branch = await _branchService.GetBranchByIdAsync(id.Value);
+            if (branch == null)
             {
                 return NotFound();
             }
 
-            return View(branches);
+            return View(branch);
         }
 
         // POST: Branches/Delete/5
@@ -135,16 +129,12 @@ namespace TravelAgency.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var branches = await _context.Branches.FindAsync(id);
-            branches.IsActive = false;
-         
-            await _context.SaveChangesAsync();
+            var result = await _branchService.DeleteBranchAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool BranchesExists(int id)
-        {
-            return _context.Branches.Any(e => e.BranchId == id);
         }
     }
 }

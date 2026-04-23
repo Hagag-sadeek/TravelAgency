@@ -5,61 +5,48 @@ using TravelAgency.Infrastructure.Data;
 
 namespace TravelAgency.Infrastructure.Repositories
 {
-    public class SupplierRepository : ISupplierRepository
+    /// <summary>
+    /// Supplier repository with entity-specific queries
+    /// Inherits common CRUD from Repository<Suppliers>
+    /// </summary>
+    public class SupplierRepository : Repository<Suppliers>, ISupplierRepository
     {
-        private readonly TravelAgencyContext _context;
-
-        public SupplierRepository(TravelAgencyContext context)
+        public SupplierRepository(TravelAgencyContext context) : base(context)
         {
-            _context = context;
         }
 
+        /// <summary>
+        /// Get all active suppliers ordered by SupplierOrder
+        /// </summary>
         public async Task<IEnumerable<Suppliers>> GetAllActiveAsync()
         {
-            return await _context.Suppliers
+            return await _dbSet
                 .Where(s => s.IsActive)
                 .OrderBy(s => s.SupplierOrder)
                 .ToListAsync();
         }
 
-        public async Task<Suppliers?> GetByIdAsync(int id)
+        /// <summary>
+        /// Get all suppliers ordered by SupplierOrder
+        /// </summary>
+        public async Task<IEnumerable<Suppliers>> GetAllOrderedAsync()
         {
-            return await _context.Suppliers
+            return await _dbSet
+                .OrderBy(s => s.SupplierOrder)
+                .ToListAsync();
+        }
+
+        /// <summary>
+        /// Get supplier with associated tickets
+        /// </summary>
+        public async Task<Suppliers?> GetWithTicketsAsync(int id)
+        {
+            return await _dbSet
+                .Include(s => s.Tickets)
                 .FirstOrDefaultAsync(s => s.SupplierId == id);
         }
 
-        public async Task<Suppliers> AddAsync(Suppliers supplier)
-        {
-            await _context.Suppliers.AddAsync(supplier);
-            return supplier;
-        }
-
-        public async Task<Suppliers> UpdateAsync(Suppliers supplier)
-        {
-            _context.Suppliers.Update(supplier);
-            return await Task.FromResult(supplier);
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var supplier = await GetByIdAsync(id);
-            if (supplier == null)
-            {
-                return false;
-            }
-
-            supplier.IsActive = false;
-            return true;
-        }
-
-        public async Task<bool> ExistsAsync(int id)
-        {
-            return await _context.Suppliers.AnyAsync(s => s.SupplierId == id);
-        }
-
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _context.SaveChangesAsync();
-        }
+        // Note: Common CRUD operations (GetByIdAsync, AddAsync, UpdateAsync, DeleteAsync, etc.)
+        // are inherited from Repository<Suppliers> base class
     }
 }

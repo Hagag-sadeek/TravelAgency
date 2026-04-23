@@ -10,8 +10,13 @@ namespace TravelAgency.Application
         {
             // Register Application Services
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IBranchService, BranchService>();
 
             // Add more services here as you migrate them
+            // services.AddScoped<IAppointmentService, AppointmentService>();
+            // services.AddScoped<IUserService, UserService>();
+            // services.AddScoped<ITicketService, TicketService>();
 
             return services;
         }

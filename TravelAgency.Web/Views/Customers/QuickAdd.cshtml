@@ -1,4 +1,4 @@
-﻿@model Customers
+﻿@model TravelAgency.Application.DTOs.Customers.QuickAddCustomerDto
 
 @{
     ViewData["Title"] = "انشاء عميل جديد";
@@ -16,16 +16,16 @@
               
             <div class="form-group">
                 <label class="control-label">رقم الهاتف</label>
-                <input asp-for="Phone1" class="form-control" id="phone1" name="phone" />
-                <input type="text" disabled   class="form-control" id="customerExist" />
-          
-                <span asp-validation-for="Phone1" class="text-danger"></span>
+                <input asp-for="Phone" class="form-control" id="phone1" />
+                <input type="text" disabled class="form-control" id="customerExist" />
+
+                <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
-          
+
             <div class="form-group">
                 <label class="control-label">الاسم بالكامل</label>
-                <input asp-for="FullName" class="form-control" name="name" />
-                <span asp-validation-for="FullName" class="text-danger" ></span>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             
             <div class="form-group">

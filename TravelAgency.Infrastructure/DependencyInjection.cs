@@ -8,10 +8,17 @@ namespace TravelAgency.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
-            // Register Repositories
-            services.AddScoped<ISupplierRepository, SupplierRepository>();
+            // Register Generic Repository (can be used for simple entities)
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-            // Add more repositories here as you migrate them
+            // Register Specific Repositories with custom queries
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IBranchRepository, BranchRepository>();
+
+            // Add more specific repositories here as you migrate them
+            // services.AddScoped<ITicketRepository, TicketRepository>();
+            // services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
             return services;
         }

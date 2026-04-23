@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using TravelAgency.Helper;
-using TravelAgency.Core.Entities;
-using TravelAgency.Infrastructure.Data;
+using TravelAgency.Application.DTOs.Customers;
+using TravelAgency.Application.Interfaces;
 
 namespace TravelAgency.Web.Controllers
 {
     public class CustomersController : Controller
     {
-        private readonly TravelAgencyContext _context;
+        private readonly ICustomerService _customerService;
 
-        public CustomersController(TravelAgencyContext context)
+        public CustomersController(ICustomerService customerService)
         {
-            _context = context;
+            _customerService = customerService;
         }
 
         [HttpGet]
@@ -26,29 +23,28 @@ namespace TravelAgency.Web.Controllers
             return View();
         }
 
-
-        // GET: Customers
+        // GET: Customers needing update
         [HttpGet]
         public async Task<IActionResult> updateInfo()
         {
-          return View(nameof(Index), await _context.Customers.Where(x => x.IsActive && x.NeedUpdate == true).ToListAsync());
-           
+            var customers = await _customerService.GetCustomersNeedingUpdateAsync();
+            return View(nameof(Index), customers);
         }
-        // GET: Customers
+
+        // GET: Customers already updated
         [HttpGet]
         public async Task<IActionResult> updatedInfo()
         {
-            return View(nameof(Index), await _context.Customers.Where(x => x.IsActive && x.Updated == true).ToListAsync());
-
+            var customers = await _customerService.GetUpdatedCustomersAsync();
+            return View(nameof(Index), customers);
         }
-
 
         // GET: Customers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.Where(x => x.IsActive).ToListAsync());
-          //  return View();
+            var customers = await _customerService.GetAllActiveCustomersAsync();
+            return View(customers);
         }
 
         // GET: Customers/Details/5
@@ -59,14 +55,13 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var customers = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customers == null)
+            var customer = await _customerService.GetCustomerByIdAsync(id.Value);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(customers);
+            return View(customer);
         }
 
         // GET: Customers/Create
@@ -76,20 +71,16 @@ namespace TravelAgency.Web.Controllers
         }
 
         // POST: Customers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerId,Code,Job,FullName,Adreess1,Adreess2,Phone1,Phone2,Phone3,IsActive")] Customers customers)
+        public async Task<IActionResult> Create(CreateCustomerDto createDto)
         {
             if (ModelState.IsValid)
             {
-
-                _context.Add(customers);
-                await _context.SaveChangesAsync();
+                await _customerService.CreateCustomerAsync(createDto);
                 return RedirectToAction(nameof(Index));
             }
-            return View(customers);
+            return View(createDto);
         }
 
         // GET: Customers/Edit/5
@@ -100,44 +91,49 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var customers = await _context.Customers.FindAsync(id);
-            if (customers == null)
+            var customer = await _customerService.GetCustomerByIdAsync(id.Value);
+            if (customer == null)
             {
                 return NotFound();
             }
-            return View(customers);
+
+            var updateDto = new UpdateCustomerDto
+            {
+                CustomerId = customer.CustomerId,
+                Code = customer.Code,
+                Job = customer.Job,
+                FullName = customer.FullName,
+                Adreess1 = customer.Adreess1,
+                Adreess2 = customer.Adreess2,
+                Phone1 = customer.Phone1,
+                Phone2 = customer.Phone2,
+                Phone3 = customer.Phone3,
+                IsActive = customer.IsActive,
+                SendWhatsApp = customer.SendWhatsApp,
+                NeedUpdate = customer.NeedUpdate,
+                Updated = customer.Updated,
+                Points = customer.Points
+            };
+
+            return View(updateDto);
         }
 
         // POST: Customers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Customers customers)
+        public async Task<IActionResult> Edit(int id, UpdateCustomerDto updateDto)
         {
-            if (id != customers.CustomerId)
+            if (id != updateDto.CustomerId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
+                var result = await _customerService.UpdateCustomerAsync(updateDto);
+                if (result == null)
                 {
-
-                    _context.Update(customers);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CustomersExists(customers.CustomerId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
                 return RedirectToAction(nameof(updateInfo));
             }
@@ -152,14 +148,13 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var customers = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customers == null)
+            var customer = await _customerService.GetCustomerByIdAsync(id.Value);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(customers);
+            return View(customer);
         }
 
         // POST: Customers/Delete/5
@@ -167,52 +162,24 @@ namespace TravelAgency.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var customers = await _context.Customers.FindAsync(id);
-            customers.IsActive = false;
-            await _context.SaveChangesAsync();
+            var result = await _customerService.DeleteCustomerAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomersExists(int id)
-        {
-            return _context.Customers.Any(e => e.CustomerId == id);
-        }
-
         [HttpPost]
-        public IActionResult AddCustomerAdmin(string name, string phone)
+        public async Task<IActionResult> AddCustomerAdmin(QuickAddCustomerDto dto)
         {
-            if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone) || phone.Length != 11)
+            if (!ModelState.IsValid || string.IsNullOrEmpty(dto.Name) || 
+                string.IsNullOrEmpty(dto.Phone) || dto.Phone.Length != 11)
+            {
                 return RedirectToAction(nameof(QuickAdd));
-
-            //var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == phone.Trim() && x.IsActive);
-            //if (customer != null)
-            //    customer.FullName = name.Trim();
-            //else
-            //    _context.Customers.Add(new Customers() { FullName = name.Trim(), Phone1 = phone.Trim(), IsActive = true });
-
-            var nCustomer = new Customers();
-
-            var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == phone.Trim() && x.IsActive);
-            if (customer != null)
-            {
-                customer.FullName = name;
-                //customer.Adreess1 = Adreess1;
             }
-            else
-            {
 
-                var lastCustomer = _context.Customers.OrderByDescending(c => c.CustomerId).FirstOrDefaultAsync();
-                int newCode = (lastCustomer != null && int.TryParse(lastCustomer.Result.Code, out int lastCode)) ? lastCode + 1 : 1;
-
-                nCustomer.FullName = name;
-                nCustomer.Phone1 = phone.Trim();
-                nCustomer.IsActive = true;
-                //nCustomer.Adreess1 = Adreess1;
-                nCustomer.Code = newCode.ToString();
-                nCustomer.Points = 0;
-                _context.Customers.Add(nCustomer);
-            }
-            _context.SaveChanges();
+            await _customerService.QuickAddCustomerAsync(dto);
             return RedirectToAction(nameof(QuickAdd));
         }
     }

@@ -8,6 +8,6 @@ namespace TravelAgency.Application.DTOs.Suppliers
         public string? FullName { get; set; }
         public string? Adreess1 { get; set; }
         public string? Phone1 { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }
