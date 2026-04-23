@@ -1,0 +1,44 @@
+﻿@model TravelAgency.Models.Suppliers
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<span>هل بالفعل تريد حذف المورد</span>
+<div>
+    <div>
+
+        <hr />
+        <dl class="row">
+           
+            <dt class="col-sm-2">
+                الاسم بالكامل
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FullName)
+            </dd>
+            <dt class="col-sm-2">
+                العنوان
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Adreess1)
+            </dd>
+
+            <dt class="col-sm-2">
+                رقم الهاتف
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Phone1)
+            </dd>
+            
+        </dl>
+
+        <form asp-action="Delete">
+            <div class="form-group row">
+                <input type="hidden" asp-for="SupplierId" />
+                <input type="submit" value="Delete" class="btn btn-danger" />  &nbsp;
+                <a asp-action="Index" class="btn btn-info">العوده الى القائمه</a>
+            </div>
+        </form>
+    </div>

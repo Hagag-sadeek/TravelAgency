@@ -1,0 +1,32 @@
+﻿@model TravelAgency.Models.Appointments
+
+@{
+    ViewData["Title"] = "Delete";
+    
+}
+    <span>هل بالفعل تريد حذف الميعاد</span>
+    <div>
+         
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+               الاسم
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+               التفصيل
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+             
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="AppointmentId" />
+            <input type="submit" value="حذف" class="btn btn-danger" />
+            <a asp-action="Index" class="btn btn-info">العوده الى القائمه</a>
+        </form>
+    </div>

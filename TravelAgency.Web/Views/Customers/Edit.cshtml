@@ -1,0 +1,99 @@
+﻿@model TravelAgency.Models.Customers
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>تعديل بيانات عميل </h3> 
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CustomerId" />
+            <div class="form-group">
+                <label asp-for="Code" class="control-label">الكود</label>
+                <input asp-for="Code" class="form-control"  />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label">الاسم بالكامل</label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+             <div class="form-group">
+                <label asp-for="Adreess1" class="control-label">العنوان</label>
+               
+
+                <select asp-for="Adreess1" class="form-control" required>
+                    <option value=""></option>
+                    <option value="الوقف">الوقف</option>
+                    <option value="المراشده">المراشده</option>
+                    <option value="المنشيه">المنشيه</option>
+                    <option value="الترامسه">الترامسه</option>
+                    <option value="قنا">قنا</option>
+                    <option value="مزعج">عميل مزعج</option>
+                </select>
+                <span asp-validation-for="Adreess1" class="text-danger"></span>
+             
+            </div>  
+
+           
+            <div class="form-group">
+                <label asp-for="Phone1" class="control-label"> 1 رقم الهاتف</label>
+                <input asp-for="Phone1" class="form-control" />
+                <span asp-validation-for="Phone1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone2" class="control-label"> 2 رقم الهاتف</label>
+                <input asp-for="Phone2" class="form-control" />
+                <span asp-validation-for="Phone2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone3" class="control-label">3 رقم الهاتف</label>
+                <input asp-for="Phone3" class="form-control" />
+                <span asp-validation-for="Phone3" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SendWhatsApp" class="control-label"> ارسال واتس </label>
+                <input asp-for="SendWhatsApp" class="form-control" />
+                <span asp-validation-for="SendWhatsApp" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IsActive" class="control-label">تفعيل العمــيل </label>
+                <input asp-for="IsActive" class="form-control" />
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NeedUpdate" class="control-label"> عدم اغلاق العميل - عند الاختيار يبقي العميل قيد التحديت-   </label>
+                <input asp-for="NeedUpdate" class="form-control" />
+                <span asp-validation-for="NeedUpdate" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Updated" class="control-label">  تــم التـــحديــــث </label>
+                <input asp-for="Updated" class="form-control" />
+                <span asp-validation-for="Updated" class="text-danger"></span>
+            </div>
+
+            
+
+            <div class="form-group">
+                <input type="submit" value="حفظ" class="btn btn-primary" />
+                <a asp-action="updateInfo" class="btn btn-info">العوده الى القائمه</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+ 
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

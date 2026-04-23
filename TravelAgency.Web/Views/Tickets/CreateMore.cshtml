@@ -1,0 +1,151 @@
+﻿@model TravelAgency.ViewModels.MoreTicketViewModel
+
+@{  
+    ViewData["Title"] = "حجز التذاكر";
+  
+}
+    <form asp-action="CreateMore">
+       
+    <div class="row">
+      <div class="form-group col-sm-4">
+        <label asp-for="AppointmentId" class="control-label">الميعاد</label>
+        <select asp-for="AppointmentId" class="form-control" asp-items="Model.AppointmentsList"></select>
+      </div>
+
+      <div class="form-group col-sm-3">
+        <label asp-for="TicketDate" class="control-label">يوم الحجز</label>
+        <input   asp-for="TicketDate" class="form-control" />
+
+        <span asp-validation-for="TicketDate" class="text-danger"></span>
+      </div>
+    </div>
+
+    
+
+        <hr />
+        <div class="row" style="color:red;font-weight:bold">
+          <div class="col-md-4"> 
+            <br />
+            
+          @if(Model.IsCairo )
+          {
+            <div class="form-group">
+              <label asp-for="CustomerId" class="control-label">اختيار عميل موجود
+                <a id="Addclient" class="btn btn-outline-success btn-small">
+                  <span class="fa fa-plus"> </span></a>
+              </label>
+
+              <select asp-for="CustomerId" class="form-control select2" asp-items="Model.CustomersList" style="width: 100%"></select>
+            </div>
+          }
+            <div class="form-group row"> 
+              <div class="form-group col-md-6">
+                <label asp-for="ToBranchId" class="control-label">اسم المسافر </label>
+                <input type="text" class="form-control " name="name"  aria-activedescendant=""/>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label asp-for="ToBranchId" class="control-label" >الهاتف</label>
+                <input type="text" class="form-control " name="phone"  />
+              </div>
+            </div>
+            
+            @if (Model.IsCairo)
+            {
+              <div class="form-group">
+
+                <div class="form-group col-md-6">
+                  <label asp-for="SupplierId" class="control-label">مكتب العموله </label>
+                  <select asp-for="SupplierId" class="form-control select2" asp-items="Model.SuppliersList" style="width: 100%"></select>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label asp-for="ToBranchId" class="control-label">مكتب الوصول</label>
+                  <select asp-for="ToBranchId" class="form-control" asp-items="Model.BranchsList"></select>
+                </div>
+              </div>
+
+            }
+
+             
+         
+            <div class="form-group row">
+              
+              <div class="form-group  col-md-6">
+                <label asp-for="SeatId" class="control-label">رقم المقعد</label>
+                <input   asp-for="SeatId" class="form-control" id="SeatNumber" value="0" />
+                <span asp-validation-for="SeatId" class="text text-danger"></span>
+              </div> 
+            </div>
+
+            <div class="form-group row">
+             
+                <label asp-for="comment" class="control-label">ملاحظات</label>
+                <textarea asp-for="comment"   class="form-control"   ></textarea> 
+            </div>
+            <div class="form-group  ">
+              <input  
+                     type="submit"
+                     value="حجز"
+                     class="btn btn-primary"
+                     id="doReserve" />
+              <input type="hidden" class="form-control" id="ticketId"  />
+            
+            </div>
+          </div>
+
+        <div class=" col-sm-12  col-md-8  ">
+        </div> 
+        </div> 
+    </form>
+
+    <div id="Modal_Accept" class="modal fade" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" >
+
+            <div class="  d-flex flex-column align-items-start pl-2">
+              <h4>اضافه عميل جديد</h4>
+            </div>
+
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="Acceptform" method="post" asp-action="AddCustomer" asp-controller="tickets">
+              <div class="kt-portlet__body ">
+
+                <div class="form-group row">
+                  <label class="col-form-label col-lg-3 col-sm-12">الاسم </label>
+                  <div class="col-lg-9 col-md-9 col-sm-12">
+                    <input type="text" class="form-control " name="name" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-form-label col-lg-3 col-sm-12">الهاتف </label>
+                  <div class="col-lg-9 col-md-9 col-sm-12">
+                    <input type="text" class="form-control " name="phone" />
+                  </div>
+                </div>
+              </div>
+              <div class="  clearfix p-0 pt-3">
+                <div class=" ">
+                  <button class="btn btn-primary pull-right">حفظ</button>
+                 
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+@section Scripts
+{
+  @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+  <script type="text/javascript">
+
+
+  </script>
+}

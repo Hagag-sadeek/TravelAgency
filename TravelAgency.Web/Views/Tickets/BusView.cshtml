@@ -1,0 +1,52 @@
+﻿@model TravelAgency.ViewModels.BusViewViewModel
+
+@{
+    ViewData["Title"] = "الباص في الميعاد";
+   
+}
+<form asp-action="BusView">
+
+    <div class="row">
+        
+        <div class="form-group col-sm-4">
+            <label asp-for="TicketDate" class="control-label">يوم الحجز</label>
+            <input  asp-for="TicketDate" class="form-control" />
+
+            <span asp-validation-for="TicketDate" class="text-danger"></span>
+        </div> 
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-4">
+            <label asp-for="AppointmentId" class="control-label">الميعاد</label>
+            <select asp-for="AppointmentId" class="form-control" asp-items="Model.AppointmentsList"></select>
+            <span asp-validation-for="AppointmentId" class="text-danger"></span>
+        </div>
+ 
+    </div>
+
+  
+    <div class="row">
+        <div class="form-group col-sm-4">
+            <label asp-for="ViewNameId" class="control-label">الميعاد</label>
+            <select asp-for="ViewNameId" class="form-control" >
+                <option value="0">---اختر الترقيم----</option>
+                <option value="4" >4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+            <span asp-validation-for="ViewNameId" class="text-danger"></span>
+        </div>
+
+    </div>
+
+    <hr />
+
+    <div class="  clearfix p-0 pt-3"> 
+            <button type="submit" class="btn btn-primary pull-right">حفظ</button>
+             
+    </div>
+     
+</form>
+
+  

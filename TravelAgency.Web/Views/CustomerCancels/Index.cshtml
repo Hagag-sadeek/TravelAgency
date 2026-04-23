@@ -1,0 +1,108 @@
+﻿@model TravelAgency.Models.CustomerCancels
+
+@{
+    ViewData["Title"] = "انشاء جديد";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h3>انشاء الغاء جديد</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form class="Acceptform" method="post" asp-action="index" asp-controller="CustomerCancels">
+
+            <input type="hidden" asp-for="CustomerId" id="CustomerId" />
+
+            <div class="form-group">
+                <label class="control-label">رقم الهاتف</label>
+                <input   class="form-control" id="phone1"   />
+                <input type="text" disabled class="form-control" id="customerExist" />
+                <input type="submit" class="btn btn-danger" asp-action="ShowCustomerCancels" value="عرض الالغاء السابق" />
+            </div>
+
+             
+            <div class="form-group">
+                <label class="control-label"> تفاصيل الالغاء  </label>
+                <textarea rows="3"  class="form-control" asp-for="comment"  value="asd" > </textarea>
+              
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="حفظ" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="row">
+     
+    <table class="table table-striped table-bordered table-hover" id="table">
+        <thead>
+            <tr>
+                <th>
+                   تاريخ الالغاء
+              </th>
+                <th>
+                    الالغاء
+                </th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.CustomerCancels != null)
+            {
+
+
+                @foreach (var item in (List<CustomerCancels>)ViewBag.CustomerCancels)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CancelDate)
+                        </td>
+                        <td style="width:80%">
+                            @Html.DisplayFor(modelItem => item.comment)
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#phone1").keyup(function () {
+                var PhoneNumber = document.getElementById('phone1');
+
+                if (PhoneNumber.value.length == 11) {
+                    $.ajax({
+                        url: '/Tickets/FindCustomerByPhoneId?Phone=' + PhoneNumber.value,
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            $("#customerExist").val(data);
+                            $("#CustomerId").val(data.split("&&")[0]);
+                        },
+                        error: function (result) {
+                            alert("Data is not in the right formate!! please contact with IT department");
+                        }
+                    })
+                }
+           
+
+            });
+        });
+    </script>
+}
