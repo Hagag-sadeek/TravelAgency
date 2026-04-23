@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TravelAgency.Infrastructure.Data;
+using TravelAgency.Application;
+using TravelAgency.Infrastructure;
 
 namespace TravelAgency.Web
 {
@@ -27,6 +29,9 @@ namespace TravelAgency.Web
             services.AddDbContext<TravelAgencyContext>(
              option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            // Register Application and Infrastructure Services
+            services.AddApplicationServices();
+            services.AddInfrastructureServices();
 
             services.AddSession(options =>
             {

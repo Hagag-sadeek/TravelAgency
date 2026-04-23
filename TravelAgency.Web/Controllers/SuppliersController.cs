@@ -6,24 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TravelAgency.Helper;
-using TravelAgency.Core.Entities;
-using TravelAgency.Infrastructure.Data;
+using TravelAgency.Application.Interfaces;
+using TravelAgency.Application.DTOs.Suppliers;
 
 namespace TravelAgency.Web.Controllers
 {
     public class SuppliersController : Controller
     {
-        private readonly TravelAgencyContext _context;
+        private readonly ISupplierService _supplierService;
 
-        public SuppliersController(TravelAgencyContext context)
+        public SuppliersController(ISupplierService supplierService)
         {
-            _context = context;
+            _supplierService = supplierService;
         }
 
         // GET: Suppliers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Suppliers.Where(x => x.IsActive).ToListAsync());
+            var suppliers = await _supplierService.GetAllActiveSuppliersAsync();
+            return View(suppliers);
         }
 
         // GET: Suppliers/Details/5
@@ -34,14 +35,13 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var suppliers = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.SupplierId == id);
-            if (suppliers == null)
+            var supplier = await _supplierService.GetSupplierByIdAsync(id.Value);
+            if (supplier == null)
             {
                 return NotFound();
             }
 
-            return View(suppliers);
+            return View(supplier);
         }
 
         // GET: Suppliers/Create
@@ -51,20 +51,16 @@ namespace TravelAgency.Web.Controllers
         }
 
         // POST: Suppliers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SupplierId,FullName,Commision,Code,Job,Adreess1,Phone1,Phone2,Phone3,IsActive")] Suppliers suppliers)
+        public async Task<IActionResult> Create(CreateSupplierDto createDto)
         {
             if (ModelState.IsValid)
             {
-                suppliers.IsActive = true;
-                _context.Add(suppliers);
-                await _context.SaveChangesAsync();
+                await _supplierService.CreateSupplierAsync(createDto);
                 return RedirectToAction(nameof(Index));
             }
-            return View(suppliers);
+            return View(createDto);
         }
 
         // GET: Suppliers/Edit/5
@@ -75,48 +71,46 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var suppliers = await _context.Suppliers.FindAsync(id);
-            if (suppliers == null)
+            var supplier = await _supplierService.GetSupplierByIdAsync(id.Value);
+            if (supplier == null)
             {
                 return NotFound();
             }
-            return View(suppliers);
+
+            var updateDto = new UpdateSupplierDto
+            {
+                SupplierId = supplier.SupplierId,
+                FullName = supplier.FullName,
+                Commision = supplier.Commision,
+                SupplierOrder = supplier.SupplierOrder,
+                Adreess1 = supplier.Adreess1,
+                Phone1 = supplier.Phone1,
+                IsActive = supplier.IsActive
+            };
+
+            return View(updateDto);
         }
 
         // POST: Suppliers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SupplierId,FullName,Commision,Code,Job,Adreess1,Phone1,Phone2,Phone3,IsActive")] Suppliers suppliers)
+        public async Task<IActionResult> Edit(int id, UpdateSupplierDto updateDto)
         {
-            if (id != suppliers.SupplierId)
+            if (id != updateDto.SupplierId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
+                var result = await _supplierService.UpdateSupplierAsync(updateDto);
+                if (result == null)
                 {
-                    suppliers.IsActive = true;
-                    _context.Update(suppliers);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SuppliersExists(suppliers.SupplierId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(suppliers);
+            return View(updateDto);
         }
 
         // GET: Suppliers/Delete/5
@@ -127,14 +121,13 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var suppliers = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.SupplierId == id);
-            if (suppliers == null)
+            var supplier = await _supplierService.GetSupplierByIdAsync(id.Value);
+            if (supplier == null)
             {
                 return NotFound();
             }
 
-            return View(suppliers);
+            return View(supplier);
         }
 
         // POST: Suppliers/Delete/5
@@ -142,15 +135,12 @@ namespace TravelAgency.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var suppliers = await _context.Suppliers.FindAsync(id);
-            suppliers.IsActive = false;
-           await _context.SaveChangesAsync();
+            var result = await _supplierService.DeleteSupplierAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool SuppliersExists(int id)
-        {
-            return _context.Suppliers.Any(e => e.SupplierId == id);
         }
     }
 }
