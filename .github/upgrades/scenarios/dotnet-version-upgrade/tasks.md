@@ -4,10 +4,10 @@
 
 Upgrading TravelAgency Razor Pages application from .NET 6 to .NET 10.0 (LTS) using All-At-Once strategy. Single project with Entity Framework Core, addressing security vulnerability in RestSharp.
 
-**Progress**: 2/3 tasks complete (67%) ![67%](https://progress-bar.xyz/67)
+**Progress**: 3/3 tasks complete (100%) ![100%](https://progress-bar.xyz/100)
 
 ## Tasks
 
 - ✅ 01-prerequisites: Validate Prerequisites
 - ✅ 02-atomic-upgrade: Upgrade Project and Dependencies
-- 🔲 03-validation: Validate Upgrade
+- ✅ 03-validation: Validate Upgrade

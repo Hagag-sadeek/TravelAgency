@@ -92,7 +92,7 @@ namespace TravelAgency.Models
                 entity.HasIndex(e => e.SupplierId);
 
                 entity.HasIndex(e => e.ToBranchId)
-                    .HasName("IX_Tickets_ToBraBranchId");
+                    .HasDatabaseName("IX_Tickets_ToBraBranchId");
 
                 entity.HasOne(d => d.Appointment)
                     .WithMany(p => p.Tickets)
