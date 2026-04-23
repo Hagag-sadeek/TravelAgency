@@ -1,0 +1,407 @@
+{
+  "settings": {
+    "components": {
+      "code": true,
+      "binaries": false
+    },
+    "targetId": "net10.0",
+    "targetDisplayName": ".NETCoreApp,Version=v10.0"
+  },
+  "analysisStartTime": "2026-04-23T18:54:21.9847142Z",
+  "analysisEndTime": "2026-04-23T18:54:34.7749725Z",
+  "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2270980",
+  "stats": {
+    "summary": {
+      "projects": 1,
+      "issues": 6,
+      "incidents": 11,
+      "effort": 11
+    },
+    "charts": {
+      "severity": {
+        "Mandatory": 2,
+        "Optional": 2,
+        "Potential": 7,
+        "Information": 0
+      },
+      "category": {
+        "NuGet": 9,
+        "Project": 1,
+        "Api": 1
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": "TravelAgency\\TravelAgency.csproj",
+      "startingProject": true,
+      "issues": 6,
+      "storyPoints": 11,
+      "properties": {
+        "appName": "TravelAgency",
+        "projectKind": "AspNetCore",
+        "frameworks": [
+          "net6.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 2423,
+        "numberOfCodeFiles": 101,
+        "linesTotal": 496710,
+        "linesOfCode": 21496,
+        "totalApiScanned": 91039,
+        "minLinesOfCodeToChange": 1,
+        "maxLinesOfCodeToChange": 1
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "8bd38ba4-a8b1-47d1-8b70-855df875ca92",
+          "ruleId": "NuGet.0003",
+          "projectPath": "TravelAgency\\TravelAgency.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Razor, 2.2.0\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+              "protected": "Microsoft.AspNetCore.Razor, 2.2.0\n\nRecommendation:\n\nPackage functionality included with new framework reference"
+            },
+            "kind": "File",
+            "path": "TravelAgency\\TravelAgency.csproj",
+            "snippet": "Microsoft.AspNetCore.Razor, 2.2.0\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "protectedSnippet": "Microsoft.AspNetCore.Razor, 2.2.0\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "label": "Microsoft.AspNetCore.Razor 2.2.0",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Razor",
+              "PackageVersion": "2.2.0",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "ca6077c9-7d1f-4a4c-9802-9048534a118c",
+          "ruleId": "NuGet.0002",
+          "projectPath": "TravelAgency\\TravelAgency.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.7",
+              "protected": "Microsoft.EntityFrameworkCore, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.7"
+            },
+            "kind": "File",
+            "path": "TravelAgency\\TravelAgency.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.7",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.7",
+            "label": "Microsoft.EntityFrameworkCore 6.0.0",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore",
+              "PackageVersion": "6.0.0",
+              "PackageNewVersion": "10.0.7",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "729991a1-4e4b-4a72-821b-f208096daaf3",
+          "ruleId": "NuGet.0002",
+          "projectPath": "TravelAgency\\TravelAgency.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Design, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.7",
+              "protected": "Microsoft.EntityFrameworkCore.Design, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.7"
+            },
+            "kind": "File",
+            "path": "TravelAgency\\TravelAgency.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Design, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.7",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Design, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.7",
+            "label": "Microsoft.EntityFrameworkCore.Design 6.0.0",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Design",
+              "PackageVersion": "6.0.0",
+              "PackageNewVersion": "10.0.7",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "7ed40b50-9ecd-4934-8ef5-8f7756e0db94",
+          "ruleId": "NuGet.0002",
+          "projectPath": "TravelAgency\\TravelAgency.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Sqlite, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Sqlite, and replace with new package Microsoft.EntityFrameworkCore.Sqlite 10.0.7",
+              "protected": "Microsoft.EntityFrameworkCore.Sqlite, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Sqlite, and replace with new package Microsoft.EntityFrameworkCore.Sqlite 10.0.7"
+            },
+            "kind": "File",
+            "path": "TravelAgency\\TravelAgency.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Sqlite, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Sqlite, and replace with new package Microsoft.EntityFrameworkCore.Sqlite 10.0.7",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Sqlite, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Sqlite, and replace with new package Microsoft.EntityFrameworkCore.Sqlite 10.0.7",
+            "label": "Microsoft.EntityFrameworkCore.Sqlite 6.0.0",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Sqlite",
+              "PackageVersion": "6.0.0",
+              "PackageNewVersion": "10.0.7",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "df03f1c5-619e-498e-acbd-7f84bbc277a5",
+          "ruleId": "NuGet.0002",
+          "projectPath": "TravelAgency\\TravelAgency.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.SqlServer, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.7",
+              "protected": "Microsoft.EntityFrameworkCore.SqlServer, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.7"
+            },
+            "kind": "File",
+            "path": "TravelAgency\\TravelAgency.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.SqlServer, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.7",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.SqlServer, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.7",
+            "label": "Microsoft.EntityFrameworkCore.SqlServer 6.0.0",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.SqlServer",
+              "PackageVersion": "6.0.0",
+              "PackageNewVersion": "10.0.7",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "1fdc9fce-b1ec-4c76-92b8-9272c036f839",
+          "ruleId": "NuGet.0002",
+          "projectPath": "TravelAgency\\TravelAgency.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Tools, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.7",
+              "protected": "Microsoft.EntityFrameworkCore.Tools, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.7"
+            },
+            "kind": "File",
+            "path": "TravelAgency\\TravelAgency.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Tools, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.7",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Tools, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.7",
+            "label": "Microsoft.EntityFrameworkCore.Tools 6.0.0",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Tools",
+              "PackageVersion": "6.0.0",
+              "PackageNewVersion": "10.0.7",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "f05ffa47-2f57-4765-a9d1-b314d2d642d5",
+          "ruleId": "NuGet.0002",
+          "projectPath": "TravelAgency\\TravelAgency.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.VisualStudio.Web.CodeGeneration.Design, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.VisualStudio.Web.CodeGeneration.Design, and replace with new package Microsoft.VisualStudio.Web.CodeGeneration.Design 10.0.2",
+              "protected": "Microsoft.VisualStudio.Web.CodeGeneration.Design, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.VisualStudio.Web.CodeGeneration.Design, and replace with new package Microsoft.VisualStudio.Web.CodeGeneration.Design 10.0.2"
+            },
+            "kind": "File",
+            "path": "TravelAgency\\TravelAgency.csproj",
+            "snippet": "Microsoft.VisualStudio.Web.CodeGeneration.Design, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.VisualStudio.Web.CodeGeneration.Design, and replace with new package Microsoft.VisualStudio.Web.CodeGeneration.Design 10.0.2",
+            "protectedSnippet": "Microsoft.VisualStudio.Web.CodeGeneration.Design, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.VisualStudio.Web.CodeGeneration.Design, and replace with new package Microsoft.VisualStudio.Web.CodeGeneration.Design 10.0.2",
+            "label": "Microsoft.VisualStudio.Web.CodeGeneration.Design 6.0.0",
+            "properties": {
+              "PackageId": "Microsoft.VisualStudio.Web.CodeGeneration.Design",
+              "PackageVersion": "6.0.0",
+              "PackageNewVersion": "10.0.2",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "ccf63a73-ab5d-4d8a-9a2e-e79612b73890",
+          "ruleId": "NuGet.0005",
+          "projectPath": "TravelAgency\\TravelAgency.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Razor, 2.2.0\n\nRecommendation:\n\nThis package has been deprecated as part of the .NET Package Deprecation effort. You can learn more about it from https://github.com/dotnet/announcements/issues/217\nRemove Microsoft.AspNetCore.Razor, and replace with new package Microsoft.AspNetCore.Razor, 2.3.0",
+              "protected": "Microsoft.AspNetCore.Razor, 2.2.0\n\nRecommendation:\n\nThis package has been deprecated as part of the .NET Package Deprecation effort. You can learn more about it from https://github.com/dotnet/announcements/issues/217\nRemove Microsoft.AspNetCore.Razor, and replace with new package Microsoft.AspNetCore.Razor, 2.3.0"
+            },
+            "kind": "File",
+            "path": "TravelAgency\\TravelAgency.csproj",
+            "snippet": "Microsoft.AspNetCore.Razor, 2.2.0\n\nRecommendation:\n\nThis package has been deprecated as part of the .NET Package Deprecation effort. You can learn more about it from https://github.com/dotnet/announcements/issues/217\nRemove Microsoft.AspNetCore.Razor, and replace with new package Microsoft.AspNetCore.Razor, 2.3.0",
+            "protectedSnippet": "Microsoft.AspNetCore.Razor, 2.2.0\n\nRecommendation:\n\nThis package has been deprecated as part of the .NET Package Deprecation effort. You can learn more about it from https://github.com/dotnet/announcements/issues/217\nRemove Microsoft.AspNetCore.Razor, and replace with new package Microsoft.AspNetCore.Razor, 2.3.0",
+            "label": "Microsoft.AspNetCore.Razor 2.2.0",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Razor",
+              "PackageVersion": "2.2.0",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "4ae1fdd8-b638-4c04-933a-37712f5535f8",
+          "ruleId": "NuGet.0004",
+          "projectPath": "TravelAgency\\TravelAgency.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "RestSharp, 111.4.1\n\nRecommendation:\n\nRestSharp, 114.0.0",
+              "protected": "RestSharp, 111.4.1\n\nRecommendation:\n\nRestSharp, 114.0.0"
+            },
+            "kind": "File",
+            "path": "TravelAgency\\TravelAgency.csproj",
+            "snippet": "RestSharp, 111.4.1\n\nRecommendation:\n\nRestSharp, 114.0.0",
+            "protectedSnippet": "RestSharp, 111.4.1\n\nRecommendation:\n\nRestSharp, 114.0.0",
+            "label": "RestSharp 111.4.1",
+            "properties": {
+              "PackageId": "RestSharp",
+              "PackageVersion": "111.4.1",
+              "PackageNewVersion": "114.0.0",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "7777904b-958e-41cf-9e6e-1090c2ada103",
+          "ruleId": "Project.0002",
+          "projectPath": "TravelAgency\\TravelAgency.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net6.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net6.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "TravelAgency\\TravelAgency.csproj",
+            "snippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net6.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "1a7cb98b-5496-4f17-9cc3-fce905ebb773",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "TravelAgency\\TravelAgency.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.IdleTimeout = TimeSpan.FromMinutes(400);",
+              "protected": "M:System.TimeSpan.FromMinutes(System.Double)"
+            },
+            "kind": "File",
+            "path": "TravelAgency\\Startup.cs",
+            "snippet": "options.IdleTimeout = TimeSpan.FromMinutes(400);",
+            "protectedSnippet": "M:System.TimeSpan.FromMinutes(System.Double)",
+            "label": "M:System.TimeSpan.FromMinutes(System.Double)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 35,
+            "column": 16
+          }
+        }
+      ],
+      "features": []
+    }
+  ],
+  "rules": {
+    "NuGet.0003": {
+      "id": "NuGet.0003",
+      "isFeature": false,
+      "description": "NuGet package functionality is included with framework reference.\n\nPackage needs to be removed.",
+      "label": "NuGet package functionality is included with framework reference",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262609",
+          "isCustom": false
+        }
+      ]
+    },
+    "NuGet.0002": {
+      "id": "NuGet.0002",
+      "isFeature": false,
+      "description": "NuGet package upgrade is recommended for selected target framework.\n\nStandard .NET packages are recommended to have versions matching version of .NET that project targets.\n\nSome other packages also are known to work better for selected target frameworks.",
+      "label": "NuGet package upgrade is recommended",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262530",
+          "isCustom": false
+        }
+      ]
+    },
+    "NuGet.0005": {
+      "id": "NuGet.0005",
+      "isFeature": false,
+      "description": "NuGet package is deprecated.\n\nGo to its documentation and if there is a guidance for replacement of functionality provided by this package.",
+      "label": "NuGet package is deprecated",
+      "severity": "Optional",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262531",
+          "isCustom": false
+        }
+      ]
+    },
+    "NuGet.0004": {
+      "id": "NuGet.0004",
+      "isFeature": false,
+      "description": "NuGet package contains security vulnerabilities.\n\nPackage needs to be upgraded to a newer version that addresses known security vulnerabilities.",
+      "label": "NuGet package contains security vulnerability",
+      "severity": "Optional",
+      "effort": 1
+    },
+    "Project.0002": {
+      "id": "Project.0002",
+      "isFeature": false,
+      "description": "Project\u0027s target framework(s) needs to be changed to the new target framework that you selected for this upgrade.\n\nDuring upgrade target framework will be adjusted to corresponding platform when applicable. In some cases project would result in multiple target frameworks after the upgrade if it was using features that now have their own platforms in modern .NET frameworks (windows, iOS, Android etc).",
+      "label": "Project\u0027s target framework(s) needs to be changed",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Overview of porting from .NET Framework to .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265227",
+          "isCustom": false
+        },
+        {
+          "title": ".NET project SDKs",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265226",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0002": {
+      "id": "Api.0002",
+      "isFeature": false,
+      "description": "API is source incompatible for selected .NET version: requires code changes to compile successfully when targeting a new version, such as removing obsolete APIs or changing method signatures.",
+      "label": "Source incompatible for selected .NET version",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Breaking changes in .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262679",
+          "isCustom": false
+        }
+      ]
+    }
+  }
+}
