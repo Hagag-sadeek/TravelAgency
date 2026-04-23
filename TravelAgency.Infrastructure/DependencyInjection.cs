@@ -15,10 +15,12 @@ namespace TravelAgency.Infrastructure
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IBranchRepository, BranchRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IAppointmentDetailRepository, AppointmentDetailRepository>();
 
             // Add more specific repositories here as you migrate them
             // services.AddScoped<ITicketRepository, TicketRepository>();
-            // services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            // services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

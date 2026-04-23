@@ -1,29 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using TravelAgency.Helper;
-using TravelAgency.Core.Entities;
-using TravelAgency.Infrastructure.Data;
+using TravelAgency.Application.DTOs.Appointments;
+using TravelAgency.Application.Interfaces;
 
 namespace TravelAgency.Web.Controllers
 {
     public class AppointmentsController : Controller
     {
-        private readonly TravelAgencyContext _context;
+        private readonly IAppointmentService _appointmentService;
 
-        public AppointmentsController(TravelAgencyContext context)
+        public AppointmentsController(IAppointmentService appointmentService)
         {
-            _context = context;
+            _appointmentService = appointmentService;
         }
 
         // GET: Appointments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Appointments.Where(x => x.IsActive).ToListAsync());
+            var appointments = await _appointmentService.GetAllActiveAppointmentsAsync();
+            return View(appointments);
         }
 
         // GET: Appointments/Details/5
@@ -34,14 +29,13 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var appointments = await _context.Appointments
-                .FirstOrDefaultAsync(m => m.AppointmentId == id);
-            if (appointments == null)
+            var appointment = await _appointmentService.GetAppointmentByIdAsync(id.Value);
+            if (appointment == null)
             {
                 return NotFound();
             }
 
-            return View(appointments);
+            return View(appointment);
         }
 
         // GET: Appointments/Create
@@ -51,20 +45,16 @@ namespace TravelAgency.Web.Controllers
         }
 
         // POST: Appointments/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AppointmentId,Title,Description,IsActive")] Appointments appointments)
+        public async Task<IActionResult> Create(CreateAppointmentDto createDto)
         {
             if (ModelState.IsValid)
             {
-                appointments.IsActive = true;
-                _context.Add(appointments);
-                await _context.SaveChangesAsync();
+                await _appointmentService.CreateAppointmentAsync(createDto);
                 return RedirectToAction(nameof(Index));
             }
-            return View(appointments);
+            return View(createDto);
         }
 
         // GET: Appointments/Edit/5
@@ -75,48 +65,44 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var appointments = await _context.Appointments.FindAsync(id);
-            if (appointments == null)
+            var appointment = await _appointmentService.GetAppointmentByIdAsync(id.Value);
+            if (appointment == null)
             {
                 return NotFound();
             }
-            return View(appointments);
+
+            var updateDto = new UpdateAppointmentDto
+            {
+                AppointmentId = appointment.AppointmentId,
+                Title = appointment.Title,
+                Description = appointment.Description,
+                SortOrder = appointment.SortOrder,
+                IsActive = appointment.IsActive
+            };
+
+            return View(updateDto);
         }
 
         // POST: Appointments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AppointmentId,Title,Description,IsActive")] Appointments appointments)
+        public async Task<IActionResult> Edit(int id, UpdateAppointmentDto updateDto)
         {
-            if (id != appointments.AppointmentId)
+            if (id != updateDto.AppointmentId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
+                var result = await _appointmentService.UpdateAppointmentAsync(updateDto);
+                if (result == null)
                 {
-                    appointments.IsActive = true;
-                    _context.Update(appointments);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AppointmentsExists(appointments.AppointmentId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(appointments);
+            return View(updateDto);
         }
 
         // GET: Appointments/Delete/5
@@ -127,14 +113,13 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var appointments = await _context.Appointments
-                .FirstOrDefaultAsync(m => m.AppointmentId == id);
-            if (appointments == null)
+            var appointment = await _appointmentService.GetAppointmentByIdAsync(id.Value);
+            if (appointment == null)
             {
                 return NotFound();
             }
 
-            return View(appointments);
+            return View(appointment);
         }
 
         // POST: Appointments/Delete/5
@@ -142,15 +127,12 @@ namespace TravelAgency.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var appointments = await _context.Appointments.FindAsync(id);
-            appointments.IsActive = false;
-             await _context.SaveChangesAsync();
+            var result = await _appointmentService.DeleteAppointmentAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AppointmentsExists(int id)
-        {
-            return _context.Appointments.Any(e => e.AppointmentId == id);
         }
     }
 }

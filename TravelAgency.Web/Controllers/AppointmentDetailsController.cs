@@ -1,27 +1,25 @@
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using TravelAgency.Core.Entities;
-using TravelAgency.Infrastructure.Data;
+using TravelAgency.Application.DTOs.AppointmentDetails;
+using TravelAgency.Application.Interfaces;
 
 namespace TravelAgency.Web.Controllers
 {
     public class AppointmentDetailsController : Controller
     {
-        private readonly TravelAgencyContext _context;
+        private readonly IAppointmentDetailService _appointmentDetailService;
 
-        public AppointmentDetailsController(TravelAgencyContext context)
+        public AppointmentDetailsController(IAppointmentDetailService appointmentDetailService)
         {
-            _context = context;
+            _appointmentDetailService = appointmentDetailService;
         }
 
         // GET: AppointmentDetails
         public async Task<IActionResult> Index()
         {
-            var travelAgencyContext = _context.AppointmentDetails.Include(a => a.Appointment).Include(a => a.Branch);
-            return View(await travelAgencyContext.ToListAsync());
+            var details = await _appointmentDetailService.GetAllWithRelationsAsync();
+            return View(details);
         }
 
         // GET: AppointmentDetails/Details/5
@@ -32,43 +30,45 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var appointmentDetails = await _context.AppointmentDetails
-                .Include(a => a.Appointment)
-                .Include(a => a.Branch)
-                .FirstOrDefaultAsync(m => m.AppointmentDetailId == id);
-            if (appointmentDetails == null)
+            var detail = await _appointmentDetailService.GetByIdWithRelationsAsync(id.Value);
+            if (detail == null)
             {
                 return NotFound();
             }
 
-            return View(appointmentDetails);
+            return View(detail);
         }
 
         // GET: AppointmentDetails/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["AppointmentId"] = new SelectList(_context.Appointments.Where(x=>x.IsActive), "AppointmentId", "Title");
-            ViewData["BranchId"] = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title");
+            var appointments = await _appointmentDetailService.GetActiveAppointmentsAsync();
+            var branches = await _appointmentDetailService.GetActiveBranchesAsync();
+
+            ViewData["AppointmentId"] = new SelectList(appointments, "Id", "Title");
+            ViewData["BranchId"] = new SelectList(branches, "Id", "Title");
+
             return View();
         }
 
         // POST: AppointmentDetails/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AppointmentDetailId,AppointmentId,BranchId,LeaveTime,Price")] AppointmentDetails appointmentDetails)
+        public async Task<IActionResult> Create(CreateAppointmentDetailDto createDto)
         {
             if (ModelState.IsValid)
             {
-               
-                _context.Add(appointmentDetails);
-                await _context.SaveChangesAsync();
+                await _appointmentDetailService.CreateAppointmentDetailAsync(createDto);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppointmentId"] = new SelectList(_context.Appointments.Where(x=>x.IsActive), "AppointmentId", "AppointmentId", appointmentDetails.AppointmentId);
-            ViewData["BranchId"] = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "BranchId", appointmentDetails.BranchId);
-            return View(appointmentDetails);
+
+            var appointments = await _appointmentDetailService.GetActiveAppointmentsAsync();
+            var branches = await _appointmentDetailService.GetActiveBranchesAsync();
+
+            ViewData["AppointmentId"] = new SelectList(appointments, "Id", "Title", createDto.AppointmentId);
+            ViewData["BranchId"] = new SelectList(branches, "Id", "Title", createDto.BranchId);
+
+            return View(createDto);
         }
 
         // GET: AppointmentDetails/Edit/5
@@ -79,51 +79,57 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var appointmentDetails = await _context.AppointmentDetails.FindAsync(id);
-            if (appointmentDetails == null)
+            var detail = await _appointmentDetailService.GetByIdAsync(id.Value);
+            if (detail == null)
             {
                 return NotFound();
             }
-            ViewData["AppointmentId"] = new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title", appointmentDetails.AppointmentId);
-            ViewData["BranchId"] = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title", appointmentDetails.BranchId);
-            return View(appointmentDetails);
+
+            var updateDto = new UpdateAppointmentDetailDto
+            {
+                AppointmentDetailId = detail.AppointmentDetailId,
+                AppointmentId = detail.AppointmentId,
+                BranchId = detail.BranchId,
+                LeaveTime = detail.LeaveTime,
+                Price = detail.Price
+            };
+
+            var appointments = await _appointmentDetailService.GetActiveAppointmentsAsync();
+            var branches = await _appointmentDetailService.GetActiveBranchesAsync();
+
+            ViewData["AppointmentId"] = new SelectList(appointments, "Id", "Title", detail.AppointmentId);
+            ViewData["BranchId"] = new SelectList(branches, "Id", "Title", detail.BranchId);
+
+            return View(updateDto);
         }
 
         // POST: AppointmentDetails/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AppointmentDetailId,AppointmentId,BranchId,LeaveTime,Price")] AppointmentDetails appointmentDetails)
+        public async Task<IActionResult> Edit(int id, UpdateAppointmentDetailDto updateDto)
         {
-            if (id != appointmentDetails.AppointmentDetailId)
+            if (id != updateDto.AppointmentDetailId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
+                var result = await _appointmentDetailService.UpdateAppointmentDetailAsync(updateDto);
+                if (result == null)
                 {
-                    _context.Update(appointmentDetails);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AppointmentDetailsExists(appointmentDetails.AppointmentDetailId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppointmentId"] = new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "AppointmentId", appointmentDetails.AppointmentId);
-            ViewData["BranchId"] = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "BranchId", appointmentDetails.BranchId);
-            return View(appointmentDetails);
+
+            var appointments = await _appointmentDetailService.GetActiveAppointmentsAsync();
+            var branches = await _appointmentDetailService.GetActiveBranchesAsync();
+
+            ViewData["AppointmentId"] = new SelectList(appointments, "Id", "Title", updateDto.AppointmentId);
+            ViewData["BranchId"] = new SelectList(branches, "Id", "Title", updateDto.BranchId);
+
+            return View(updateDto);
         }
 
         // GET: AppointmentDetails/Delete/5
@@ -134,16 +140,13 @@ namespace TravelAgency.Web.Controllers
                 return NotFound();
             }
 
-            var appointmentDetails = await _context.AppointmentDetails
-                .Include(a => a.Appointment)
-                .Include(a => a.Branch)
-                .FirstOrDefaultAsync(m => m.AppointmentDetailId == id);
-            if (appointmentDetails == null)
+            var detail = await _appointmentDetailService.GetByIdWithRelationsAsync(id.Value);
+            if (detail == null)
             {
                 return NotFound();
             }
 
-            return View(appointmentDetails);
+            return View(detail);
         }
 
         // POST: AppointmentDetails/Delete/5
@@ -151,15 +154,12 @@ namespace TravelAgency.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var appointmentDetails = await _context.AppointmentDetails.FindAsync(id);
-            _context.AppointmentDetails.Remove(appointmentDetails);
-            await _context.SaveChangesAsync();
+            var result = await _appointmentDetailService.DeleteAppointmentDetailAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AppointmentDetailsExists(int id)
-        {
-            return _context.AppointmentDetails.Any(e => e.AppointmentDetailId == id);
         }
     }
 }

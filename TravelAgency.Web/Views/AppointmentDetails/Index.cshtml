@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AppointmentDetails>
+﻿@model IEnumerable<TravelAgency.Application.DTOs.AppointmentDetails.AppointmentDetailDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -31,10 +31,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Appointment.Title)
+                    @Html.DisplayFor(modelItem => item.AppointmentTitle)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Branch.Title)
+                    @Html.DisplayFor(modelItem => item.BranchTitle)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.LeaveTime)
