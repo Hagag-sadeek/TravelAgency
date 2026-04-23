@@ -3,7 +3,7 @@
   "operationId": "e0e18f70-ceef-4083-a7ac-82ea5013342c",
   "description": "Upgrade .NET projects to newer .NET versions",
   "startTime": "2026-04-23T18:53:48.8714448Z",
-  "lastUpdateTime": "2026-04-23T18:56:42.6151627Z",
+  "lastUpdateTime": "2026-04-23T18:57:12.1018159Z",
   "stage": "Assessment",
   "properties": {
     "task:01-prerequisites:startedAt": "2026-04-23T18:56:42.4240696Z",
