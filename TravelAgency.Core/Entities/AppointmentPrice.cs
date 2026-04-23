@@ -11,7 +11,7 @@ namespace TravelAgency.Core.Entities
         public int Commision { get; set; }
         public int AppointmentId { get; set; }
 
-        public virtual Appointments Appointment { get; set; }
-        public virtual Suppliers Supplier { get; set; }
+        public virtual Appointments? Appointment { get; set; }
+        public virtual Suppliers? Supplier { get; set; }
     }
 }

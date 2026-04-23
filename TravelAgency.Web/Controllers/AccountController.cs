@@ -2,9 +2,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using TravelAgency.Core.Entities;
-using TravelAgency.Infrastructure.Data;
-using TravelAgency.Web.ViewModels;
 
 namespace TravelAgency.Web.Controllers
 {

@@ -11,7 +11,7 @@ namespace TravelAgency.Core.Entities
         public TimeSpan LeaveTime { get; set; }
         public int Price { get; set; }
 
-        public virtual Appointments Appointment { get; set; }
-        public virtual Branches Branch { get; set; }
+        public virtual Appointments? Appointment { get; set; }
+        public virtual Branches? Branch { get; set; }
     }
 }

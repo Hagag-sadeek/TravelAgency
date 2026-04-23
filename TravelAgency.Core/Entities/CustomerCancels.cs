@@ -11,7 +11,7 @@ namespace TravelAgency.Core.Entities
         public int CustomerId { get; set; }
         
       
-        public string comment { get; set; }
+        public string? comment { get; set; }
 
         public DateTime CancelDate { get; set; }
 

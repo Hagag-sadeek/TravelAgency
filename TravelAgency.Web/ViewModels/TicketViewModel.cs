@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace TravelAgency.Web.Web.ViewModels
+namespace TravelAgency.Web.ViewModels
 {
     public partial class TicketViewModel
     {

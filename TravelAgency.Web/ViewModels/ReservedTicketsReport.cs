@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace TravelAgency.Web.Web.ViewModels
+namespace TravelAgency.Web.ViewModels
 {
     public class ReservedTicketsReport
     {

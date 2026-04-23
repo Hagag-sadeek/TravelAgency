@@ -58,9 +58,13 @@ namespace TravelAgency.Web.Controllers
             var model = new TicketViewModel
             {
                 AppointmentsList =
-                    new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)).OrderBy(x => x.SortOrder)
-                    , "AppointmentId", "Title"),
-                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive).OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
+                    new SelectList(_context.Appointments
+                        .Where(x => x.IsActive && currentApps.Contains(x.AppointmentId) && x.Title != null)
+                        .OrderBy(x => x.SortOrder)
+                        , "AppointmentId", "Title"),
+                SuppliersList = new SelectList(_context.Suppliers
+                    .Where(x => x.IsActive && x.FullName != null)
+                    .OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
                 TicketDate = DateTime.Now.Date
             };
 
@@ -623,9 +627,14 @@ namespace TravelAgency.Web.Controllers
             var Vmodel = new TicketViewModel()
             {
                 AppointmentsList =
-                    new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)), "AppointmentId", "Title"),
-                CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"), 
-                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive).OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
+                    new SelectList(_context.Appointments
+                        .Where(x => x.IsActive && currentApps.Contains(x.AppointmentId) && x.Title != null)
+                        .OrderBy(x => x.SortOrder), "AppointmentId", "Title"),
+                CustomersList = new SelectList(_context.Customers
+                    .Where(x => x.IsActive && x.FullName != null), "CustomerId", "FullName"), 
+                SuppliersList = new SelectList(_context.Suppliers
+                    .Where(x => x.IsActive && x.FullName != null)
+                    .OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
                 TicketDate = model.TicketDate.Date
             };
 
@@ -636,15 +645,15 @@ namespace TravelAgency.Web.Controllers
                     var list = new ReservedTickets()
                     {
                         TicketId = item.TicketId,
-                        Customer = item.Customer.FullName,
-                        Supplier = item.Supplier.FullName,
-                        Phone = item.Customer.Phone1,
+                        Customer = item.Customer?.FullName ?? "",
+                        Supplier = item.Supplier?.FullName ?? "",
+                        Phone = item.Customer?.Phone1 ?? "",
                         SeatId = item.SeatId, 
-                        Code = item.Customer.Code,
+                        Code = item.Customer?.Code ?? "",
                         IsFemale = item.IsFemale,
                         Price = item.Price,
                         IsConformed=item.IsConformed,
-                        IsMine = (item.SupplierId == _context.Users.Find(UserId).SupplierId) ||
+                        IsMine = (item.SupplierId == _context.Users.Find(UserId)?.SupplierId) ||
                                   // || item.FromBranchId == _context.Users.Find(UserId).BranchId ||
                                   (CurrentUserTypeId == "True") || item.UserId == UserId
                     };

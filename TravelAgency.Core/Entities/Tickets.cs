@@ -16,16 +16,16 @@ namespace TravelAgency.Core.Entities
         public int? FromBranchId { get; set; }
         public int? ToBranchId { get; set; }
         public int SeatId { get; set; }
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
         public bool IsActive { get; set; } = true;
         public bool IsFemale { get; set; }
 
         public bool IsConformed { get; set; }
 
-        public virtual Appointments Appointment { get; set; }
-        public virtual Customers Customer { get; set; }
-        public virtual Branches FromBranch { get; set; }
-        public virtual Suppliers Supplier { get; set; }
-        public virtual Branches ToBranch { get; set; }
+        public virtual Appointments? Appointment { get; set; }
+        public virtual Customers? Customer { get; set; }
+        public virtual Branches? FromBranch { get; set; }
+        public virtual Suppliers? Supplier { get; set; }
+        public virtual Branches? ToBranch { get; set; }
     }
 }

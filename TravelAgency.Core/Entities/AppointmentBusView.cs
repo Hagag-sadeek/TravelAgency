@@ -9,7 +9,7 @@ namespace TravelAgency.Core.Entities
         public int AppointmentBusViewtId { get; set; }
 
         public int AppointmentId { get; set; }
-        public string ViewName { get; set; }
+        public string? ViewName { get; set; }
 
         public DateTime TicketDate { get; set; }
 
