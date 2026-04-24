@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace TravelAgency.Web.ViewModels
@@ -32,7 +32,7 @@ namespace TravelAgency.Web.ViewModels
         public int? ToBranchId { get; set; }
 
         [Required(ErrorMessage = "?? ???? ???? ??? ??????")]
-        [ Range(0, 50, ErrorMessage = "?? ???? ???? ??? ??????")]
+        [Range(0, 50, ErrorMessage = "?? ???? ???? ??? ??????")]
         public int SeatId { get; set; }
 
         public string comment { get; set; }

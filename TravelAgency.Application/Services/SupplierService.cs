@@ -42,7 +42,7 @@ namespace TravelAgency.Application.Services
             }
 
             updateDto.UpdateEntity(existingSupplier);
-           
+
             await _repository.UpdateAsync(existingSupplier);
             await _repository.SaveChangesAsync();
 

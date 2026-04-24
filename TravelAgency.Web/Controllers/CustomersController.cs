@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TravelAgency.Application.DTOs.Customers;
@@ -173,7 +170,7 @@ namespace TravelAgency.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCustomerAdmin(QuickAddCustomerDto dto)
         {
-            if (!ModelState.IsValid || string.IsNullOrEmpty(dto.Name) || 
+            if (!ModelState.IsValid || string.IsNullOrEmpty(dto.Name) ||
                 string.IsNullOrEmpty(dto.Phone) || dto.Phone.Length != 11)
             {
                 return RedirectToAction(nameof(QuickAdd));

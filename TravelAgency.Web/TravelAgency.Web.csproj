@@ -6,11 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200927222802_asd.cs" />
-    <Compile Remove="Migrations\20200927222802_asd.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Views\Account\Login.cshtml" />
     <None Include="wwwroot\assets\images\big\Thumbs.db" />
   </ItemGroup>
@@ -40,9 +35,5 @@
   <ItemGroup>
     <ProjectReference Include="..\TravelAgency.Application\TravelAgency.Application.csproj" />
     <ProjectReference Include="..\TravelAgency.Infrastructure\TravelAgency.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>

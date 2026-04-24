@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using TravelAgency.Core.Entities;
 
 namespace TravelAgency.Infrastructure.Data
@@ -24,9 +22,9 @@ namespace TravelAgency.Infrastructure.Data
         public virtual DbSet<TicketDistributions> TicketDistributions { get; set; }
         public virtual DbSet<Tickets> Tickets { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<AppointmentPrice> AppointmentPrice { get; set; }  
+        public virtual DbSet<AppointmentPrice> AppointmentPrice { get; set; }
         public virtual DbSet<AppointmentBusView> AppointmentBusView { get; set; }
-        public virtual DbSet<UserAppointments> UserAppointments { get; set; }  
+        public virtual DbSet<UserAppointments> UserAppointments { get; set; }
         public virtual DbSet<CustomerCancels> CustomerCancels { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

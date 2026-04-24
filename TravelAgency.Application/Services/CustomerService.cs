@@ -93,8 +93,8 @@ namespace TravelAgency.Application.Services
                 // Generate new code
                 var allCustomers = await _repository.GetAllAsync();
                 var lastCustomer = allCustomers.OrderByDescending(c => c.CustomerId).FirstOrDefault();
-                int newCode = (lastCustomer != null && int.TryParse(lastCustomer.Code, out int lastCode)) 
-                    ? lastCode + 1 
+                int newCode = (lastCustomer != null && int.TryParse(lastCustomer.Code, out int lastCode))
+                    ? lastCode + 1
                     : 1;
 
                 // Create new customer

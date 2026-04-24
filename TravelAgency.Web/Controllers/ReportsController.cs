@@ -1,86 +1,58 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using TravelAgency.Core.Entities;
-using TravelAgency.Infrastructure.Data;
-using TravelAgency.Web.ViewModels;
+using TravelAgency.Application.Interfaces;
 
 namespace TravelAgency.Web.Controllers
 {
     public class ReportsController : Controller
     {
-        private readonly TravelAgencyContext _context;
+        private readonly IReportService _reportService;
 
-        public ReportsController(TravelAgencyContext context)
+        public ReportsController(IReportService reportService)
         {
-            _context = context;
+            _reportService = reportService;
         }
 
- 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var appointments = await _reportService.GetActiveAppointmentsForReportAsync();
+
             var model = new ReservedTicketsReport()
             {
                 TicketDate = DateTime.Now,
-                AppointmentsList =
-                    new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title"),
-                ReservedTicketsDetailsReport = new List<ReservedTicketsDetailsReport>() { }
+                AppointmentsList = new SelectList(appointments, "Id", "Title"),
+                ReservedTicketsDetailsReport = new System.Collections.Generic.List<ReservedTicketsDetailsReport>()
             };
 
-            return View(nameof(Create),model);
+            return View(nameof(Create), model);
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         [Route("Create")]
-        public IActionResult Create(ReservedTicketsReport model)
+        public async Task<IActionResult> Create(ReservedTicketsReport model)
         {
-
             if (ModelState.IsValid)
             {
-               
-                var rTickets = _context.Tickets
-                    .Include(x => x.Customer)
-                    .Include(x => x.Supplier)
-                    .Include(x => x.FromBranch)
-                    .Include(x => x.ToBranch)
-                    .Where(x => x.AppointmentId == model.AppointmentId &&
-                                x.TicketDate == model.TicketDate &&
-                                x.IsActive)
-                    .ToList();
+                var reportResult = await _reportService.GenerateTicketReportAsync(model.AppointmentId, model.TicketDate);
 
-                foreach (var item in rTickets.Select(x => x.SupplierId).Distinct().ToList())
+                // Map to ViewModel
+                foreach (var detail in reportResult.SupplierDetails)
                 {
-                    var supplier = _context.Suppliers.Find(item);
-                    var ticketCount = rTickets.Count(x => x.SupplierId == item);
-                   // var totalIncome = rTickets.Where(x => x.SupplierId == item).Sum(x => x.Price);
-                   var list = new ReservedTicketsDetailsReport()
-                   {
-                       SupplierName = supplier.FullName,
-                       TicketCount = ticketCount,
-                       NetIncome = ticketCount * ((_context.AppointmentPrice.First(x =>
-                                                          x.AppointmentId == model.AppointmentId &&
-                                                          x.SupplierId == supplier.SupplierId)
-                                                      .Price) - (_context.AppointmentPrice.First(x =>
-                                                          x.AppointmentId == model.AppointmentId &&
-                                                          x.SupplierId == supplier.SupplierId)
-                                                      .Commision)),
-                       TotalIncome = ticketCount * (_context.AppointmentPrice.First(x =>
-                                             x.AppointmentId == model.AppointmentId &&
-                                             x.SupplierId == supplier.SupplierId)
-                                         .Price) 
-                   };
-                    model.ReservedTicketsDetailsReport.Add(list);
+                    model.ReservedTicketsDetailsReport.Add(new ReservedTicketsDetailsReport
+                    {
+                        SupplierName = detail.SupplierName,
+                        TicketCount = detail.TicketCount,
+                        TotalIncome = detail.TotalIncome,
+                        NetIncome = detail.NetIncome
+                    });
                 }
-                 
             }
 
+            var appointments = await _reportService.GetActiveAppointmentsForReportAsync();
             model.TicketDate = DateTime.Now;
-            model.AppointmentsList =
-                new SelectList(_context.Appointments.Where(x => x.IsActive), "AppointmentId", "Title");
+            model.AppointmentsList = new SelectList(appointments, "Id", "Title");
 
             return View(model);
         }

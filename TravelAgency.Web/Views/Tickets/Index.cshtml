@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tickets>
+﻿@model IEnumerable<TravelAgency.Application.DTOs.Tickets.TicketDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -26,19 +26,19 @@
                 @Html.DisplayNameFor(model => model.SeatId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Appointment)
+                الميعاد
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer)
+                العميل
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FromBranch)
+                من فرع
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Supplier)
+                المورد
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ToBranch)
+                إلى فرع
             </th>
             <th></th>
         </tr>
@@ -59,19 +59,19 @@
                 @Html.DisplayFor(modelItem => item.SeatId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Appointment.AppointmentId)
+                @Html.DisplayFor(modelItem => item.AppointmentTitle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Customer.CustomerId)
+                @Html.DisplayFor(modelItem => item.CustomerName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FromBranch.BranchId)
+                @Html.DisplayFor(modelItem => item.FromBranchTitle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Supplier.SupplierId)
+                @Html.DisplayFor(modelItem => item.SupplierName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ToBranch.BranchId)
+                @Html.DisplayFor(modelItem => item.ToBranchTitle)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TicketId">Edit</a> |

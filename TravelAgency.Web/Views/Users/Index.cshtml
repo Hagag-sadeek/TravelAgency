@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Users>
+﻿@model IEnumerable<TravelAgency.Application.DTOs.Users.UserDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,9 +16,6 @@
         </th>
         <th>
           اسم المستخدم
-        </th>
-        <th>
-          كلمه المرور
         </th>
         <th>
           الشركه
@@ -40,12 +37,10 @@
           @Html.DisplayFor(modelItem => item.UserName)
         </td>
         <td>
-          @Html.DisplayFor(modelItem => item.Password)
+          @Html.DisplayFor(modelItem => item.SupplierName)
         </td>
-        
-
         <td>
-          @Html.DisplayFor(modelItem => item.Branch.Title)
+          @Html.DisplayFor(modelItem => item.BranchTitle)
         </td>
 
         <td>

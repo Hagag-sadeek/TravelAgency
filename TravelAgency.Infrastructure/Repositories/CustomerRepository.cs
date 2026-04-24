@@ -38,7 +38,7 @@ namespace TravelAgency.Infrastructure.Repositories
         public async Task<IEnumerable<Customers>> SearchAsync(string searchTerm)
         {
             return await _dbSet
-                .Where(c => c.IsActive && 
+                .Where(c => c.IsActive &&
                     (c.FullName != null && c.FullName.Contains(searchTerm) ||
                      c.Phone1 != null && c.Phone1.Contains(searchTerm) ||
                      c.Code != null && c.Code.Contains(searchTerm)))

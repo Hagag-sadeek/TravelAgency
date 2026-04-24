@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace TravelAgency.Core.Entities
 {
     public partial class AppointmentPrice

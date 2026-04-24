@@ -5,929 +5,462 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using TravelAgency.Helper;
-using TravelAgency.Core.Entities;
-using TravelAgency.Infrastructure.Data;
+using TravelAgency.Application.DTOs.Customers;
+using TravelAgency.Application.DTOs.Tickets;
+using TravelAgency.Application.Interfaces;
 using TravelAgency.Web.ViewModels;
 
 namespace TravelAgency.Web.Controllers
 {
     public class TicketsController : Controller
     {
-        private readonly TravelAgencyContext _context;
+        private readonly ITicketService _ticketService;
+        private readonly ICustomerService _customerService;
+        private readonly ISupplierService _supplierService;
 
-        public TicketsController(TravelAgencyContext context)
+        public TicketsController(
+            ITicketService ticketService,
+            ICustomerService customerService,
+            ISupplierService supplierService)
         {
-            _context = context;
+            _ticketService = ticketService;
+            _customerService = customerService;
+            _supplierService = supplierService;
         }
 
-        // GET: Tickets
+        #region Index
+
         public async Task<IActionResult> Index()
         {
-
-            var travelAgencyContext = _context.Tickets
-                .Include(t => t.Appointment)
-                .Include(t => t.Customer)
-                //.Include(t => t.FromBranch)
-                .Include(t => t.Supplier)
-                .Include(t => t.ToBranch);
-
-            return View(await travelAgencyContext.ToListAsync());
+            var tickets = await _ticketService.GetAllTicketsWithRelationsAsync();
+            return View(tickets);
         }
+
+        #endregion
 
         #region CreateAdmin
 
         [Route("CreateAdmin")]
         [HttpGet]
-        public IActionResult CreateAdmin()
+        public async Task<IActionResult> CreateAdmin()
         {
-
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            {
+            if (!IsUserLoggedIn())
                 return RedirectToAction("Login", "Account");
+
+            var userId = GetCurrentUserId();
+
+            // Get first appointment for initial load
+            var appointments = await _ticketService.GetUserAppointmentsAsync(userId);
+            var appointmentsList = appointments.ToList();
+
+            if (!appointmentsList.Any())
+            {
+                return View("NoAppointments"); // or redirect to error page
             }
 
-            var currentUserId = HttpContext.Session.GetInt32("UserId").Value;
+            var firstAppointmentId = appointmentsList.First().Id;
 
-            var currentApps = _context.UserAppointments.Where(x => x.UserId == currentUserId).Select(x => x.AppId).ToList();
-            if (currentApps.Count == 0)
-                currentApps = _context.Appointments.Select(x => x.AppointmentId).ToList();
+            var viewModel = await BuildReservationViewModelAsync(firstAppointmentId, DateTime.Now.Date, userId, true);
+            var viewName = await _ticketService.DetermineViewNameAsync(firstAppointmentId, DateTime.Now.Date, true);
 
-            var model = new TicketViewModel
-            {
-                AppointmentsList =
-                    new SelectList(_context.Appointments
-                        .Where(x => x.IsActive && currentApps.Contains(x.AppointmentId) && x.Title != null)
-                        .OrderBy(x => x.SortOrder)
-                        , "AppointmentId", "Title"),
-                SuppliersList = new SelectList(_context.Suppliers
-                    .Where(x => x.IsActive && x.FullName != null)
-                    .OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
-                TicketDate = DateTime.Now.Date
-            };
-
-            var viewName = "CreateAdmin5";
-             
-            var row = _context.AppointmentBusView
-                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date)
-                .OrderBy(x => x.AppointmentBusViewtId)
-                .LastOrDefault();
-
-            if (row != null && row.ViewName == "4") viewName = "CreateAdmin4";
-
-            return View(viewName, model);
+            return View(viewName, viewModel);
         }
 
         [HttpPost]
         [Route("CreateAdmin")]
-        public IActionResult CreateAdmin(Tickets tickets)
+        public async Task<IActionResult> CreateAdmin(CreateTicketDto createDto)
         {
-   
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
+            if (!IsUserLoggedIn())
                 return RedirectToAction("Login", "Account");
 
-            var viewName = "CreateAdmin5";
-            var row = _context.AppointmentBusView
-                .Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date)
-                .OrderBy(x => x.AppointmentBusViewtId)
-                .LastOrDefault();
+            var userId = GetCurrentUserId();
+            var viewName = await _ticketService.DetermineViewNameAsync(createDto.AppointmentId, createDto.TicketDate, true);
 
-            if (row != null && row.ViewName == "4") viewName = "CreateAdmin4";
+            if (!ModelState.IsValid || createDto.SeatId <= 0 || createDto.SeatId > 50 || createDto.CustomerId == null)
+            {
+                var viewModel = await BuildReservationViewModelAsync(createDto.AppointmentId, createDto.TicketDate, userId, true);
+                return View(viewName, viewModel);
+            }
 
-            if (!ModelState.IsValid) return View(viewName, PopulateReserveViewModel(tickets));
+            var isAvailable = await _ticketService.IsSeatAvailableAsync(createDto.SeatId, createDto.TicketDate, createDto.AppointmentId);
+            if (!isAvailable)
+            {
+                var viewModel = await BuildReservationViewModelAsync(createDto.AppointmentId, createDto.TicketDate, userId, true);
+                return View(viewName, viewModel);
+            }
 
-            if (tickets.SeatId <= 0 || tickets.SeatId > 50 || (TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId) || tickets.CustomerId == null))
-                return View(viewName, PopulateReserveViewModel(tickets));
+            createDto.Price = 0;
+            await _ticketService.CreateTicketAsync(createDto, userId);
 
-            tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
-            tickets.IsActive = true;
-            tickets.ReserveDate = DateTime.Now;
-            tickets.Price = 0;
-            tickets.IsConformed = false;
+            var isFirstTicket = await _ticketService.IsFirstTicketForCustomerAsync(createDto.CustomerId.Value, createDto.TicketDate, createDto.AppointmentId);
+            if (isFirstTicket)
+            {
+                var customer = await _customerService.GetCustomerByIdAsync(createDto.CustomerId.Value);
+                if (customer != null && customer.Phone1 != null)
+                    SendWelcomeWhatsApp(customer.Phone1);
+            }
 
-            _context.Tickets.Add(tickets);
-
-            var cus = _context.Customers.First(x => x.CustomerId == tickets.CustomerId);
-            cus.Points += 10;
-            _context.SaveChanges();
-
-            // if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
-            //    sendWhatsAppNotifications(cus.Phone1, cus.Points, cus.Code, tickets.SeatId, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
-            //else
-            //    sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
-
-              if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
-                SendWelcomeWhatsApp(cus.Phone1);
-
-            return View(viewName, PopulateReserveViewModel(tickets));
+            var resultViewModel = await BuildReservationViewModelAsync(createDto.AppointmentId, createDto.TicketDate, userId, true);
+            return View(viewName, resultViewModel);
         }
+
         #endregion
 
         #region CreateNotAdmin
+
         [HttpGet]
         [Route("CreateNotAdmin")]
-        public IActionResult CreateNotAdmin()
+        public async Task<IActionResult> CreateNotAdmin()
         {
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            {
+            if (!IsUserLoggedIn())
                 return RedirectToAction("Login", "Account");
+
+            var userId = GetCurrentUserId();
+
+            // Get first appointment for initial load
+            var appointments = await _ticketService.GetUserAppointmentsAsync(userId);
+            var appointmentsList = appointments.ToList();
+
+            if (!appointmentsList.Any())
+            {
+                return View("NoAppointments"); // or redirect to error page
             }
 
-            var currentUserId = HttpContext.Session.GetInt32("UserId").Value;
+            var firstAppointmentId = appointmentsList.First().Id;
 
-            var currentApps = _context.UserAppointments.Where(x => x.UserId == currentUserId).Select(x => x.AppId).ToList();
-            if (currentApps.Count == 0)
-                currentApps = _context.Appointments.Select(x => x.AppointmentId).ToList();
+            var viewModel = await BuildReservationViewModelAsync(firstAppointmentId, DateTime.Now.Date, userId, false);
+            var viewName = await _ticketService.DetermineViewNameAsync(firstAppointmentId, DateTime.Now.Date, false);
 
-            var model = new TicketViewModel()
-            {
-                AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)), "AppointmentId", "Title"),
-                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
-                TicketDate = DateTime.Now
-            };
-
-            var viewName = "CreateNotAdmin5";
-
-            var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date)
-               .OrderBy(x => x.AppointmentBusViewtId).LastOrDefault();
-
-            if (row != null && row.ViewName == "4") viewName = "CreateNotAdmin4";
-
-            return View(viewName, model);
+            return View(viewName, viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("CreateNotAdmin")]
-        public IActionResult CreateNotAdmin(Tickets tickets)
+        public async Task<IActionResult> CreateNotAdmin(CreateTicketDto createDto)
         {
+            if (!IsUserLoggedIn())
+                return RedirectToAction("Login", "Account");
 
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1) return RedirectToAction("Login", "Account");
+            var userId = GetCurrentUserId();
+            var viewName = await _ticketService.DetermineViewNameAsync(createDto.AppointmentId, createDto.TicketDate, false);
 
-            var viewName = "CreateNotAdmin5";
+            if (createDto.TicketDate.Date < DateTime.Now.Date)
+            {
+                var viewModel = await BuildReservationViewModelAsync(createDto.AppointmentId, DateTime.Now.Date, userId, false);
+                return View(viewName, viewModel);
+            }
 
-            var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == tickets.AppointmentId && x.TicketDate == tickets.TicketDate.Date)
-               .OrderBy(x => x.AppointmentBusViewtId).LastOrDefault();
+            if (!ModelState.IsValid || createDto.SeatId <= 0 || createDto.SeatId > 50 || createDto.CustomerId == null)
+            {
+                var viewModel = await BuildReservationViewModelAsync(createDto.AppointmentId, createDto.TicketDate, userId, false);
+                return View(viewName, viewModel);
+            }
 
-            if (row != null && row.ViewName == "4") viewName = "CreateNotAdmin4";
+            var isAvailable = await _ticketService.IsSeatAvailableAsync(createDto.SeatId, createDto.TicketDate, createDto.AppointmentId);
+            if (!isAvailable)
+            {
+                var viewModel = await BuildReservationViewModelAsync(createDto.AppointmentId, createDto.TicketDate, userId, false);
+                return View(viewName, viewModel);
+            }
 
+            await _ticketService.CreateTicketAsync(createDto, userId);
 
-            var ticketsExist = TicketsExists(tickets.SeatId, tickets.TicketDate.Date, tickets.AppointmentId);
+            var isFirstTicket = await _ticketService.IsFirstTicketForCustomerAsync(createDto.CustomerId.Value, createDto.TicketDate, createDto.AppointmentId);
+            if (isFirstTicket)
+            {
+                var customer = await _customerService.GetCustomerByIdAsync(createDto.CustomerId.Value);
+                if (customer != null && customer.Phone1 != null)
+                    SendWelcomeWhatsApp(customer.Phone1);
+            }
 
-            if (tickets.SeatId <= 0 || tickets.SeatId > 50 || tickets.TicketDate.Date < DateTime.Now.Date || ticketsExist || tickets.CustomerId == null)
-                return View(viewName, PopulateReserveViewModel(tickets));
-
-
-            tickets.UserId = HttpContext.Session.GetInt32("UserId").Value;
-            tickets.IsActive = true;
-            tickets.ReserveDate = DateTime.Now;
-            tickets.IsConformed = false;
-            _context.Tickets.Add(tickets);
-
-            var cus = _context.Customers.First(x => x.CustomerId == tickets.CustomerId);
-            cus.Points += 10;
-
-            _context.SaveChanges();
-
-            //if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
-            //    sendWhatsAppNotifications(cus.Phone1, cus.Points, cus.Code, tickets.SeatId, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1, viewName);
-            //else
-            //    sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
-
-
-            if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
-                SendWelcomeWhatsApp(cus.Phone1);
-
-            return View(viewName, PopulateReserveViewModel(tickets));
+            var resultViewModel = await BuildReservationViewModelAsync(createDto.AppointmentId, createDto.TicketDate, userId, false);
+            return View(viewName, resultViewModel);
         }
 
         #endregion
 
-        #region ShowTickets 
+        #region ShowTickets
 
-        public IActionResult ShowTicketsForAdmin(Tickets model)
+        public async Task<IActionResult> ShowTicketsForAdmin(Tickets model)
         {
-            if (model.TicketDate < DateTime.Now.Date && HttpContext.Session.GetInt32("UserId") !=65)
+            if (!IsUserLoggedIn())
+                return RedirectToAction("Login", "Account");
+
+            var userId = GetCurrentUserId();
+
+            if (model.TicketDate < DateTime.Now.Date && userId != 65)
                 model.TicketDate = DateTime.Now.Date;
 
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-           
-             var viewName = "CreateAdmin5";
+            var viewName = await _ticketService.DetermineViewNameAsync(model.AppointmentId, model.TicketDate, true);
+            var viewModel = await BuildReservationViewModelAsync(model.AppointmentId, model.TicketDate, userId, true);
 
-            var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date)
-               .OrderBy(x => x.AppointmentBusViewtId).LastOrDefault();
-
-            if (row != null && row.ViewName == "4") viewName = "CreateAdmin4";
-             
-            return View(viewName, PopulateReserveViewModel(model));
+            return View(viewName, viewModel);
         }
 
-        public IActionResult ShowTickets(Tickets model)
+        public async Task<IActionResult> ShowTickets(Tickets model)
         {
-
-            if (model.TicketDate < DateTime.Now.Date && HttpContext.Session.GetInt32("UserId") != 65)
-                model.TicketDate = DateTime.Now.Date;
-
-
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
-            {
+            if (!IsUserLoggedIn())
                 return RedirectToAction("Login", "Account");
-            }
-            var CurrentUserTypeId = new SessionInfoSetup().IsAdmin();
-            if (model.TicketDate.Date < DateTime.Now.Date && CurrentUserTypeId == "False")
-            {
+
+            var userId = GetCurrentUserId();
+            var isAdmin = IsAdmin();
+
+            if (model.TicketDate.Date < DateTime.Now.Date && !isAdmin)
                 model.TicketDate = DateTime.Now.Date;
-            }
-             
 
-            var viewName = "CreateNotAdmin5";
+            var viewName = await _ticketService.DetermineViewNameAsync(model.AppointmentId, model.TicketDate, false);
+            var viewModel = await BuildReservationViewModelAsync(model.AppointmentId, model.TicketDate, userId, false);
 
-            var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date)
-               .OrderBy(x => x.AppointmentBusViewtId).LastOrDefault();
-
-            if (row != null && row.ViewName == "4") viewName = "CreateNotAdmin4";
-
-
-            return View(viewName, PopulateReserveViewModel(model));
+            return View(viewName, viewModel);
         }
 
         #endregion
 
-        #region Delete & confirm
-        public JsonResult DeleteTicket(int id)
+        #region JSON Actions
+
+        public async Task<JsonResult> DeleteTicket(int id)
         {
-            if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
-
-            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
-
-            if (ticket == null) return Json(false);
-
-            ticket.IsActive = false;
-            ticket.Comment = "Deleted by" + _context.Users.Find(HttpContext.Session.GetInt32("UserId")).Firstname + DateTime.Now;
-
-
-            //sendWhatsAppNotificationsWithCancell(_context.Customers.Find(ticket.CustomerId).Phone1, ticket.SeatId,
-            //  ticket.TicketDate, _context.Suppliers.Find(ticket.SupplierId).Adreess1);
-
-            var cus = _context.Customers.First(x => x.CustomerId == ticket.CustomerId);
-
-            if (cus != null && cus.Points >= 10)
-                cus.Points -= 10;
-
-            var result = _context.SaveChanges();
-
-           // sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
-
-            return Json(result > 0);
-        }
-        public JsonResult GetCustomerInfo(int id)
-        {
-            if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
-
-            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
-            if (ticket == null) return Json(false);
-
-            var customer = _context.Customers.FirstOrDefault(x => x.CustomerId == ticket.CustomerId);
-            if (customer == null) return Json(false);
-
-            var com = customer.Phone1 + "&&" + ticket.SupplierId + "&&" + customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Points;
-
-            return Json(com);
-        }
-        public JsonResult ConfirmTicket(int id, string price)
-        {
-
-            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
-
-            if (ticket == null)
+            if (id == 0 || !IsAdmin())
                 return Json(false);
 
-            ticket.Price = Convert.ToInt32(price);
-            _context.Tickets.Update(ticket);
+            var userId = GetCurrentUserId();
+            var result = await _ticketService.DeleteTicketAsync(id, userId);
+            return Json(result);
+        }
 
-            if (_context.SaveChanges() > 0)
-                return Json(true);
+        public async Task<JsonResult> GetCustomerInfo(int id)
+        {
+            if (id == 0 || !IsAdmin())
+                return Json(false);
 
-            return Json(false);
+            var customerInfo = await _ticketService.GetCustomerInfoByTicketIdAsync(id);
+            return Json(customerInfo ?? (object)false);
+        }
+
+        public async Task<JsonResult> ConfirmTicket(int id, string price)
+        {
+            if (!int.TryParse(price, out int priceValue))
+                return Json(false);
+
+            var result = await _ticketService.ConfirmTicketPriceAsync(id, priceValue);
+            return Json(result);
+        }
+
+        public async Task<JsonResult> ConformTicket(int id)
+        {
+            if (id == 0 || !IsAdmin())
+                return Json(false);
+
+            var result = await _ticketService.ConformTicketAsync(id);
+            return Json(result);
+        }
+
+        public async Task<JsonResult> CancelConformTicket(int id)
+        {
+            if (id == 0 || !IsAdmin())
+                return Json(false);
+
+            var result = await _ticketService.CancelConformTicketAsync(id);
+            return Json(result);
+        }
+
+        public async Task<JsonResult> PayTicket(int id)
+        {
+            if (id == 0 || !IsAdmin())
+                return Json(false);
+
+            var result = await _ticketService.PayTicketAsync(id);
+            return Json(result);
+        }
+
+        public async Task<JsonResult> CancelPayTicket(int id)
+        {
+            if (id == 0 || !IsAdmin())
+                return Json(false);
+
+            var result = await _ticketService.CancelPayTicketAsync(id);
+            return Json(result);
         }
 
         #endregion
 
-        #region Customers
+        #region Customer Operations
 
         [HttpPost]
-        public IActionResult AddCustomer(string name, string phone)
+        public async Task<IActionResult> AddCustomer(string name, string phone)
         {
-            if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone))
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(phone))
                 return RedirectToAction(nameof(CreateNotAdmin));
 
-            var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == phone.Trim() && x.IsActive);
-            if (customer != null)
-                customer.FullName = name.Trim();
-            else
-            {
-                var lastCustomer = _context.Customers.OrderByDescending(c => c.CustomerId).FirstOrDefaultAsync();
-                int newCode = (lastCustomer != null && int.TryParse(lastCustomer.Result.Code, out int lastCode)) ? lastCode + 1 : 1;
+            var dto = new QuickAddCustomerDto { Name = name, Phone = phone };
+            await _customerService.QuickAddCustomerAsync(dto);
 
-                _context.Customers.Add(
-                    new Customers()
-                    {
-                        FullName = name.Trim(),
-                        Phone1 = phone.Trim(),
-                        Points = 0,
-                        Code = newCode.ToString(),
-                        IsActive = true
-                    });
-            }
-            _context.SaveChanges();
             return RedirectToAction(nameof(CreateNotAdmin));
         }
 
         [HttpPost]
-        public JsonResult AddCustomerAdmin(string name, string phone, string Adreess1)
+        public async Task<JsonResult> AddCustomerAdmin(string name, string phone, string Adreess1)
         {
-            if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(phone) || phone.Length != 11)
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(phone) || phone.Length != 11)
                 return Json(false);
 
-            var nCustomer = new Customers();
+            var dto = new QuickAddCustomerDto { Name = name, Phone = phone };
+            await _customerService.QuickAddCustomerAsync(dto);
 
-            var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == phone.Trim() && x.IsActive);
-            if (customer != null)
-            {
-                customer.FullName = name;
-                customer.Adreess1 = Adreess1;
-            }
-            else
-            {
-
-                var lastCustomer = _context.Customers.OrderByDescending(c => c.CustomerId).FirstOrDefaultAsync();
-                int newCode = (lastCustomer != null && int.TryParse(lastCustomer.Result.Code, out int lastCode)) ? lastCode + 1 : 1;
-
-                nCustomer.FullName = name;
-                nCustomer.Phone1 = phone.Trim();
-                nCustomer.IsActive = true;
-                nCustomer.Adreess1 = Adreess1;
-                nCustomer.Code = newCode.ToString();
-                nCustomer.Points = 0;
-                _context.Customers.Add(nCustomer);
-            }
-            _context.SaveChanges();
             return Json(true);
         }
 
         [HttpPost]
-        public IActionResult FindCustomerByPhoneId(string Phone)
+        public async Task<IActionResult> FindCustomerByPhoneId(string Phone)
         {
-            var customer = _context.Customers.FirstOrDefault(x => x.Phone1.Contains(Phone) && x.IsActive);
+            var customer = await _customerService.GetCustomerByPhoneAsync(Phone);
 
             if (customer != null)
             {
-                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1 + "&&" + customer.Code + "&&" + customer.Points;
-                return Json(x);
+                var result = $"{customer.CustomerId}&&{customer.FullName}&&{customer.Phone1}&&{customer.Code}&&{customer.Points}";
+                return Json(result);
             }
 
-            return Json("??? ?????");
+            return Json("لا يوجد");
         }
 
         [HttpPost]
-        public IActionResult FindCustomerByCode(string code)
+        public async Task<IActionResult> FindCustomerByCode(string code)
         {
-            var customer = _context.Customers.FirstOrDefault(x => x.Code == code && x.IsActive);
+            var customers = await _customerService.SearchCustomersAsync(code);
+            var customer = customers.FirstOrDefault();
 
             if (customer != null)
             {
-                var x = customer.CustomerId + "&&" + customer.FullName + "&&" + customer.Phone1 + "&&" + customer.Points;
-                return Json(x);
+                var result = $"{customer.CustomerId}&&{customer.FullName}&&{customer.Phone1}&&{customer.Code}&&{customer.Points}";
+                return Json(result);
             }
 
-            return Json("??? ?????");
+            return Json("لا يوجد");
         }
 
         [HttpPost]
-        public IActionResult FindCustomerByPhoneIdForNotAdmin(string Phone)
+        public async Task<IActionResult> FindCustomerByPhoneIdForNotAdmin(string Phone)
         {
-            var customer = _context.Customers.FirstOrDefault(x => x.Phone1 == Phone && x.IsActive);
+            var customer = await _customerService.GetCustomerByPhoneAsync(Phone);
 
             if (customer != null)
-                return Json(customer.CustomerId);
-
-            return Json(-1);
-        }
-        #endregion
-
-        #region MyTickets
-
-        [HttpGet]
-        [ValidateAntiForgeryToken]
-        [Route("MyTickets")]
-        public IActionResult MyTickets()
-        {
-
-            return View(nameof(MyTickets), PopulateReserveViewModel(new Tickets()));
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("MyTickets")]
-        public IActionResult MyTickets(Tickets model)
-        {
-
-            var viewName = "MyTickets";
-
-            var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).FirstOrDefault();
-
-            if (row != null)
-                viewName += row.ViewName.ToString();
-
-            else
-                viewName = "MyTickets5";
-
-            return View(viewName, PopulateReserveViewModel(model));
-        }
-
-        #endregion
-
-        #region DOConfirm
-        public JsonResult PayTicket(int id)
-        {
-            if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
-
-            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
-
-            if (ticket == null) return Json(false);
-
-            ticket.Price = 270;
-
-            var result = _context.SaveChanges();
-
-            return Json(result > 0);
-        }
-        public JsonResult CancelPayTicket(int id)
-        {
-            if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
-
-            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
-
-            if (ticket == null) return Json(false);
-
-            ticket.Price = 0;
-
-            var result = _context.SaveChanges();
-
-            return Json(result > 0);
-        }
-
-        #region DOConfirm
-        public JsonResult ConformTicket(int id)
-        {
-            if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
-
-            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
-
-            if (ticket == null) return Json(false);
-
-            ticket.IsConformed = true;
-
-            var result = _context.SaveChanges();
-
-            return Json(result > 0);
-        }
-        public JsonResult CancelConformTicket(int id)
-        {
-            if (id == 0 || new SessionInfoSetup().IsAdmin() != "True") return Json(false);
-
-            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == id);
-
-            if (ticket == null) return Json(false);
-
-            ticket.IsConformed = false;
-
-            var result = _context.SaveChanges();
-
-            return Json(result > 0);
-        }
-        #endregion
-        #endregion
-
-        #region CreateMORE
-        [HttpGet]
-        [Route("CreateMore")]
-        public IActionResult CreateMore()
-        {
-            if (HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("UserId") < 1)
             {
-                return RedirectToAction("Login", "Account");
+                var result = $"{customer.CustomerId}&&{customer.FullName}&&{customer.Phone1}&&{customer.Code}&&{customer.Points}";
+                return Json(result);
             }
-            var model = new MoreTicketViewModel
-            {
-                AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive), "AppointmentId", "Title"),
-                CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
-                // BranchsList = new SelectList(_context.Branches.Where(x => x.IsActive), "BranchId", "Title"),
-                SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive), "SupplierId", "FullName"),
-                TicketDate = DateTime.Now.Date
-            };
 
-            var BranchId = _context.Users.Find(HttpContext.Session.GetInt32("UserId")).BranchId;
-            return View(model);
+            return Json("لا يوجد");
         }
 
-       
         #endregion
 
-        #region setBusView
+        #region ViewModel Builder
 
-        [Route("BusView")]
-        [HttpGet]
-        public IActionResult BusView()
+        private async Task<TicketViewModel> BuildReservationViewModelAsync(int appointmentId, DateTime date, int userId, bool isAdmin)
         {
+            var appointments = await _ticketService.GetUserAppointmentsAsync(userId);
+            var customers = await _customerService.GetAllActiveCustomersAsync();
+            var suppliers = await _supplierService.GetAllActiveSuppliersAsync();
+            var reservedSeats = await _ticketService.GetReservedSeatsAsync(appointmentId, date, userId, isAdmin);
 
-            var model = new BusViewViewModel()
+            var viewModel = new TicketViewModel
             {
-                AppointmentsList = new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive), "AppointmentId", "Title"),
-                TicketDate = DateTime.Now
-            };
-
-            return View("BusView", model);
-        }
-
-
-        [Route("BusView")]
-        [HttpPost]
-        public IActionResult BusView(BusViewViewModel model)
-        {
-            var row = _context.AppointmentBusView
-                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate.Date).ToList();
-
-            _context.RemoveRange(row);
-
-            var AppointmentBusView = new AppointmentBusView()
-            {
-                AppointmentId = model.AppointmentId,
-                TicketDate = model.TicketDate.Date,
-                ViewName = model.ViewNameId.ToString()
-            };
-
-            _context.Add(AppointmentBusView);
-
-            _context.SaveChanges();
-
-            return RedirectToAction(nameof(BusView));
-        }
-        #endregion
-
-        #region Others 
-        private bool TicketsExists(int seatNum, DateTime date, int AppointmentId)
-        {
-            return _context.Tickets.Any(e =>
-                e.SeatId == seatNum &&
-                e.TicketDate.Date == date.Date &&
-                e.AppointmentId == AppointmentId &&
-                e.IsActive);
-        }
-
-        private bool TicketsExistsForThisCustomer(int customerId, DateTime date, int AppointmentId)
-        {
-            var x = _context.Tickets.Count(e =>
-                e.CustomerId == customerId &&
-                e.TicketDate.Date == date.Date &&
-                e.AppointmentId == AppointmentId
-                );
-
-            return x == 1;
-        }
-
-        public TicketViewModel PopulateReserveViewModel(Tickets model)
-        {
-            var CurrentUserTypeId = new SessionInfoSetup().IsAdmin();
-
-            var UserId = HttpContext.Session.GetInt32("UserId").Value;
-
-            var Rtickets = _context.Tickets
-                .Include(x => x.Customer)
-                .Include(x => x.Supplier) 
-                .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate && x.IsActive)
-                .ToList();
-
-            var currentUserId = HttpContext.Session.GetInt32("UserId").Value;
-
-            var currentApps = _context.UserAppointments.Where(x => x.UserId == currentUserId).Select(x => x.AppId).ToList();
-            if (currentApps.Count == 0)
-                currentApps = _context.Appointments.Select(x => x.AppointmentId).ToList();
-
-            var Vmodel = new TicketViewModel()
-            {
-                AppointmentsList =
-                    new SelectList(_context.Appointments
-                        .Where(x => x.IsActive && currentApps.Contains(x.AppointmentId) && x.Title != null)
-                        .OrderBy(x => x.SortOrder), "AppointmentId", "Title"),
-                CustomersList = new SelectList(_context.Customers
-                    .Where(x => x.IsActive && x.FullName != null), "CustomerId", "FullName"), 
-                SuppliersList = new SelectList(_context.Suppliers
-                    .Where(x => x.IsActive && x.FullName != null)
-                    .OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
-                TicketDate = model.TicketDate.Date
-            };
-
-            if (Rtickets != null)
-            {
-                foreach (var item in Rtickets)
+                AppointmentId = appointmentId,
+                TicketDate = date.Date,
+                AppointmentsList = new SelectList(appointments, "Id", "Title", appointmentId),
+                CustomersList = new SelectList(customers.Where(c => c.FullName != null), "CustomerId", "FullName"),
+                SuppliersList = new SelectList(suppliers.Where(s => s.FullName != null), "SupplierId", "FullName"),
+                reservedTickets = reservedSeats.Select(rs => new ReservedTickets
                 {
-                    var list = new ReservedTickets()
-                    {
-                        TicketId = item.TicketId,
-                        Customer = item.Customer?.FullName ?? "",
-                        Supplier = item.Supplier?.FullName ?? "",
-                        Phone = item.Customer?.Phone1 ?? "",
-                        SeatId = item.SeatId, 
-                        Code = item.Customer?.Code ?? "",
-                        IsFemale = item.IsFemale,
-                        Price = item.Price,
-                        IsConformed=item.IsConformed,
-                        IsMine = (item.SupplierId == _context.Users.Find(UserId)?.SupplierId) ||
-                                  // || item.FromBranchId == _context.Users.Find(UserId).BranchId ||
-                                  (CurrentUserTypeId == "True") || item.UserId == UserId
-                    };
+                    TicketId = rs.TicketId,
+                    Customer = rs.CustomerName,
+                    Supplier = rs.SupplierName,
+                    Phone = rs.Phone,
+                    SeatId = rs.SeatId,
+                    Code = rs.Code,
+                    IsFemale = rs.IsFemale,
+                    Price = rs.Price,
+                    IsConformed = rs.IsConformed,
+                    IsMine = rs.IsMine
+                }).ToList()
+            };
 
-
-                    Vmodel.reservedTickets.Add(list);
-                }
-            }
-
-            return Vmodel;
-        }
-        public IActionResult DontSentAgain(string phone)
-        {
-
-            var cust = _context.Customers.FirstOrDefault(x => x.Phone1 == phone);
-
-            if (cust == null)
-                return Json(false);
-
-            cust.Phone3 = "Dont";
-            _context.Customers.Update(cust);
-
-            return View();
+            return viewModel;
         }
 
-        public string GetViewName(int AppointmentId, DateTime date)
-        {
-            var viewName = "CreateNotAdmin";
-
-            var row = _context.AppointmentBusView
-               .Where(x => x.AppointmentId == AppointmentId && x.TicketDate == date.Date).FirstOrDefault();
-
-            if (row != null)
-                viewName += row.ViewName.ToString();
-            else
-                viewName = "CreateNotAdmin5";
-
-
-            return viewName;
-
-        }
         #endregion
 
-        #region send_Whatsapp
+        #region Helper Methods
 
-        private async void SendWelcomeWhatsApp(string number )
+        private bool IsUserLoggedIn()
+        {
+            return HttpContext.Session.GetInt32("UserId") != null && HttpContext.Session.GetInt32("UserId") > 0;
+        }
+
+        private int GetCurrentUserId()
+        {
+            return HttpContext.Session.GetInt32("UserId") ?? 0;
+        }
+
+        private bool IsAdmin()
+        {
+            return new SessionInfoSetup().IsAdmin() == "True";
+        }
+
+        #endregion
+
+        #region WhatsApp Notifications
+
+        private async void SendWelcomeWhatsApp(string number)
         {
             try
             {
-               
-
                 var url = "https://api.ultramsg.com/instance138410/messages/chat";
                 var client = new RestClient(url);
-
                 var request = new RestRequest(url, RestSharp.Method.Post);
                 request.AddHeader("content-type", "application/json");
 
-                //var msg = "-?????? ?????? ?? ???? ???????????? ????? ?????????? ?? ????? ??? ????? ????? ????? ???? ??????? ??? ??";
-                //msg += "\n\n";
-                //msg += "-?? ???? ???? ?? ??????? ?? ?????? ???? ?????? ?????? ?? ????? ??";
-                //msg += "\n\n";
-                //msg += "-????? ?????? ???? ????? ?????? ?????? ??";
+                var msg = "-نتشرف بخدمتك في شركة النيل للسياحه ونأمل أن تقضي معنا اجمل الرحلات واسعد الاوقات ونرجو التواصل معك قريباً\n\n";
+                msg += "-في حالة عدم رغبتك في استقبال اي رسائل مرة اخري برجاء الضغط علي الرابط ادناه\n\n";
+                msg += "-ويسعدنا خدمتك دائما وبارك الله فيك\n\n";
+                msg += "http://elniltravel.somee.com/Tickets/DontSentAgain?phone=" + number;
 
+                request.AddParameter("token", "xvc5y6q4kzknjmr2");
+                request.AddParameter("to", "+2" + number);
+                request.AddParameter("body", msg);
 
-                var msg = "-?????? ?????? ?? ???? ???????????? ????? ?????????? ?? ????? ??? ????? ????? ????? ???? ??????? ??? ??";
-                msg += "\n\n";
-                msg += "-?? ???? ???? ?? ??????? ?? ?????? ???? ?????? ?????? ?? ????? ??";
-                msg += "\n\n";
-                msg += "-????? ?? ???? ???? (?? ????) ???? ????? ????? ??:";
-                msg += "\n";
-                msg += "?? ??????";
-                msg += "\n";
-                msg += "?? ????? ?????";
-                msg += "\n";
-                msg += "?? ????? ?????";
-                msg += "\n";
-                msg += "?? ??? ?????";
-                msg += "\n";
-                msg += "?? ?? ???? ??? ?? ???? ?";
-                msg += "\n\n";
-                msg += "-????? ?????? ???? ????? ?????? ?????? ??";
-
-                ///----------------------------------------
-
-                //msg += "\n\n";
-                //msg += "-?????? ???????  ????????? ???? 1";
-                //msg += "\n";
-                //msg += "-??????? ???? 2";
-                //msg += "\n";
-                //msg += "-???????? ???? 3";
-                //msg += "\n";
-                //msg += "-????? ????? ??? ??????? ???? 4";
-                //msg += "\n";
-                //msg += "-????? ??? ??? ??? ??????? ???? 5";
-
-
-
-                var body = new
-                {
-                    token = "4eskefkg07hbwru8",
-                    to = "+2" + number,
-                    body = msg
-                };
-                request.AddParameter("application/json", body, ParameterType.RequestBody);
-                RestResponse response = await client.ExecuteAsync(request);
-                var output = response.Content;
-                return;
+                await client.ExecuteAsync(request);
             }
-            catch (Exception)
-            {
-                return;
-            }
+            catch { }
         }
 
-        private async void SendWhatsAppNotifications(string number, int points, string code, int seatNumber, DateTime tDate, string from, string viewName)
+        private async void SendWhatsAppNotifications(string number, int points, string code, int seatNumber, DateTime tDate, string from)
         {
             try
             {
-                //var Window4=new List<int>() {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,39,37,43,41 };
-                //var Window5 = new List<int>() { 1,4,5,8,9,12,13,16,17,20,21,23,25,28,29,32,33,36,37,40,41,44 };
-                //var dir = "";
-
-                //if (seatNumber == 50)
-                //    dir = "????";
-                //else if ((new List<int>() { 45, 46, 47, 48, 49 }).Contains(seatNumber))
-                //    dir = "????";
-                //else
-                //{
-                //    if (viewName == "CreateAdmin5")
-                //        dir = Window5.Contains(seatNumber) ? "??????" : "?????";
-
-                //    if (viewName == "CreateAdmin4")
-                //        dir = Window4.Contains(seatNumber) ? "??????" : "?????";
-                //}
-
                 var url = "https://api.ultramsg.com/instance138410/messages/chat";
                 var client = new RestClient(url);
-
                 var request = new RestRequest(url, RestSharp.Method.Post);
                 request.AddHeader("content-type", "application/json");
 
-                var msg = "-?????? ?????? ?? ???? ???????????? ????? ????????? ????? ????? ??????????? ??? ?????????? ????? ??.";
-                msg += "\n\n";
-                ///----------------------------------------
-                //msg += "-?? ????? :" + points;
-                //msg += "\n";
-                //msg += "- ????? ????? ?? ???? ???? ????? ??????????? ?????? ?? :  " + code;
-                //msg += "\n";
-                //msg += "- ???? ?? ?? 50 ???? ???? ???? ??? 50 ???? ??? ??? ??? ???????";
-                ///----------------------------------------
-                //msg += "\n\n";
-                //msg += "-?????? ?????  :";
-                //msg += "\n";
-                //msg += "??? : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
-                //msg += "\n";
-                //msg += "???? : " + from;
-                ///----------------------------------------
+                var msg = "*أهلا بك* \n\n*تم تأكيد حجزك* \n\n";
+                msg += $"كود : {code} \n";
+                msg += $"مقعد : {seatNumber} \n";
+                msg += $"نقاط : {points} \n";
+                msg += $"يوم : {tDate.ToString("ddd", new CultureInfo("ar-BH"))} - {tDate.ToShortDateString()}\n";
+                msg += $"من : {from}\n\n*شكرا لتعاملك معنا*";
 
-                //msg += "\n\n";
-                //msg += "-?????? ?? ???? ????? ??????? ??????? ??????? ??? ??????? ?????? ?????? ";
-                //msg += "\n\n";
-                ///----------------------------------------
-                //msg += "-?????? ?? ???? ???? ?? ?????? ???? ?? ??????? ?? ???????? ?? ??????? ??????? ???";
-                //msg += "\n";
-                //msg += "01030565720";
-                ///----------------------------------------
-                msg += "\n\n";
-                msg += "-?????? ???????  ????????? ???? 1";
-                msg += "\n";
-                msg += "-??????? ???? 2";
-                msg += "\n";
-                msg += "-???????? ???? 3";
-                msg += "\n";
-                msg += "-????? ????? ??? ??????? ???? 4";
-                msg += "\n";
-                msg += "-????? ??? ??? ??? ??????? ???? 5";
+                request.AddParameter("token", "xvc5y6q4kzknjmr2");
+                request.AddParameter("to", "+2" + number);
+                request.AddParameter("body", msg);
 
-
-
-                var body = new
-                {
-                    token = "4eskefkg07hbwru8",
-                    to = "+2" + number,
-                    body = msg
-                };
-                request.AddParameter("application/json", body, ParameterType.RequestBody);
-                RestResponse response = await client.ExecuteAsync(request);
-                var output = response.Content;
-                return;
+                await client.ExecuteAsync(request);
             }
-            catch (Exception)
-            {
-                return;
-            }
-        }
-
-        private async void SendWhatsAppNotificationsWithCancell(string number, int seatNumber, DateTime tDate, string from)
-        {
-
-            try
-            {
-                var url = "https://api.ultramsg.com/instance95337/messages/chat";
-                var client = new RestClient(url);
-
-                var request = new RestRequest(url, RestSharp.Method.Post);
-                request.AddHeader("content-type", "application/json");
-
-                var msg = "-?????? ?????? ?? ???? ???????????? ????? ????????? ????? ????? ??????????? ??? ?????????? ????? ??.";
-                msg += "\n\n";
-
-                msg += "- ????? ??????????? ????????? ?????????? :";
-                msg += "\n";
-                msg += "??? : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
-                msg += "\n";
-                msg += "???? : " + from;
-                msg += "\n\n";
-                // msg += "???? ???: " + seatNumber.ToString();
-                msg += "?????? ???????  ????????? ???? 1";
-                msg += "\n";
-                msg += "??????? ???? 2";
-                msg += "\n";
-                msg += "???????? ???? 3";
-                msg += "\n";
-                msg += "????? ????? ??? ??????? ???? 4";
-                msg += "\n";
-                msg += "????? ??? ??? ??? ??????? ???? 5";
-
-                var body = new
-                {
-                    token = "a516itsp3id9b8w0khhh",
-                    to = "+2" + number,
-                    body = msg
-                };
-                request.AddParameter("application/json", body, ParameterType.RequestBody);
-                RestResponse response = await client.ExecuteAsync(request);
-                var output = response.Content;
-                return;
-            }
-            catch (Exception)
-            {
-                return;
-            }
-        }
-
-
-        private async void SendWhatsAppNotificationsWithPointsOnly(string number, int points)
-        {
-            try
-            {
-                var url = "https://api.ultramsg.com/instance95337/messages/chat";
-                var client = new RestClient(url);
-                var request = new RestRequest(url, RestSharp.Method.Post);
-                request.AddHeader("content-type", "application/json");
-
-
-                var msg = "-?? ????? : " + points;
-                msg += "\n";
-                msg += "- ???? ?? ?? 50 ???? ???? ???? ??? 50 ???? ??? ??? ??? ??????? ";
-
-                var body = new
-                {
-                    token = "a516itsp3id9b8w0khhh",
-                    to = "+2" + number,
-                    body = msg
-                };
-                request.AddParameter("application/json", body, ParameterType.RequestBody);
-                RestResponse response = await client.ExecuteAsync(request);
-                var output = response.Content;
-                return;
-            }
-            catch (Exception )
-            {
-                return;
-            }
+            catch { }
         }
 
         #endregion

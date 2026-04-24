@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TravelAgency.Web.ViewModels
 {
@@ -16,10 +16,10 @@ namespace TravelAgency.Web.ViewModels
         [Required(ErrorMessage = "?? ???? ???? ???????")]
         public int ViewNameId { get; set; }
 
-        
 
-        public SelectList AppointmentsList { get; set; } 
+
+        public SelectList AppointmentsList { get; set; }
         public SelectList ViewNameList { get; set; }
-        
+
     }
 }

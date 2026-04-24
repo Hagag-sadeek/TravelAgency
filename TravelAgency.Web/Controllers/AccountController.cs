@@ -1,52 +1,46 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+using TravelAgency.Application.DTOs.Account;
+using TravelAgency.Application.Interfaces;
 
 namespace TravelAgency.Web.Controllers
 {
-
     public class AccountController : Controller
     {
-        private readonly TravelAgencyContext _context;
+        private readonly IUserService _userService;
 
-        public AccountController(TravelAgencyContext context)
+        public AccountController(IUserService userService)
         {
-            _context = context;
+            _userService = userService;
         }
-
-       
 
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
-
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginDto model)
         {
-
-            //validate model
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            
-            var loggedUser = _context.Users.FirstOrDefault(itm => itm.UserName == model.UserName
-                                                    && itm.Password == model.Password);
+            var loggedUser = await _userService.AuthenticateAsync(model.UserName, model.Password);
 
             if (loggedUser == null)
             {
-                return RedirectToAction(nameof(Login));
+                ModelState.AddModelError("", "اسم المستخدم أو كلمة المرور غير صحيحة");
+                return View(model);
             }
 
             HttpContext.Session.SetInt32("UserId", loggedUser.UserId);
-            
             HttpContext.Session.SetString("IsAdmin", loggedUser.IsAdmin.ToString());
 
             if (loggedUser.IsAdmin)
@@ -58,39 +52,8 @@ namespace TravelAgency.Web.Controllers
         [HttpGet]
         public IActionResult Logout()
         {
-            HttpContext.Session.SetString("MenuItems", "");
-            return RedirectToAction("login", "Account");
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Account");
         }
-
-        //pulic async Task<IActionResult> ResetPassword(ResetPasswordViewModel obj)
-       // {
-       //     if (!ModelState.IsValid)
-       //         return View(obj);
-
-       //     var user = await UserManager.FindByEmailAsync(obj.Email);
-
-       //     var result = await UserManager.ResetPasswordAsync(user, obj.Token, obj.Password);
-       //     if (result.Succeeded)
-       //     {
-       //         ViewBag.changePasswordSuccess = _localizer["ChangePasswordSuccess"];
-       //         return View();
-       //     }
-       //     else
-       //     {
-       //         ModelState.AddModelError("", _localizer["ResetPassError"]);
-       //         return View(obj);
-       //     }
-       // }
-
-        //[HttpGet]
-        //public async Task<IActionResult> Profile()
-        //{
-        //    var appUser = await UserManager.FindByNameAsync(User.Identity.Name);
-        //    var model = _mapper.Map<UserCreateUpdateViewModel>(appUser);
-        //    return View(model);
-        //}
-
-       
-
     }
 }
