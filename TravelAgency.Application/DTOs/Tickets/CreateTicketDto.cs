@@ -32,7 +32,5 @@ namespace TravelAgency.Application.DTOs.Tickets
         public string? Comment { get; set; }
 
         public bool IsFemale { get; set; }
-
-        public bool IsCairo { get; set; }
     }
 }

@@ -37,8 +37,6 @@ namespace TravelAgency.Web.ViewModels
 
         public string comment { get; set; }
 
-        public bool IsCairo { get; set; }
-
         ///////DropDowns
         public SelectList AppointmentsList { get; set; }
         public SelectList CustomersList { get; set; }
@@ -83,6 +81,3 @@ namespace TravelAgency.Web.ViewModels
 
     }
 }
-
-
-

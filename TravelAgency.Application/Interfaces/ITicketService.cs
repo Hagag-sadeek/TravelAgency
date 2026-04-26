@@ -33,6 +33,9 @@ namespace TravelAgency.Application.Interfaces
 
         // Dropdown data
         Task<IEnumerable<(int Id, string Title)>> GetUserAppointmentsAsync(int userId);
+
+        // Bus view management
+        Task SetBusViewAsync(int appointmentId, DateTime date, string viewName);
     }
 }
 

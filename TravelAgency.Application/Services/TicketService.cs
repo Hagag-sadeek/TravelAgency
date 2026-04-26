@@ -263,5 +263,26 @@ namespace TravelAgency.Application.Services
                 .OrderBy(a => a.SortOrder)
                 .Select(a => (a.AppointmentId, a.Title!));
         }
+
+        public async Task SetBusViewAsync(int appointmentId, DateTime date, string viewName)
+        {
+            var existingViews = await _busViewRepository.GetAllAsync();
+            var viewsToRemove = existingViews.Where(x => x.AppointmentId == appointmentId && x.TicketDate.Date == date.Date).ToList();
+
+            foreach (var view in viewsToRemove)
+            {
+                await _busViewRepository.DeleteAsync(view.AppointmentBusViewtId);
+            }
+
+            var newBusView = new AppointmentBusView
+            {
+                AppointmentId = appointmentId,
+                TicketDate = date.Date,
+                ViewName = viewName
+            };
+
+            await _busViewRepository.AddAsync(newBusView);
+            await _busViewRepository.SaveChangesAsync();
+        }
     }
 }
