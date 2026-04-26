@@ -52,7 +52,11 @@ namespace TravelAgency.Web
         {
 
             app.UseDeveloperExceptionPage();
-            app.UseHttpsRedirection();
+
+            // FIX: Disabled HTTPS redirection to resolve ERR_HTTP2_PROTOCOL_ERROR
+            // Re-enable this after configuring proper SSL certificate
+            // app.UseHttpsRedirection();
+
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
