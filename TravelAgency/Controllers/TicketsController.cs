@@ -114,7 +114,7 @@ namespace TravelAgency.Controllers
             //    sendWhatsAppNotificationsWithPointsOnly(cus.Phone1, cus.Points);
 
               if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
-                SendWelcomeWhatsApp(cus.Phone1);
+                SendWelcomeWhatsApp(cus.Phone1, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1);
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
@@ -195,7 +195,7 @@ namespace TravelAgency.Controllers
 
 
             if (TicketsExistsForThisCustomer(tickets.CustomerId.Value, tickets.TicketDate.Date, tickets.AppointmentId))
-                SendWelcomeWhatsApp(cus.Phone1);
+                SendWelcomeWhatsApp(cus.Phone1, tickets.TicketDate, _context.Suppliers.Find(tickets.SupplierId).Adreess1);
 
             return View(viewName, PopulateReserveViewModel(tickets));
         }
@@ -689,7 +689,7 @@ namespace TravelAgency.Controllers
 
         #region send_Whatsapp
 
-        private async void SendWelcomeWhatsApp(string number )
+        private async void SendWelcomeWhatsApp(string number, DateTime tDate, string from="")
         {
             try
             {
@@ -700,16 +700,13 @@ namespace TravelAgency.Controllers
 
                 var request = new RestRequest(url, RestSharp.Method.Post);
                 request.AddHeader("content-type", "application/json");
-
-                //var msg = "-مرحباً بحضرتك في شركة فـــوربـــاص للنقل البــــري، تم تأكيد حجز حضرتك بنجاح ونشكر ثقتك الغالية بنا ❤️";
-                //msg += "\n\n";
-                //msg += "-في حالة وجود أي استفسار أو تعديل، فريق فورباص دائماً في خدمتك 👍";
-                //msg += "\n\n";
-                //msg += "-نتمنى لحضرتك رحلة مريحة وسفراً سعيداً 🚍";
-
-
+                  
                 var msg = "-مرحباً بحضرتك في شركة فـــوربـــاص للنقل البــــري، تم تأكيد حجز حضرتك بنجاح ونشكر ثقتك الغالية بنا ❤️";
+               
                 msg += "\n\n";
+                msg += "يوم : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
+                msg += "\n\n";
+                msg += "مــن : " + from;
                 msg += "-في حالة وجود أي استفسار أو تعديل، فريق فورباص دائماً في خدمتك 👍";
                 msg += "\n\n";
                 msg += "-وكمان من خلال خدمة (أي خدمة) تقدر تعتمد علينا في:";
@@ -743,18 +740,11 @@ namespace TravelAgency.Controllers
                 msg += "📍 رمسيس: 01030565720";
                 msg += "\n";
                 msg += "📍 عين شمس: 01094065027";
-                //msg += "\n\n";
-                //msg += "-لارقام المكاتب  والعناوين اضغط 1";
-                //msg += "\n";
-                //msg += "-للاسعار اضغط 2";
-                //msg += "\n";
-                //msg += "-للمواعيد اضغط 3";
-                //msg += "\n";
-                //msg += "-لموقع رمسيس على الخريطه اضغط 4";
-                //msg += "\n";
-                //msg += "-لموقع عين شمس على الخريطه اضغط 5";
 
-
+                msg += "\n\n";
+                msg += "لو حابب تتابعنا وتكون جزء من مجتمعنا على واتساب، انضم من خلال الرابط التالي:";
+                msg += "\n";
+                msg += "https://chat.whatsapp.com/LUU63lbBmtcIq0bZ1GWv18";
 
                 var body = new
                 {
