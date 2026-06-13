@@ -1,6 +1,7 @@
 ﻿@using TravelAgency.Helper;
 @{
     var CurrentUserTypeId = new SessionInfoSetup().IsAdmin();
+  
     var CurrentUserId = new SessionInfoSetup().GetUserIdFromSession();
 
 }

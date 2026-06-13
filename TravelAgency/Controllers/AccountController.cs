@@ -50,6 +50,7 @@ namespace TravelAgency.Controllers
             HttpContext.Session.SetInt32("UserId", loggedUser.UserId);
             
             HttpContext.Session.SetString("IsAdmin", loggedUser.IsAdmin.ToString());
+            HttpContext.Session.SetString("SeeOthers", loggedUser.SeeOthers.ToString());
 
             if (loggedUser.IsAdmin)
                 return RedirectToAction("CreateAdmin", "Tickets");

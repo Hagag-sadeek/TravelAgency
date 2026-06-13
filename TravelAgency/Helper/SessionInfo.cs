@@ -21,5 +21,9 @@ namespace TravelAgency.Helper
         {
             return new HttpContextAccessor().HttpContext.Session.GetString("IsAdmin");
         }
+        public string SeeOthers()
+        {
+            return new HttpContextAccessor().HttpContext.Session.GetString("SeeOthers");
+        }
     }
 }

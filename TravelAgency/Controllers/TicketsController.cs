@@ -609,7 +609,7 @@ namespace TravelAgency.Controllers
 
             var Rtickets = _context.Tickets
                 .Include(x => x.Customer)
-                .Include(x => x.Supplier) 
+                .Include(x => x.Supplier)
                 .Where(x => x.AppointmentId == model.AppointmentId && x.TicketDate == model.TicketDate && x.IsActive)
                 .ToList();
 
@@ -623,29 +623,32 @@ namespace TravelAgency.Controllers
             {
                 AppointmentsList =
                     new SelectList(_context.Appointments.OrderBy(x => x.SortOrder).Where(x => x.IsActive && currentApps.Contains(x.AppointmentId)), "AppointmentId", "Title"),
-                CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"), 
+                CustomersList = new SelectList(_context.Customers.Where(x => x.IsActive), "CustomerId", "FullName"),
                 SuppliersList = new SelectList(_context.Suppliers.Where(x => x.IsActive).OrderBy(x => x.SupplierOrder), "SupplierId", "FullName"),
                 TicketDate = model.TicketDate.Date
             };
 
             if (Rtickets != null)
             {
+                var currentUsersupplierid = _context.Users.Find(UserId).SupplierId;
                 foreach (var item in Rtickets)
                 {
+                    if (item.SeatId == 50)
+                    {
+                        var x = 99;
+                    }
                     var list = new ReservedTickets()
                     {
                         TicketId = item.TicketId,
                         Customer = item.Customer.FullName,
                         Supplier = item.Supplier.FullName,
                         Phone = item.Customer.Phone1,
-                        SeatId = item.SeatId, 
+                        SeatId = item.SeatId,
                         Code = item.Customer.Code,
                         IsFemale = item.IsFemale,
                         Price = item.Price,
-                        IsConformed=item.IsConformed,
-                        IsMine = (item.SupplierId == _context.Users.Find(UserId).SupplierId) ||
-                                  // || item.FromBranchId == _context.Users.Find(UserId).BranchId ||
-                                  (CurrentUserTypeId == "True") || item.UserId == UserId
+                        IsConformed = item.IsConformed,
+                        IsMine = (item.SupplierId == currentUsersupplierid) || item.UserId == UserId
                     };
 
 

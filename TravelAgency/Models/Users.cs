@@ -11,6 +11,7 @@ namespace TravelAgency.Models
         public string Firstname { get; set; }
         public int BranchId { get; set; }
         public bool IsAdmin { get; set; } = false;
+        public bool SeeOthers { get; set; } 
         public int SupplierId { get; set; }
         public virtual Branches Branch { get; set; }
         public virtual Suppliers Supplier { get; set; }
