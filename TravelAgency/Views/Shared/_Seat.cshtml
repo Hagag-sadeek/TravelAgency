@@ -1,0 +1,54 @@
+@model dynamic
+@using TravelAgency.ViewModels
+@{
+    var seat = Model.seat as ReservedTickets;
+    var seatNumber = Model.seatNumber;
+    var CurrentUserSeeOthers = Model.CurrentUserSeeOthers as string;
+    bool showFullData = seat != null && (seat.IsMine || CurrentUserSeeOthers == "True");
+}
+
+@if (seat == null)
+{
+    <input data-seat-num="@seatNumber"
+           type="button"
+           class="btn btn-success col-md-2 col-sm-2 seat"
+           title="متاح"
+           value="@seatNumber"
+           id="@seatNumber"
+           style="height:100px" />
+}
+else
+{
+    var btnClass = seat.IsFemale ? "btn btn-danger col-md-2 col-sm-2 reservedSeat" : "btn btn-info col-md-2 col-sm-2 reservedSeat";
+    <button data-seat-num="@seatNumber"
+            type="button"
+            class="@btnClass"
+            data-IsFemale="@seat.IsFemale"
+            data-Ticke-Id="@seat.TicketId"
+            data-cust-code="@seat.Code"
+            data-PhoneNumber="@seat.Phone"
+            id="@seatNumber"
+            style="height:100px"
+            @(showFullData ? "" : "disabled=\"disabled\" onclick=\"return false;\"")>
+
+        @if (!showFullData)
+        {
+            <span class="@(seat.Price != 0 ? "label label-primary bold" : seat.IsConformed ? "label label-danger bold" : "")">
+                @seatNumber
+            </span>
+        }
+        else
+        {
+            @($"{seatNumber}-{seat.Supplier}")
+            <br />
+
+            <span class="@(seat.Price != 0 ? "label label-primary bold" : seat.IsConformed ? "label label-danger bold" : "")">
+                @seat.Customer
+            </span>
+
+            <br />
+            @seat.Phone
+        }
+
+    </button>
+}
