@@ -1,12 +1,14 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
+using System;
+using System.Globalization;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using TravelAgency.Helper;
 using TravelAgency.Models;
 using TravelAgency.ViewModels;
@@ -692,162 +694,286 @@ namespace TravelAgency.Controllers
 
         #region send_Whatsapp
 
-        private async void SendWelcomeWhatsApp(string number, DateTime tDate, string from="")
+        //private async void SendWelcomeWhatsApp(string number, DateTime tDate, string from="")
+        //{
+        //    try
+        //    {
+
+
+        //      //  var url = "https://api.ultramsg.com/instance138410/messages/chat";
+        //       var url = "https://api.wapilot.net/api/v2/instance3970/send-message";
+
+        //        var client = new RestClient(url);
+
+        //        var request = new RestRequest(url, RestSharp.Method.Post);
+        //        request.AddHeader("content-type", "application/json");
+
+        //        var msg = "-مرحباً بحضرتك في شركة فـــوربـــاص للنقل البــــري، تم تأكيد حجز حضرتك بنجاح ونشكر ثقتك الغالية بنا ❤️";
+
+        //        msg += "\n\n";
+        //        msg += "يوم : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
+        //        msg += "\n\n";
+        //        msg += "مــن : " + from;
+        //        msg += "-في حالة وجود أي استفسار أو تعديل، فريق فورباص دائماً في خدمتك 👍";
+        //        msg += "\n\n";
+        //        msg += "-وكمان من خلال خدمة (أي خدمة) تقدر تعتمد علينا في:";
+        //        msg += "\n";
+        //        msg += "✔️ مشاوير";
+        //        msg += "\n";
+        //        msg += "✔️ تخليص أوراق";
+        //        msg += "\n";
+        //        msg += "✔️ توصيل طلبات";
+        //        msg += "\n";
+        //        msg += "✔️ حجز خدمات";
+        //        msg += "\n";
+        //        msg += "✔️ أي حاجة بدل ما تتعب ✨";
+        //        msg += "\n\n";
+        //        msg += "-نتمنى لحضرتك رحلة مريحة وسفراً سعيداً 🚍";
+        //        msg += "\n\n";
+        //        ///----------------------------------------
+        //        msg += "📞 للحجز والاستفسار:";
+        //        msg += "\n\n";
+
+        //        msg += "📍 الوقف: 01012907798";
+        //        msg += "\n";
+        //        msg += "📍 المراشدة: 01096990596";
+        //        msg += "\n";
+        //        msg += "📍 المنشية: 01032737329";
+        //        msg += "\n";
+        //        msg += "📍 الترامسة: 01096519790";
+        //        msg += "\n";
+        //        msg += "📍 قنا – الأحوال: 01063652879";
+        //        msg += "\n";
+        //        msg += "📍 رمسيس: 01030565720";
+        //        msg += "\n";
+        //        msg += "📍 عين شمس: 01094065027";
+
+        //        msg += "\n\n";
+        //        msg += "لو حابب تتابعنا وتكون جزء من مجتمعنا على واتساب، انضم من خلال الرابط التالي:";
+        //        msg += "\n";
+        //        msg += "https://chat.whatsapp.com/LUU63lbBmtcIq0bZ1GWv18";
+
+        //        var body = new
+        //        {
+        //            // token = "4eskefkg07hbwru8",
+        //              token = "o1c0AumdMG40E69Y8vulXktgU9lyIBoMAqZcXHxtci",
+        //            to = "+2" + number,
+        //            body = msg
+        //        };
+        //        request.AddParameter("application/json", body, ParameterType.RequestBody);
+        //        RestResponse response = await client.ExecuteAsync(request);
+        //        var output = response.Content;
+        //        return;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return;
+        //    }
+        //}
+
+        // private async Task SendWelcomeWhatsApp(string number, DateTime tDate, string from = "")
+        private async Task SendWelcomeWhatsApp(string number, DateTime tDate, string from = "")
         {
             try
             {
-               
+                var url = "https://api.wapilot.net/api/v2/instance3970/send-message";
 
-                var url = "https://api.ultramsg.com/instance138410/messages/chat";
                 var client = new RestClient(url);
+                var request = new RestRequest("", Method.Post);
 
-                var request = new RestRequest(url, RestSharp.Method.Post);
-                request.AddHeader("content-type", "application/json");
-                  
+                request.AddHeader("token", "AWPxx8dRh5HDVb1YDXzNCzlpiwjC8lN038CTbCImPq");
+                request.AddHeader("Idempotency-Key", $"send-text-{Guid.NewGuid()}");
+
                 var msg = "-مرحباً بحضرتك في شركة فـــوربـــاص للنقل البــــري، تم تأكيد حجز حضرتك بنجاح ونشكر ثقتك الغالية بنا ❤️";
-               
+
                 msg += "\n\n";
-                msg += "يوم : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
+                msg += "يوم : " + tDate.ToString("dddd", new CultureInfo("ar-EG"))
+                     + " - " + tDate.ToString("d/M/yyyy");
+
                 msg += "\n\n";
                 msg += "مــن : " + from;
-                msg += "-في حالة وجود أي استفسار أو تعديل، فريق فورباص دائماً في خدمتك 👍";
+
                 msg += "\n\n";
-                msg += "-وكمان من خلال خدمة (أي خدمة) تقدر تعتمد علينا في:";
-                msg += "\n";
-                msg += "✔️ مشاوير";
-                msg += "\n";
-                msg += "✔️ تخليص أوراق";
-                msg += "\n";
-                msg += "✔️ توصيل طلبات";
-                msg += "\n";
-                msg += "✔️ حجز خدمات";
-                msg += "\n";
-                msg += "✔️ أي حاجة بدل ما تتعب ✨";
+                msg += "-في حالة وجود أي استفسار أو تعديل، فريق فورباص دائماً في خدمتك 👍";
+
                 msg += "\n\n";
                 msg += "-نتمنى لحضرتك رحلة مريحة وسفراً سعيداً 🚍";
+
                 msg += "\n\n";
-                ///----------------------------------------
                 msg += "📞 للحجز والاستفسار:";
-                msg += "\n\n";
 
-                msg += "📍 الوقف: 01012907798";
-                msg += "\n";
-                msg += "📍 المراشدة: 01096990596";
-                msg += "\n";
-                msg += "📍 المنشية: 01032737329";
-                msg += "\n";
-                msg += "📍 الترامسة: 01096519790";
-                msg += "\n";
-                msg += "📍 قنا – الأحوال: 01063652879";
-                msg += "\n";
-                msg += "📍 رمسيس: 01030565720";
-                msg += "\n";
-                msg += "📍 عين شمس: 01094065027";
+                msg += "\n\n📍 الوقف: 01012907798";
+                msg += "\n📍 المراشدة: 01096990596";
+                msg += "\n📍 المنشية: 01032737329";
+                msg += "\n📍 الترامسة: 01096519790";
+                msg += "\n📍 قنا – الأحوال: 01063652879";
+                msg += "\n📍 رمسيس: 01030565720";
+                msg += "\n📍 عين شمس: 01094065027";
 
-                msg += "\n\n";
-                msg += "لو حابب تتابعنا وتكون جزء من مجتمعنا على واتساب، انضم من خلال الرابط التالي:";
-                msg += "\n";
-                msg += "https://chat.whatsapp.com/LUU63lbBmtcIq0bZ1GWv18";
+                // Normalize Egyptian number
+                var cleanNumber = new string(number.Where(char.IsDigit).ToArray());
+
+                if (cleanNumber.StartsWith("0"))
+                    cleanNumber = cleanNumber.Substring(1);
+
+                if (!cleanNumber.StartsWith("20"))
+                    cleanNumber = "20" + cleanNumber;
+
+                var chatId = cleanNumber + "@c.us";
 
                 var body = new
                 {
-                    token = "4eskefkg07hbwru8",
-                    to = "+2" + number,
-                    body = msg
+                    chat_id = chatId,
+                    text = msg,
+                    priority = 5
                 };
-                request.AddParameter("application/json", body, ParameterType.RequestBody);
-                RestResponse response = await client.ExecuteAsync(request);
-                var output = response.Content;
-                return;
+
+                request.AddJsonBody(body);
+
+                var response = await client.ExecuteAsync(request);
+
+                Console.WriteLine($"Chat ID: {chatId}");
+                Console.WriteLine($"Status: {response.StatusCode}");
+                Console.WriteLine($"Response: {response.Content}");
+
+                if (!response.IsSuccessful)
+                {
+                    Console.WriteLine(
+                        $"WhatsApp Error: {response.StatusCode} - {response.Content}"
+                    );
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return;
+                Console.WriteLine($"WhatsApp Exception: {ex}");
             }
         }
 
-        private async void SendWhatsAppNotifications(string number, int points, string code, int seatNumber, DateTime tDate, string from, string viewName)
+        //private async void SendWhatsAppNotifications(string number, int points, string code, int seatNumber, DateTime tDate, string from, string viewName)
+        //{
+        //    try
+        //    {
+        //        //var Window4=new List<int>() {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,39,37,43,41 };
+        //        //var Window5 = new List<int>() { 1,4,5,8,9,12,13,16,17,20,21,23,25,28,29,32,33,36,37,40,41,44 };
+        //        //var dir = "";
+
+        //        //if (seatNumber == 50)
+        //        //    dir = "مشرف";
+        //        //else if ((new List<int>() { 45, 46, 47, 48, 49 }).Contains(seatNumber))
+        //        //    dir = "كنبه";
+        //        //else
+        //        //{
+        //        //    if (viewName == "CreateAdmin5")
+        //        //        dir = Window5.Contains(seatNumber) ? "شــباك" : "مــمر";
+
+        //        //    if (viewName == "CreateAdmin4")
+        //        //        dir = Window4.Contains(seatNumber) ? "شــباك" : "مــمر";
+        //        //}
+
+        //        var url = "https://api.ultramsg.com/instance138410/messages/chat";
+        //        var client = new RestClient(url);
+
+        //        var request = new RestRequest(url, RestSharp.Method.Post);
+        //        request.AddHeader("content-type", "application/json");
+
+        //        var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا ❤️.";
+        //        msg += "\n\n";
+        //        ///----------------------------------------
+        //        //msg += "-عد نقاطك :" + points;
+        //        //msg += "\n";
+        //        //msg += "- الكود الخاص بك داخل نظام الحجز الاليكتروني للشركه هو :  " + code;
+        //        //msg += "\n";
+        //        //msg += "- الان مع كل 50 نقطه تقدر تحصل علي 50 جنيه خصم علي سعر التذكره";
+        //        ///----------------------------------------
+        //        //msg += "\n\n";
+        //        //msg += "-تفاصيل الحجز  :";
+        //        //msg += "\n";
+        //        //msg += "يوم : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
+        //        //msg += "\n";
+        //        //msg += "مــن : " + from;
+        //        ///----------------------------------------
+
+        //        //msg += "\n\n";
+        //        //msg += "-الرجاء في حاله الغاء التذكره الاتصال بالمكتب قبل الميعاد بالوقت الكافي ";
+        //        //msg += "\n\n";
+        //        ///----------------------------------------
+        //        //msg += "-الرجاء في حاله وجود اي ملاحظه سواء من المكاتب او السائقين او الباصات الاتصال علي";
+        //        //msg += "\n";
+        //        //msg += "01030565720";
+        //        ///----------------------------------------
+        //        msg += "\n\n";
+        //        msg += "-لارقام المكاتب  والعناوين اضغط 1";
+        //        msg += "\n";
+        //        msg += "-للاسعار اضغط 2";
+        //        msg += "\n";
+        //        msg += "-للمواعيد اضغط 3";
+        //        msg += "\n";
+        //        msg += "-لموقع رمسيس على الخريطه اضغط 4";
+        //        msg += "\n";
+        //        msg += "-لموقع عين شمس على الخريطه اضغط 5";
+
+
+
+        //        var body = new
+        //        {
+        //            token = "4eskefkg07hbwru8",
+        //            to =    number,
+        //            body = msg
+        //        };
+        //        request.AddParameter("application/json", body, ParameterType.RequestBody);
+        //        RestResponse response = await client.ExecuteAsync(request);
+        //        var output = response.Content;
+        //        return;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return;
+        //    }
+        //}
+
+        private async Task SendWhatsAppMessage(string number, string message)
         {
             try
             {
-                //var Window4=new List<int>() {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,39,37,43,41 };
-                //var Window5 = new List<int>() { 1,4,5,8,9,12,13,16,17,20,21,23,25,28,29,32,33,36,37,40,41,44 };
-                //var dir = "";
+                var url = "https://api.wapilot.net/api/v2/instance3970/send-message";
 
-                //if (seatNumber == 50)
-                //    dir = "مشرف";
-                //else if ((new List<int>() { 45, 46, 47, 48, 49 }).Contains(seatNumber))
-                //    dir = "كنبه";
-                //else
-                //{
-                //    if (viewName == "CreateAdmin5")
-                //        dir = Window5.Contains(seatNumber) ? "شــباك" : "مــمر";
+                using var client = new HttpClient();
 
-                //    if (viewName == "CreateAdmin4")
-                //        dir = Window4.Contains(seatNumber) ? "شــباك" : "مــمر";
-                //}
-
-                var url = "https://api.ultramsg.com/instance138410/messages/chat";
-                var client = new RestClient(url);
-
-                var request = new RestRequest(url, RestSharp.Method.Post);
-                request.AddHeader("content-type", "application/json");
-
-                var msg = "-مرحباً بحضرتك في شركه فـــوربـــاص للنقل البــــري وشكرا جزيلا لاخـتـيـارك لنا ولـثـقـتـك بـنـا ❤️.";
-                msg += "\n\n";
-                ///----------------------------------------
-                //msg += "-عد نقاطك :" + points;
-                //msg += "\n";
-                //msg += "- الكود الخاص بك داخل نظام الحجز الاليكتروني للشركه هو :  " + code;
-                //msg += "\n";
-                //msg += "- الان مع كل 50 نقطه تقدر تحصل علي 50 جنيه خصم علي سعر التذكره";
-                ///----------------------------------------
-                //msg += "\n\n";
-                //msg += "-تفاصيل الحجز  :";
-                //msg += "\n";
-                //msg += "يوم : " + tDate.ToString("ddd", new CultureInfo("ar-BH")) + " - " + tDate.ToShortDateString();
-                //msg += "\n";
-                //msg += "مــن : " + from;
-                ///----------------------------------------
-
-                //msg += "\n\n";
-                //msg += "-الرجاء في حاله الغاء التذكره الاتصال بالمكتب قبل الميعاد بالوقت الكافي ";
-                //msg += "\n\n";
-                ///----------------------------------------
-                //msg += "-الرجاء في حاله وجود اي ملاحظه سواء من المكاتب او السائقين او الباصات الاتصال علي";
-                //msg += "\n";
-                //msg += "01030565720";
-                ///----------------------------------------
-                msg += "\n\n";
-                msg += "-لارقام المكاتب  والعناوين اضغط 1";
-                msg += "\n";
-                msg += "-للاسعار اضغط 2";
-                msg += "\n";
-                msg += "-للمواعيد اضغط 3";
-                msg += "\n";
-                msg += "-لموقع رمسيس على الخريطه اضغط 4";
-                msg += "\n";
-                msg += "-لموقع عين شمس على الخريطه اضغط 5";
-
-
+                client.DefaultRequestHeaders.Add("token", "YOUR_API_TOKEN");
 
                 var body = new
                 {
-                    token = "4eskefkg07hbwru8",
-                    to = "+2" + number,
-                    body = msg
+                    chat_id = number,
+                    text = message,
+                    priority = 5
                 };
-                request.AddParameter("application/json", body, ParameterType.RequestBody);
-                RestResponse response = await client.ExecuteAsync(request);
-                var output = response.Content;
-                return;
+
+                var json = System.Text.Json.JsonSerializer.Serialize(body);
+
+                using var content = new StringContent(
+                    json,
+                    Encoding.UTF8,
+                    "application/json"
+                );
+
+                var response = await client.PostAsync(url, content);
+
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"WhatsApp Error: {response.StatusCode}");
+                    Console.WriteLine(result);
+                    return;
+                }
+
+                Console.WriteLine($"WhatsApp Sent: {result}");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return;
+                Console.WriteLine($"WhatsApp Exception: {ex.Message}");
             }
         }
-
         private async void SendWhatsAppNotificationsWithCancell(string number, int seatNumber, DateTime tDate, string from)
         {
 
