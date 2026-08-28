@@ -802,7 +802,9 @@ namespace TravelAgency.Controllers
                 msg += "\n\n";
                 msg += "📞 للحجز والاستفسار:";
 
-                msg += "\n\n📍 الوقف: 01012907798";
+                msg += "\n\n";
+
+                msg += "📍 الوقف: 01012907798";
                 msg += "\n📍 المراشدة: 01096990596";
                 msg += "\n📍 المنشية: 01032737329";
                 msg += "\n📍 الترامسة: 01096519790";
@@ -832,9 +834,6 @@ namespace TravelAgency.Controllers
 
                 var response = await client.ExecuteAsync(request);
 
-                Console.WriteLine($"Chat ID: {chatId}");
-                Console.WriteLine($"Status: {response.StatusCode}");
-                Console.WriteLine($"Response: {response.Content}");
 
                 if (!response.IsSuccessful)
                 {
