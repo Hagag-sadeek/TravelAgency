@@ -811,6 +811,10 @@ namespace TravelAgency.Controllers
                 msg += "\n📍 قنا – الأحوال: 01063652879";
                 msg += "\n📍 رمسيس: 01030565720";
                 msg += "\n📍 عين شمس: 01094065027";
+                msg += "\n\n";
+                msg += " لو حابب تتابعنا وتكون جزء من مجتمعنا على واتساب، انضم من خلال الرابط التالي انضمام ومتابعه:";
+                msg += "https://whatsapp.com/channel/0029VbDVeWn4dTnT6rNYQ925";
+
 
                 // Normalize Egyptian number
                 var cleanNumber = new string(number.Where(char.IsDigit).ToArray());
